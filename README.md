@@ -16,14 +16,15 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 
 ## Construido con 🛠️
 
-_JavaScript, Node, Html5 y css3_
 
-* [visual Code]- El entorno para programar usado
-* [MongoAtlas] - Base de datos
-* [Heroku] -
-* [Node] -
-* [Express] - 
-* [Ubuntu] - Sistema operativo
+* [NodeJS]
+* [HTML5]
+* [CSS3]
+* [Express]
+* [Mongoose]
+* [MongoDB] 
+* [Bootstrap] 
+* [Axios]
 
 ## Esquemas Base de datos
 
