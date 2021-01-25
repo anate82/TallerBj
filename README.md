@@ -103,9 +103,10 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 ## Autenticacion
 
 | METHOD | URL            | AUTH  | FUNCTION               |
-|--------|----------------|----- -|------------------------|
+|--------|----------------|-------|------------------------|
 | POST   | '/auth/signup' | YES   | Crear una nueva cuenta |
 | POST   | '/auth/login'  | NO    | Autentica al usuario   |
+
 
 ## Usuarios
 
