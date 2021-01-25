@@ -98,7 +98,7 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 | public        | boolean              |           | YES      | Default        |
 | puntuation    | number               |           |          |                |
 
-# Api Routes
+## Api Routes
 
 ## Autenticacion
 
@@ -111,10 +111,11 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 
 | METHOD | URL                                        | AUTH | FUNCTION                                                                 |
 |--------|--------------------------------------------|------|--------------------------------------------------------------------------|
-| GET    | '/users                                    | NO   | Mostrar todos los usuarios (admin)                                       |
+| GET    | '/users                                    | YES  | Mostrar todos los usuarios (admin)                                       |
 | GET    | '/users/me'                                | YES  | Mostrar usuario determinado de la base de datos                          |
-| PUT    | '/users/me'                                | YES  | Modifica usuario determinado de la base de datos                         |
+| PUT    | '/users/me'                                | YES  | Modifica datos usuario determinado de la base de datos                   |
 | DELETE | '/users/me'                                | YES  | Elimina usuario determinado de la base de datos(admin)                   |
+| PUT    | '/users/me/password'                       | YES  | Modifica contraseña usuario determinado de la base de datos              |
 | GET    | '/users/me/cars'                           | YES  | Mostrar todos los coches para usuario determinado                        |
 | POST   | '/users/me/cars'                           | YES  | Crear coche para usuario determinado                                     |
 | GET    | '/users/me/cars/:carId'                    | YES  | Mostrar coche determinado para usuario determinado                       |
@@ -155,11 +156,11 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 
 | METHOD | URL                   | AUTH | FUNCTION                                                                 |
 |--------|-----------------------|------|--------------------------------------------------------------------------|
-| GET    | '/reviews             | YES  | Mostrar todos los comentarios                                  |
-| POST   | '/reviews'            | YES  | Crear un nuevo comentario                                                    |
-| GET    | '/reviews/:reviewId'  | YES  | Mostrar un determinado comentario de la base de datos                                      |
-| DELETE | '/reviews/:reviewId'  | YES  | Eliminar un determinado comentario de la base de datos                                     |
-| PUT    | '/reviews/:reviewId'  | YES  | Actualiza un determinado comentario de la base de datos                                     |
+| GET    | '/reviews             | YES  | Mostrar todos los comentarios                                            |
+| POST   | '/reviews'            | YES  | Crear un nuevo comentario                                                |
+| GET    | '/reviews/:reviewId'  | YES  | Mostrar un determinado comentario de la base de datos                    |
+| DELETE | '/reviews/:reviewId'  | YES  | Eliminar un determinado comentario de la base de datos                   |
+| PUT    | '/reviews/:reviewId'  | YES  | Actualiza un determinado comentario de la base de datos                  |
 
 
 ## Autor ✒️
