@@ -51,7 +51,7 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 | user        | ObjectId          | users     | YES      |                |
 | repairs     | Array ObjectID    | repairs   | NO       |                |
 | brand       | string            |           | YES      |                |
-| model       | string            |           | YES      |                |
+| car_model   | string            |           | YES      |                |
 | frame_number| string            |           | YES      | Unique         |
 | reg_veh     | string            |           | YES      | Unique         |
 | kilometers  | number            |           | NO       |                |
