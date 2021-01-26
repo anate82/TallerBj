@@ -51,7 +51,7 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 | user        | ObjectId          | users     | YES      |                |
 | repairs     | Array ObjectID    | repairs   | NO       |                |
 | brand       | string            |           | YES      |                |
-| model       | string            |           | YES      |                |
+| car_model   | string            |           | YES      |                |
 | frame_number| string            |           | YES      | Unique         |
 | reg_veh     | string            |           | YES      | Unique         |
 | kilometers  | number            |           | NO       |                |
@@ -78,7 +78,7 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 |               | price: number        |           |          |                |
 |               | accepted: boolean    |           |          |                |
 | date_in       | date                 |           | YES      |                |
-| date_out      | date                 |           | YES      |                |
+| date_out      | date                 |           | NO       |                |
 | secure        | string               |           | YES      |                |
 | process_repair| Array Object{        |           | YES      |                |
 |               | readed:boolean       |           |          |                |
@@ -98,12 +98,12 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 | public        | boolean              |           | YES      | Default        |
 | puntuation    | number               |           |          |                |
 
-# Api Routes
+## Api Routes
 
 ## Autenticacion
 
 | METHOD | URL            | AUTH  | FUNCTION               |
-|--------|----------------|----- -|------------------------|
+|--------|----------------|-------|------------------------|
 | POST   | '/auth/signup' | YES   | Crear una nueva cuenta |
 | POST   | '/auth/login'  | NO    | Autentica al usuario   |
 
@@ -111,35 +111,40 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 
 | METHOD | URL                                        | AUTH | FUNCTION                                                                 |
 |--------|--------------------------------------------|------|--------------------------------------------------------------------------|
-| GET    | '/users                                    | NO   | Mostrar todos los usuarios (admin)                                       |
+| GET    | '/users                                    | YES  | Mostrar todos los usuarios (admin)                                       |
 | GET    | '/users/me'                                | YES  | Mostrar usuario determinado de la base de datos                          |
-| PUT    | '/users/me'                                | YES  | Modifica usuario determinado de la base de datos                         |
+| PUT    | '/users/me'                                | YES  | Modifica datos usuario determinado de la base de datos                   |
 | DELETE | '/users/me'                                | YES  | Elimina usuario determinado de la base de datos(admin)                   |
+| PUT    | '/users/me/password'                       | YES  | Modifica contraseña usuario determinado de la base de datos              |
 | GET    | '/users/me/cars'                           | YES  | Mostrar todos los coches para usuario determinado                        |
 | POST   | '/users/me/cars'                           | YES  | Crear coche para usuario determinado                                     |
 | GET    | '/users/me/cars/:carId'                    | YES  | Mostrar coche determinado para usuario determinado                       |
 | DELETE | '/users/me/cars/:carId'                    | YES  | Elimina un coche determinado para usuario determinado                    |
-| PUT    | '/users/me/cars/:carId'                    | YES  | Actualiza coche determinado para usuario determinado                     |
+| PUT    | '/users/me/cars/:carId'                    | YES  | Actualiza la informacion de un coche determinado para usuario determinado|
 | GET    | '/users/me/cars/:carId/repairs'            | YES  | Mostrar todas las reparaciones de un coche para usuario determinado      |
 | POST   | '/users/me/cars/:carId/repairs'            | YES  | Crear reparacion de un coche para usuario determinado                    |
-| GET    | '/users/me/cars/:carId/repairs/:repairId'  | YES  | Mostrar una reparacion determinadode un coche para usuario determinado   |
-| DELETE | '/users/me/cars/:carId/repairs/:repairId'  | YES  | Elimina una reparacion determinadode un coche para usuario determinado   |
-| PUT    | '/users/me/cars/:carId/repairs/:repairId'  | YES  | Actualiza una reparacion determinadode un coche para usuario determinado |
+| GET    | '/users/me/cars/:carId/repairs/:repairId'  | YES  | Mostrar una reparacion determinada de un coche para usuario determinado  |
+| DELETE | '/users/me/cars/:carId/repairs/:repairId'  | YES  | Elimina una reparacion determinada de un coche para usuario determinado  |
+| PUT    | '/users/me/cars/:carId/repairs/:repairId'  | YES  | Actualiza una reparacion determinada de un coche para usuario determinado|
 | GET    | '/users/me/cars/:carId/notification'       | YES  | Mostrar todas las notificaciones de un coche para usuario determinado    |
 | POST   | '/users/me/cars/:carId/notification'       | YES  | Crear notificacion de un coche para usuario determinado(admin)           |
 
 
 ## Vehiculos
 
-| METHOD | URL                    | AUTH | FUNCTION                                                                 |
-|--------|------------------------|------|--------------------------------------------------------------------------|
-| GET    | '/cars                 | YES  | Mostrar todos los vehiculos (admin)                                      |
-| POST   | '/cars                 | YES  | Crear un vehiculo                                                        |
-| GET    | '/cars/:carId'         | YES  | Mostrar vehiculo determinado de la base de datos                         |
-| DELETE | '/cars/:carId'         | YES  | Elimina vehiculo determinado de la base de datos                         |
-| PUT    | '/cars/:carId'         | YES  | Actualiza vehiculo determinado de la base de datos                       |
-| GET    | '/cars/:carId/repairs' | YES  | Mostrar todos los reparaciones para un vehículo determinado              |
-| POST   | '/cars/:carId/repairs' | YES  | Crear nueva reparacion para un vehículo determinado                      |
+| METHOD | URL                              | AUTH | FUNCTION                                                                 |
+|--------|----------------------------------|------|--------------------------------------------------------------------------|
+| GET    | '/cars                           | YES  | Mostrar todos los vehiculos (admin)                                      |
+| POST   | '/cars                           | YES  | Crear un vehiculo                                                        |
+| GET    | '/cars/:carId'                   | YES  | Mostrar vehiculo determinado de la base de datos                         |
+| DELETE | '/cars/:carId'                   | YES  | Elimina vehiculo determinado de la base de datos                         |
+| PUT    | '/cars/:carId'                   | YES  | Actualiza vehiculo determinado de la base de datos                       |
+| GET    | '/cars/:carId/repairs'           | YES  | Mostrar todos los reparaciones para un vehículo determinado              |
+| POST   | '/cars/:carId/repairs'           | YES  | Crear nueva reparacion para un vehículo determinado                      | 
+| PUT    | '/cars/:carId/repairs/:repairId' | YES  | Actualiza una reparacion de un vehículo determinado                      |
+| GET    | '/cars/:carId/repairs/:repairId' | YES  | Obtiene una reparacion determinada de un vehículo determinado            |
+
+
 
 ## Reparaciones
 
@@ -155,16 +160,16 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 
 | METHOD | URL                   | AUTH | FUNCTION                                                                 |
 |--------|-----------------------|------|--------------------------------------------------------------------------|
-| GET    | '/reviews             | YES  | Mostrar todos los comentarios                                  |
-| POST   | '/reviews'            | YES  | Crear un nuevo comentario                                                    |
-| GET    | '/reviews/:reviewId'  | YES  | Mostrar un determinado comentario de la base de datos                                      |
-| DELETE | '/reviews/:reviewId'  | YES  | Eliminar un determinado comentario de la base de datos                                     |
-| PUT    | '/reviews/:reviewId'  | YES  | Actualiza un determinado comentario de la base de datos                                     |
+| GET    | '/reviews             | YES  | Mostrar todos los comentarios                                            |
+| POST   | '/reviews'            | YES  | Crear un nuevo comentario                                                |
+| GET    | '/reviews/:reviewId'  | YES  | Mostrar un determinado comentario de la base de datos                    |
+| DELETE | '/reviews/:reviewId'  | YES  | Eliminar un determinado comentario de la base de datos                   |
+| PUT    | '/reviews/:reviewId'  | YES  | Actualiza un determinado comentario de la base de datos                  |
 
 
 ## Autor ✒️
 
-* **Ana Angulo** - *Programadora (programacion, diseño y analisis)* - [anate82](https://github.com/anate82)
+* **Ana Angulo** - *Desarrolladora (Análisis, diseño y desarollo)* - [anate82](https://github.com/anate82)
 
 ## Licencia 📄
 

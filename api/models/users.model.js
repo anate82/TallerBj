@@ -43,16 +43,16 @@ const userSchema = new mongoose.Schema({
         required:false,
         default:'client'
     },
-    cars:{
-        type:[mongoose.Schema.Types.ObjectId],
+    array_cars:[{
+        type:mongoose.Schema.Types.ObjectId,
         ref:'cars',
         required:false
-    },
-    comments:{
-        type:[mongoose.Schema.Types.ObjectId],
+    }],
+    array_comments:[{
+        type:mongoose.Schema.Types.ObjectId,
         ref:'comments',
         required:false
-    }
+    }]
 })
 
 module.exports = mongoose.model('user',userSchema);

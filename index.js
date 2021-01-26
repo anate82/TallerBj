@@ -7,6 +7,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const path = require('path')
+const helmet = require('helmet');
 
 // NONGOOSE
 mongoose.connect(process.env.MONGO_URL,
@@ -22,6 +23,7 @@ mongoose.connect(process.env.MONGO_URL,
 
 // ADDING MIDDLEWARES & ROUTER
 const app = express()
+  .use(helmet())
   .use(cors())
   .use(morgan('combined')) 
   .use(express.json()) //parser a recoger nuestra peticion
@@ -33,7 +35,7 @@ const PORT = process.env.PORT || 2222 //elige un puerto u otro
 app.listen(PORT, (err) => {
   if (err) { throw new Error(err) }
   console.info('>'.repeat(40))
-  console.info('💻  Reboot Server Live')
+  console.info('💻  Server Live')
   console.info(`📡  PORT: http://localhost:${PORT}`)
   console.info('>'.repeat(40) + '\n')
 })
