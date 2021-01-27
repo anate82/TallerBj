@@ -177,4 +177,8 @@ Este proyecto está bajo la Licencia (MIT License) - mira el archivo [LICENSE.md
 
 ## Expresiones de Gratitud 🎁
 
+<<<<<<< HEAD
 * Mis profesores, geniales 📢
+=======
+* Mis profesores, geniales 📢
+>>>>>>> 658cbbd60e1eed1e48f9b012986d5b91ede6ce69
