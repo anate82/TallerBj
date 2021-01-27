@@ -13,11 +13,11 @@ const {
 
 router
     .get('/', isAdmin, getAllRepairs)
-    .get('/:repairId', getRepairById)
+    .get('/:repairId', isUser, getRepairById)
     //obtengo del body el id del vehículo para crear una reparacion
-    .post('/', createRepair)
-    .put('/:repairId/addBudget', addBudgetRepair)
-    .put('/:repairId/addProccess',isUser, addProccessRepair)
+    .post('/', isAdmin, createRepair)
+    .put('/:repairId/addBudget', isUser,addBudgetRepair)
+    .put('/:repairId/addProccess', isUser, addProccessRepair)
     .put('/:repairId', isAdmin, updateRepair)
     .delete('/:repairId', isAdmin, deleteRepairId)
 

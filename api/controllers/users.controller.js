@@ -33,7 +33,7 @@ function getUserByEmail(req, res) {
         })
         .catch((err) => handleError(err, res))
 }
-
+/*
 //Obtiene todos los vehículos de un usuario determinado
 
 function getAllCarsOfUser(req, res) {
@@ -88,7 +88,7 @@ function getCarOfUser(req, res) {
         .catch((err) => handleError(err, res)).catch((err) => handleError(err, res))
 }
 
-/*
+
 function getAllRepairsOfAUser(req, res) {
     userModel
         .findOne({email:res.locals.user.email})
@@ -96,7 +96,7 @@ function getAllRepairsOfAUser(req, res) {
             user.array_cars
         })
         .catch((err) => handleError(err, res))
-}*/
+}
 
 //Crea un nuevo coche para un usuario determinado
 
@@ -136,7 +136,7 @@ function addNewCar(req, res) {
                 .catch((err) => handleError(err, res))
         })
         .catch((err) => handleError(err, res))
-}
+}*/
 
 //Elimina un usuario (solo lo puede hacer el usuario admin), y se elimina pasando por el body el email a eliminar
 function deleteUserByEmail (req, res) {
@@ -178,7 +178,7 @@ function updateUserPassword (req, res) {
         })
         .catch((err) => handleError(err, res))
 }
-
+/*
 function updateCarOfUser(req, res) {
     userModel
         .findOne({email:res.locals.user.email})
@@ -201,18 +201,13 @@ function updateCarOfUser(req, res) {
                 .catch((err) => handleError(err, res))
         })
         .catch((err) => handleError(err, res))
-}
+}*/
 
 
 module.exports = {
     getAllUsers,
     getUserByEmail,
-    getAllCarsOfUser,
-    getCarOfUser,
-    //getAllRepairsOfAUser,
-    addNewCar,
     deleteUserByEmail,
     updateUserData,
-    updateUserPassword,
-    updateCarOfUser
+    updateUserPassword
 }

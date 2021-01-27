@@ -93,10 +93,10 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 | KEY           | TYPE                 | REFERENCE | REQUIRED | VALIDATION     |
 |---------------|----------------------|-----------|----------|----------------|
 | user          | ObjectId             | users     | YES      |                |
-| date_create   | Date                 |           | YES      |                |
+| date_create   | Date                 |           | NO       | Default        |
 | comment       | string               |           | YES      | Maxlength      |
-| public        | boolean              |           | YES      | Default        |
-| puntuation    | number               |           |          |                |
+| public        | boolean              |           | NO       | Default        |
+| puntuation    | number               |           | YES      |                |
 
 ## Api Routes
 

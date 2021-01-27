@@ -1,6 +1,4 @@
 const carModel = require('../models/cars.model')
-const repairModel = require('../models/repairs.model')
-const jwt = require ('jsonwebtoken');
 const usersModel = require('../models/users.model');
 
 
@@ -30,40 +28,24 @@ function getCarById(req, res){
 //Busca el usuario que tenga el vehículo asociado, lo elimina y luego elimina el vehículo
 function deleteCarById(req, res) {
     carModel
-        .findOne({_id:req.params.carId})
-        .then(carFound => {
+        .deleteOne({_id: req.params.carId})
+        .then(carDeleted => {
             usersModel
-                .findOne({_id:carFound.user})
+                .findOne({_id:carDeleted.user})
                 .then(user => {
-                    var i = user.array_cars.indexOf(req.params.carId)
+                    var i = user.array_cars.indexOf(carDeleted._id)
                     user.array_cars.splice(i,1);
                     user.save(function (err) {
                         if(err) return res.status(500).send(err);
-                        carModel
-                            .deleteOne({_id: req.params.carId})
-                            .then(carDeleted => {
-                                res.status(200).json(carDeleted)
-                            })
-                            .catch(err => {
-                                res.status(500).send('Car can not be deleted')
-                            })
+                        res.status(200).json(carDeleted)
+                    })
+                    .catch(err => {
+                        res.status(500).send('Car can not be deleted')
                     })
                 })
         })
         .catch(err => {
-            res.status(500).send('Car not deleted')
-        })
-}
-
-function getAllRepairsByCar(req, res) {
-    carModel
-        .findOne({_id:req.params.carId})
-        .populate('repairs')
-        .then(car => {
-            res.status(200).json(car.repairs)
-        })
-        .catch(err => {
-            res.status(500).send('Repairs not found')
+            res.status(500).send('Car can not be deleted')
         })
 }
 
@@ -120,7 +102,6 @@ module.exports = {
     getAllCars,
     getCarById,
     deleteCarById,
-    getAllRepairsByCar,
     createNewCar,
     updateCarById
 }

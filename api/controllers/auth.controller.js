@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 function signUp(req, res) {
+    
     const encryptedPasswd = bcrypt.hashSync(req.body.password, 10)
     userModel
         .create({
@@ -16,7 +17,8 @@ function signUp(req, res) {
             alias: req.body.alias
         })
         .then(user => {
-            const data = {id:user._id, name: user.name, email: user.email}
+            console.log(user)
+            const data = {name: user.name,surname:user.surname, email: user.email}
             const token = jwt.sign(data, process.env.SECRET)
             res.status(200).json({token: token, ...data})
         })
@@ -24,6 +26,7 @@ function signUp(req, res) {
 }
 
 function login(req, res) {
+    console.log(req.body)
     userModel
         .findOne({email:req.body.email})
         .then(user => {
@@ -32,14 +35,21 @@ function login(req, res) {
             bcrypt.compare(req.body.password,user.password, (err, result) => {
                 if(!result) { return res.status(500).json({error:'Password incorrecto'})}
                 const user_data = {
-                    username: req.body.name,
+                    name: user.name,
+                    surname:user.surname,
                     email: req.body.email
                 };
                 const token = jwt.sign(user_data,process.env.SECRET,{expiresIn: '2d'})
+                console.log(user_data)
+                console.log(token)
+                console.log("ok")
                 return res.status(200).json({token:token, ...user_data})
             })
         })
-        .catch(err=> res.status(500).json(err))
+        .catch(err=> {
+            console.log("not ok")
+            res.status(500).json(err)
+        })
 }
 
 module.exports = {

@@ -39,14 +39,14 @@ const carSchema = new mongoose.Schema({
         required:false,
         length:4
     },
-    ref_paint:[{
+    ref_paint:{
         ref_color:{
             type:String
         },
         variant:{
             type:String
         }
-    }]
+    }
 
 })
 

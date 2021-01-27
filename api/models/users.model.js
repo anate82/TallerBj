@@ -48,9 +48,9 @@ const userSchema = new mongoose.Schema({
         ref:'cars',
         required:false
     }],
-    array_comments:[{
+    array_reviews:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'comments',
+        ref:'review',
         required:false
     }]
 })

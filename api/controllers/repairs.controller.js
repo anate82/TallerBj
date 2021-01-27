@@ -37,10 +37,10 @@ function createRepair(req, res) {
                     secure:req.body.secure
                 })
                 .then(newRepair => {
-                    car.repairs.push(newRepair)
+                    car.repairs.push(newRepair._id)
                     car.save(function (err) {
                         if(err) return res.status(500).send(err);
-                        res.status(200).json(car);
+                        res.status(200).json(newRepair);
                     })
         
                 })
@@ -129,28 +129,24 @@ function updateRepair(req, res) {
 
 function deleteRepairId(req, res) {
     repairModel
-        .findOne({_id:req.params.repairId})
-        .then(repair => {
+        .deleteOne({_id: req.params.repairId})
+        .then(repairDeleted => {
             carModel
-                .findOne({_id:repair.car})
+                .findOne({_id:repairDeleted.car})
                 .then(car =>{
-                    var i = car.repairs.indexOf(req.params.repairId)
+                    car.repairs.indexOf(req.params.repairId)
                     car.repairs.splice(i,1);
                     car.save(function (err) {
                         if(err) return res.status(500).send(err);
-                        repairModel
-                            .deleteOne({_id: req.params.repairId})
-                            .then(repairDeleted => {
-                                res.status(200).json(repairDeleted)
-                            })
-                            .catch(err => {
-                                res.status(500).send('Repair can not be deleted')
-                            })
+                        res.status(200).json(repairDeleted)                           
                     })
+                })
+                .catch(err => {
+                    res.status(500).send('Repair can not be founded to be deleted')
                 })
         })
         .catch(err => {
-            res.status(500).send('Repair can not be founded to be deleted')
+            res.status(500).send('Repair can not be deleted')
         })
 }
 
