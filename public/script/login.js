@@ -1,4 +1,5 @@
 document.getElementById('loginButton').addEventListener("click", function(){
+    if(validEmail(document.getElementById('inputEmailLogin').value)){
         axios
             .post('http://localhost:3000/api/auth/login', {
                 email:document.getElementById('inputEmailLogin').value,
@@ -12,13 +13,19 @@ document.getElementById('loginButton').addEventListener("click", function(){
                     localStorage.setItem('surname', response.data.surname);
                     goHome();
                 } else {
-                    alert('Email o password erroneos')
+                    console.log('Email o password erroneos')
                 }
             })
             .catch(function (error) {
-                alert('Email o password erroneos')
+                console.log('Email o password erroneos')
             });
+    } else {
+        console.log("Email incorrecto")
+    }
 })
+
+window.onload = function(){
+}
 
 
 

@@ -27,14 +27,19 @@ p {
 #formLogin{
   position:absolute;
   top:200px;
-  margin-left: 30px;
+  margin-left: 10px;
+}
+#mainContent{
+  margin-top:60px;
+  padding-top:6rem;
+  padding-bottom: 2rem;
 }
 
 
 #mainNav {
-    padding-top: 1.05rem;
+    padding-top: 1rem;
     padding-bottom: 1rem;
-    padding-right: 1.5rem;
+    padding-right: 1rem;
     padding-left: 1rem;
     background-color: #212529;
 }
@@ -68,8 +73,8 @@ p {
 }
   
 header.masthead {
-    padding-top: 10.5rem;
-    padding-bottom: 6rem;
+    padding-top: 11.5rem;
+    padding-bottom: 11rem;
     text-align: center;
     color: #fff;
     background-image: url("../assets/img/coche-gris-chapa-y-pintura-1000x576.jpg");
@@ -1590,10 +1595,31 @@ textarea.form-control {
 .navbar-expand-sm > .container-md,
 .navbar-expand-sm > .container-lg,
 .navbar-expand-sm > .container-xl {
-    padding-right: 0;
-    padding-left: 0;
+    padding-right: 2rem;
+    padding-left: 1rem;
   }
 }
+
+@media (max-width: 575.98px) {
+  header.masthead {
+    padding-top: 17rem;
+    padding-bottom: 12.5rem;
+  }
+  header.masthead .masthead-subheading {
+    font-size: 2.25rem;
+    font-style: italic;
+    line-height: 2.25rem;
+    margin-bottom: 2rem;
+  }
+  header.masthead .masthead-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+    margin-bottom: 4rem;
+  }
+}
+
+
 @media (min-width: 576px) {
   .navbar-expand-sm {
     flex-flow: row nowrap;
@@ -1674,8 +1700,8 @@ textarea.form-control {
 .navbar-expand-lg > .container-md,
 .navbar-expand-lg > .container-lg,
 .navbar-expand-lg > .container-xl {
-    padding-right: 0;
-    padding-left: 0;
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
 }
 @media (min-width: 992px) {
@@ -1752,6 +1778,60 @@ textarea.form-control {
   }
 }
 
+@media (max-width: 575.98px) {
+  header.masthead {
+    padding-top: 17rem;
+    padding-bottom: 12.5rem;
+  }
+  header.masthead .masthead-subheading {
+    font-size: 2.25rem;
+    font-style: italic;
+    line-height: 2.25rem;
+    margin-bottom: 2rem;
+  }
+  header.masthead .masthead-heading {
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 4.5rem;
+    margin-bottom: 4rem;
+  }
+}
+@media (max-width: 450px) {
+  header.masthead {
+    padding-top: 17rem;
+    padding-bottom: 12.5rem;
+  }
+  header.masthead .masthead-subheading {
+    font-size: 2.25rem;
+    font-style: italic;
+    line-height: 2.25rem;
+    margin-bottom: 2rem;
+  }
+  header.masthead .masthead-heading {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+    margin-bottom: 4rem;
+  }
+}
+@media (max-width: 360px) {
+  header.masthead {
+    padding-top: 17rem;
+    padding-bottom: 12.5rem;
+  }
+  header.masthead .masthead-subheading {
+    font-size: 2.25rem;
+    font-style: italic;
+    line-height: 2.25rem;
+    margin-bottom: 2rem;
+  }
+  header.masthead .masthead-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    margin-bottom: 4rem;
+  }
+}
 
 .timeline {
   position: relative;
@@ -1855,7 +1935,7 @@ textarea.form-control {
   }
   .timeline > li {
     min-height: 100px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
   }
   .timeline > li .timeline-panel {
     float: left;
@@ -1873,7 +1953,7 @@ textarea.form-control {
   .timeline > li .timeline-image h4 {
     font-size: 13px;
     line-height: 18px;
-    margin-top: 16px;
+    margin-top: 5px;
   }
   .timeline > li.timeline-inverted > .timeline-panel {
     float: right;
@@ -1883,7 +1963,7 @@ textarea.form-control {
 }
 @media (min-width: 992px) {
   .timeline > li {
-    min-height: 150px;
+    min-height: 200px;
   }
   .timeline > li .timeline-panel {
     padding: 0 20px 20px;
@@ -1901,7 +1981,7 @@ textarea.form-control {
   .timeline > li .timeline-image h4 {
     font-size: 18px;
     line-height: 26px;
-    margin-top: 30px;
+    margin-top: 20px;
   }
   .timeline > li.timeline-inverted > .timeline-panel {
     padding: 0 20px 20px;
@@ -1954,4 +2034,60 @@ textarea.form-control {
   left: 0;
   border-width: 0.5rem 0.5rem 0.5rem 0;
   border-right-color: rgba(0, 0, 0, 0.25);
+}
+
+#badgeMenu{
+  color: #fff;
+  padding-top: .3125rem;
+  padding-bottom: .3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#plusCarButton{
+  padding: .05rem .05rem;
+  margin-right: 7px;
+}
+#tableCarSection{
+  padding:0;
+  margin:0;
+}
+
+#titleMenu{
+  padding-left: 10px;
+}
+
+.page-section-profile{
+  padding:4rem 0;
+}
+
+#formProfile{
+  padding-left:2rem;
+}
+
+#infoCar2{
+  padding-right: 0;
+  padding-left: 0;
+}
+.accordion{
+  flex: 0 0 auto;
+  width: 83.666667%;
+}
+
+.buttonActivity{
+  flex: 0 0 auto;
+  width: 8.666667%;
+}
+
+.boxCar{
+  padding-left: 9px;
+  padding-top: 12px;
+}
+#acceptedModal{
+  margin-left: 0px;
+}
+.form-check-label{
+  margin-left: 20px;
 }

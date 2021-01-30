@@ -17,7 +17,6 @@ function signUp(req, res) {
             alias: req.body.alias
         })
         .then(user => {
-            console.log(user)
             const data = {name: user.name,surname:user.surname, email: user.email}
             const token = jwt.sign(data, process.env.SECRET)
             res.status(200).json({token: token, ...data})
@@ -26,7 +25,6 @@ function signUp(req, res) {
 }
 
 function login(req, res) {
-    console.log(req.body)
     userModel
         .findOne({email:req.body.email})
         .then(user => {
@@ -40,14 +38,10 @@ function login(req, res) {
                     email: req.body.email
                 };
                 const token = jwt.sign(user_data,process.env.SECRET,{expiresIn: '2d'})
-                console.log(user_data)
-                console.log(token)
-                console.log("ok")
                 return res.status(200).json({token:token, ...user_data})
             })
         })
         .catch(err=> {
-            console.log("not ok")
             res.status(500).json(err)
         })
 }

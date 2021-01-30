@@ -139,10 +139,7 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 | GET    | '/cars/:carId'                   | YES  | Mostrar vehiculo determinado de la base de datos                         |
 | DELETE | '/cars/:carId'                   | YES  | Elimina vehiculo determinado de la base de datos                         |
 | PUT    | '/cars/:carId'                   | YES  | Actualiza vehiculo determinado de la base de datos                       |
-| GET    | '/cars/:carId/repairs'           | YES  | Mostrar todos los reparaciones para un vehículo determinado              |
-| POST   | '/cars/:carId/repairs'           | YES  | Crear nueva reparacion para un vehículo determinado                      | 
-| PUT    | '/cars/:carId/repairs/:repairId' | YES  | Actualiza una reparacion de un vehículo determinado                      |
-| GET    | '/cars/:carId/repairs/:repairId' | YES  | Obtiene una reparacion determinada de un vehículo determinado            |
+
 
 
 

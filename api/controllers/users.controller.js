@@ -15,9 +15,9 @@ function getAllUsers(req, res) {
 }
 
 //Obtiene los datos de un usuario, buscados por email
-function getUserByEmail(req, res) {
+function getUserById(req, res) {
     userModel
-        .findOne({email:res.locals.user.email})
+        .findOne({_id:res.locals.user._id})
         .then(user => {
             res.json({
                 name:user.name,
@@ -149,7 +149,7 @@ function deleteUserByEmail (req, res) {
 //Actualiza la informacion personal de un usuario pero no el campo contraseña
 function updateUserData (req, res) {
     userModel
-        .findOneAndUpdate({email:res.locals.user.email}, {
+        .findOneAndUpdate({_id:res.locals.user._id}, {
             name: req.body.name,
             surname: req.body.surname,
             dni: req.body.dni,
@@ -168,7 +168,7 @@ function updateUserData (req, res) {
 function updateUserPassword (req, res) {
     const encryptedPasswd = bcrypt.hashSync(req.body.password, 10)
     userModel
-        .findOneAndUpdate({email:res.locals.user.email}, {
+        .findOneAndUpdate({_id:res.locals.user._id}, {
             password: encryptedPasswd
         })
         .then(userUpdate => {
@@ -202,11 +202,35 @@ function updateCarOfUser(req, res) {
         })
         .catch((err) => handleError(err, res))
 }*/
+function getAllCarsOfUser(req, res) {
+    userModel
+        .findOne({_id:res.locals.user._id})
+        .populate('array_cars')
+        .then(user => {
+            //Se envian todos los campos menos el id de usuario
+            const filterCars = user.array_cars.map(car => {
+                const container = {}
+                container["repairs"]=car.repairs;
+                container["_id"]=car._id;
+                container["brand"]=car.brand;
+                container["car_model"]=car.car_model;
+                container["frame_number"]=car.frame_number;
+                container["reg_veh"] = car.reg_veh;
+                container["kilometers"] = car.kilometers;
+                container["year"] = car.year;
+                container["ref_paint"] = car.ref_paint;
+                return container;
+            })
+            res.status(200).json(filterCars);
+        })
+        .catch((err) => handleError(err, res))
+}
 
 
 module.exports = {
     getAllUsers,
-    getUserByEmail,
+    getUserById,
+    getAllCarsOfUser,
     deleteUserByEmail,
     updateUserData,
     updateUserPassword

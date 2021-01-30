@@ -2,11 +2,36 @@ const carModel = require('../models/cars.model')
 const repairModel = require('../models/repairs.model')
 const jwt = require ('jsonwebtoken');
 const usersModel = require('../models/users.model');
+const { populate } = require('../models/cars.model');
 
 function getAllRepairs(req, res) {
     repairModel
         .find()
         .then(repairs => {
+            res.status(200).json(repairs)
+        })
+        .catch(err => {
+            res.status(500).send('Repairs not found')
+        })
+}
+
+function getRepairByCarId(req, res) {
+    repairModel
+        .find({car:req.params.carId})
+        .populate('car')
+        .then(repair => {
+            res.status(200).json(repair)
+        })
+        .catch(err => {
+            res.status(500).send('Repair not found')
+        })
+}
+
+function getAllRepairsByUser(req, res) {
+    repairModel
+        .find({user:res.locals.user._id})
+        .populate('car')
+        .then(repairs =>{
             res.status(200).json(repairs)
         })
         .catch(err => {
@@ -83,6 +108,7 @@ function addProccessRepair(req, res) {
     repairModel
         .findOne({_id:req.params.repairId})
         .then(repair => {
+            console.log(repair)
             if(res.locals.user.role === "admin"){
                 repair.process_repair.push({
                     readed:false,
@@ -114,11 +140,7 @@ function addProccessRepair(req, res) {
 
 function updateRepair(req, res) {
     repairModel
-        .findOneAndUpdate({_id:req.params.repairId},{
-            date_in:req.body.date_in,
-            date_out:req.body.date_out,
-            secure:req.body.secure
-        })
+        .findOneAndUpdate({_id:req.params.repairId}, req.body)
         .then(repair => {
             res.status(200).json(repair)
         })
@@ -150,12 +172,35 @@ function deleteRepairId(req, res) {
         })
 }
 
+function updateProcess(req, res) {
+    repairModel
+        .findOne({_id: req.params.repairId})
+        .then(repair => {
+            const processSelected = repair.process_repair.filter(process =>
+                process._id == req.params.processId
+            )
+            processSelected[0].date_client = Date.now();
+            processSelected[0].comment_client = req.body.comment;
+            repair.save(function (err) {
+                if(err) return res.status(500).send(err);
+                res.status(200).json(repair)                           
+            })
+            
+        })
+        .catch(err => {
+            res.status(500).send('Process can not be updated')
+        })
+}
+
 module.exports = {
     getAllRepairs,
+    getAllRepairsByUser,
+    getRepairByCarId,
     getRepairById,
     createRepair,
     addBudgetRepair,
     addProccessRepair,
     updateRepair,
+    updateProcess,
     deleteRepairId
 }

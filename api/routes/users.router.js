@@ -4,7 +4,8 @@ const { isUser, isAdmin } = require('../utils') // Authenticated Route
 
 const {
     getAllUsers,
-    getUserByEmail,
+    getUserById,
+    getAllCarsOfUser,
     deleteUserByEmail,
     updateUserData,
     updateUserPassword
@@ -12,7 +13,8 @@ const {
 
 router
     .get('/', isAdmin, getAllUsers)
-    .get('/me', isUser, getUserByEmail)
+    .get('/me', isUser, getUserById)
+    .get('/me/allCars', isUser, getAllCarsOfUser)
     .delete('/me', isAdmin, deleteUserByEmail) 
     .put('/me', isUser, updateUserData)
     .put('/me/password',isUser, updateUserPassword)

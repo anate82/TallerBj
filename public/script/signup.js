@@ -13,11 +13,16 @@ document.getElementById('signupButton').addEventListener("click", function(){
             
             })
             .then(function (response) {
-                localStorage.setItem('token', response.data.token)
-                localStorage.setItem('email', response.data.email)
-                localStorage.setItem('name', response.data.name)
-                localStorage.setItem('surname', response.data.surname);
-                goHome();
+                if(response.data && response.data.token) {
+                  localStorage.setItem('token', response.data.token)
+                  localStorage.setItem('email', response.data.email)
+                  localStorage.setItem('name', response.data.name)
+                  localStorage.setItem('surname', response.data.surname);
+                  goHome();
+                } else {
+                  alert('Datos erroneos')
+                  window.location = "http://localhost:3000/signup.html"
+                }
             })
             .catch(function (error) {
                 alert('El usuario ya esta registrado')
