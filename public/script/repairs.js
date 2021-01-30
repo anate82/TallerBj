@@ -115,8 +115,8 @@ document.getElementById('addCommentModal').addEventListener("click", function() 
 
 //Controla que si el cliente acepta o no el presupuesto y lo actualiza en la base de datos
 document.getElementById('addBudgetModal').addEventListener("click", function() {
-    console.log(localStorage.getItem('budgetId'))
-
+    console.log(document.getElementById('acceptedModal').checked)
+    console.log(localStorage.getItem('idRepair'))
     axios
         .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/updateBudget/${localStorage.getItem('budgetId')}`,{
 
@@ -182,6 +182,7 @@ function showRepairCar() {
                     };
                 }
                 document.getElementById('budgetButton').addEventListener('click', function() {
+                    localStorage.setItem('idRepair',repair._id)
                     localStorage.setItem('budgetId',repair.budget[0]._id);
                     document.getElementById('dateCreateModal').value = convertDate(repair.budget[0].date_create);
                     document.getElementById('typeModal').value = repair.budget[0].type;

@@ -196,9 +196,11 @@ function updateBudgetRepair(req, res) {
     repairModel
         .findOne({_id: req.params.repairId})
         .then(repair => {
+            console.log(repair)
             const budgetSelected = repair.budget.filter(budget =>
                 budget._id == req.params.budgetId
             )
+            console.log(budgetSelected)
             budgetSelected[0].accepted = req.body.accepted;
             repair.save(function (err) {
                 if(err) return res.status(500).send(err);
