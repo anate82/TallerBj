@@ -3,7 +3,7 @@ function budgetState (budget){
     if(budget.length === 0){
         state = "Sin presupuesto"
     } else {
-        if(budget[0].acepted){
+        if(budget[0].accepted){
             state = "Presupuesto aceptado"
         } else {
             state = "Presupuesto pendiente de aceptar"
@@ -105,24 +105,27 @@ document.getElementById('addCommentModal').addEventListener("click", function() 
     }, { headers: { token: localStorage.getItem('token')}})
     .then(response => {
       console.log('Se ha añadido correctamente un vehículo')
+      window.location = 'http://localhost:3000/reparaciones.html'
     })
     .catch(function (error) {
       console.log('No se ha podido añadir el vehículo')
     });
-    window.location = 'http://localhost:3000/reparaciones.html'
 })
 
 
 //Controla que si el cliente acepta o no el presupuesto y lo actualiza en la base de datos
 document.getElementById('addBudgetModal').addEventListener("click", function() {
+    console.log(localStorage.getItem('budgetId'))
+
     axios
         .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/updateBudget/${localStorage.getItem('budgetId')}`,{
 
-            acepted:document.getElementById('acceptedModal').checked
+            accepted:document.getElementById('acceptedModal').checked
 
         }, { headers: { token: localStorage.getItem('token')}})
         .then(response => {
             console.log('Se ha actualizado correctamente un presupuesto')
+            window.location = 'http://localhost:3000/reparaciones.html'
         })
         .catch(function (error) {
             console.log('No se ha podido actualizar el presupuesto')
@@ -179,7 +182,7 @@ function showRepairCar() {
                     };
                 }
                 document.getElementById('budgetButton').addEventListener('click', function() {
-                    localStorage.setItem('bugetId',repair.budget[0]._id);
+                    localStorage.setItem('budgetId',repair.budget[0]._id);
                     document.getElementById('dateCreateModal').value = convertDate(repair.budget[0].date_create);
                     document.getElementById('typeModal').value = repair.budget[0].type;
                     document.getElementById('descriptionModal').value = repair.budget[0].description;
@@ -189,7 +192,7 @@ function showRepairCar() {
                     document.getElementById('paintModal').value = repair.budget[0].paint;
                     document.getElementById('auxModal').value = repair.budget[0].auxiliary;
                     document.getElementById('priceModal').value = repair.budget[0].price;
-                    document.getElementById('acceptedModal').checked = repair.budget[0].acepted;
+                    document.getElementById('acceptedModal').checked = repair.budget[0].accepted;
                 })
             });
         })
