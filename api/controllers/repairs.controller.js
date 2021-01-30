@@ -192,6 +192,24 @@ function updateProcess(req, res) {
         })
 }
 
+function updateBudgetRepair(req, res) {
+    repairModel
+        .findOne({_id: req.params.repairId})
+        .then(repair => {
+            const budgetSelected = repair.budget.filter(budget =>
+                budget._id == req.params.budgetId
+            )
+            budgetSelected[0].accepted = req.body.accepted;
+            repair.save(function (err) {
+                if(err) return res.status(500).send(err);
+                res.status(200).json(repair)                           
+            })
+        })
+        .catch(err => {
+            res.status(500).send('Budget can not be updated')
+        })
+}
+
 module.exports = {
     getAllRepairs,
     getAllRepairsByUser,
@@ -201,6 +219,7 @@ module.exports = {
     addBudgetRepair,
     addProccessRepair,
     updateRepair,
+    updateBudgetRepair,
     updateProcess,
     deleteRepairId
 }

@@ -10,6 +10,7 @@ const {
     addBudgetRepair,
     addProccessRepair,
     updateRepair,
+    updateBudgetRepair,
     updateProcess,
     deleteRepairId
 } = require('../controllers/repairs.controller.js')
@@ -21,9 +22,10 @@ router
     .get('/:repairId', isUser, getRepairById)
     //obtengo del body el id del vehículo para crear una reparacion
     .post('/', isAdmin, createRepair)
+    .put('/:repairId', isAdmin, updateRepair)
     .put('/:repairId/addBudget', isUser,addBudgetRepair)
     .put('/:repairId/addProccess', isUser, addProccessRepair)
-    .put('/:repairId', isAdmin, updateRepair)
+    .put('/:repairId/updateBudget/:budgetId', isUser, updateBudgetRepair)
     .put('/:repairId/process/:processId', isUser, updateProcess)
     .delete('/:repairId', isAdmin, deleteRepairId)
 

@@ -17,6 +17,7 @@ function convertDate(date){
     return dateResult.toLocaleString("es-ES");
 }
 
+//Genera los comentarios visibles en presupuestos
 function showAllProcess(arrayComments){
     let commentResult ="";
     arrayComments.forEach(comment => {
@@ -90,11 +91,13 @@ function showDateOut (objRepair) {
     }
 }
 
+//Salir de la sesion
 document.getElementById('navBarSalir').addEventListener("click", function() {
     localStorage.clear();
     window.location.reload()
 })
 
+//Almacena la respuesta de un cliente a un comentario del taller
 document.getElementById('addCommentModal').addEventListener("click", function() {
     axios
     .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/process/${localStorage.getItem('idProcess')}`, {
@@ -109,7 +112,25 @@ document.getElementById('addCommentModal').addEventListener("click", function() 
     window.location = 'http://localhost:3000/reparaciones.html'
 })
 
-function showAllCarsRepair() {
+
+//Controla que si el cliente acepta o no el presupuesto y lo actualiza en la base de datos
+document.getElementById('addBudgetModal').addEventListener("click", function() {
+    axios
+        .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/updateBudget/${localStorage.getItem('budgetId')}`,{
+
+            acepted:document.getElementById('acceptedModal').checked
+
+        }, { headers: { token: localStorage.getItem('token')}})
+        .then(response => {
+            console.log('Se ha actualizado correctamente un presupuesto')
+        })
+        .catch(function (error) {
+            console.log('No se ha podido actualizar el presupuesto')
+        });
+})
+
+//Muestra la reparacion del vehículo
+function showRepairCar() {
     axios
         .get(`http://localhost:3000/api/repairs/repairCar/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token')}})
         .then(arrayRepairs => {
@@ -142,7 +163,7 @@ function showAllCarsRepair() {
                     <input type="text" readonly class="form-control" id="budget" value="${budgetState(repair.budget)}" >
                     </div>
                     <div class="col-sm-1">
-                        <button type="button" class="btn btn-warning"data-bs-toggle="modal" data-bs-target="#addBudget" data-bs-whatever="addBudget"><i class="fas fa-download"></i></button>
+                        <button type="button" class="btn btn-warning" id="budgetButton" data-bs-toggle="modal" data-bs-target="#addBudget" data-bs-whatever="addBudget"><i class="fas fa-download"></i></button>
                     </div>
                 </div>`
                 if(repair.process_repair.length === 0){
@@ -157,6 +178,19 @@ function showAllCarsRepair() {
                         localStorage.setItem('idProcess', repair.process_repair[i]._id)
                     };
                 }
+                document.getElementById('budgetButton').addEventListener('click', function() {
+                    localStorage.setItem('bugetId',repair.budget[0]._id);
+                    document.getElementById('dateCreateModal').value = convertDate(repair.budget[0].date_create);
+                    document.getElementById('typeModal').value = repair.budget[0].type;
+                    document.getElementById('descriptionModal').value = repair.budget[0].description;
+                    document.getElementById('piecesModal').value = getPieces(repair.budget[0].pieces);
+                    document.getElementById('hoursDisModal').value = repair.budget[0].hours_disas;
+                    document.getElementById('hoursRepairModal').value = repair.budget[0].hours_repare;
+                    document.getElementById('paintModal').value = repair.budget[0].paint;
+                    document.getElementById('auxModal').value = repair.budget[0].auxiliary;
+                    document.getElementById('priceModal').value = repair.budget[0].price;
+                    document.getElementById('acceptedModal').checked = repair.budget[0].acepted;
+                })
             });
         })
         .catch(function (error) {
@@ -164,8 +198,15 @@ function showAllCarsRepair() {
         });
 }
 
+function getPieces(arrayPieces){
+    let resultString = "";
+    arrayPieces.forEach(piece =>{
+        resultString += piece +" ";
+    })
+    return resultString.trim();
+}
 
 window.onload = function () {
     document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
-    showAllCarsRepair()
+    showRepairCar()
 }
