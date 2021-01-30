@@ -115,8 +115,6 @@ document.getElementById('addCommentModal').addEventListener("click", function() 
 
 //Controla que si el cliente acepta o no el presupuesto y lo actualiza en la base de datos
 document.getElementById('addBudgetModal').addEventListener("click", function() {
-    console.log(document.getElementById('acceptedModal').checked)
-    console.log(localStorage.getItem('idRepair'))
     axios
         .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/updateBudget/${localStorage.getItem('budgetId')}`,{
 
