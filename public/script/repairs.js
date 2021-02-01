@@ -115,6 +115,7 @@ document.getElementById('addCommentModal').addEventListener("click", function() 
 
 //Controla que si el cliente acepta o no el presupuesto y lo actualiza en la base de datos
 document.getElementById('addBudgetModal').addEventListener("click", function() {
+    if(document.getElementsByName)
     axios
         .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/updateBudget/${localStorage.getItem('budgetId')}`,{
 
@@ -179,20 +180,24 @@ function showRepairCar() {
                         localStorage.setItem('idProcess', repair.process_repair[i]._id)
                     };
                 }
-                document.getElementById('budgetButton').addEventListener('click', function() {
-                    localStorage.setItem('idRepair',repair._id)
-                    localStorage.setItem('budgetId',repair.budget[0]._id);
-                    document.getElementById('dateCreateModal').value = convertDate(repair.budget[0].date_create);
-                    document.getElementById('typeModal').value = repair.budget[0].type;
-                    document.getElementById('descriptionModal').value = repair.budget[0].description;
-                    document.getElementById('piecesModal').value = getPieces(repair.budget[0].pieces);
-                    document.getElementById('hoursDisModal').value = repair.budget[0].hours_disas;
-                    document.getElementById('hoursRepairModal').value = repair.budget[0].hours_repare;
-                    document.getElementById('paintModal').value = repair.budget[0].paint;
-                    document.getElementById('auxModal').value = repair.budget[0].auxiliary;
-                    document.getElementById('priceModal').value = repair.budget[0].price;
-                    document.getElementById('acceptedModal').checked = repair.budget[0].accepted;
-                })
+                if(repair.budget.length > 0){
+                    document.getElementById('budgetButton').addEventListener('click', function() {
+                        localStorage.setItem('idRepair',repair._id)
+                        localStorage.setItem('budgetId',repair.budget[0]._id);
+                        document.getElementById('dateCreateModal').value = convertDate(repair.budget[0].date_create);
+                        document.getElementById('typeModal').value = repair.budget[0].type;
+                        document.getElementById('descriptionModal').value = repair.budget[0].description;
+                        document.getElementById('piecesModal').value = getPieces(repair.budget[0].pieces);
+                        document.getElementById('hoursDisModal').value = repair.budget[0].hours_disas;
+                        document.getElementById('hoursRepairModal').value = repair.budget[0].hours_repare;
+                        document.getElementById('paintModal').value = repair.budget[0].paint;
+                        document.getElementById('auxModal').value = repair.budget[0].auxiliary;
+                        document.getElementById('priceModal').value = repair.budget[0].price;
+                        document.getElementById('acceptedModal').checked = repair.budget[0].accepted;
+                    })
+                } else {
+                    document.getElementById('budgetButton').disabled = true;
+                }
             });
         })
         .catch(function (error) {

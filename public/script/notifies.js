@@ -8,7 +8,6 @@ function showNotifies(){
             arrayRepairs.data.forEach((repair, index) => {
                 
                 if (repair.process_repair.length > 0){
-                    
                     arrProcess = [];
                     repair.process_repair.forEach(process =>{
                         if (!process.readed){
