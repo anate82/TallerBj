@@ -191,6 +191,26 @@ function updateProcess(req, res) {
         })
 }
 
+function notifyReaded(req, res) {
+    console.log('hola')
+    repairModel
+        .findOne({_id: req.params.repairId})
+        .then(repair => {
+            const processSelected = repair.process_repair.filter(process =>
+                process._id == req.params.processId
+            )
+            console.log(processSelected)
+            processSelected[0].readed = req.body.readed;
+            repair.save(function (err) {
+                if(err) return res.status(500).send(err);
+                res.status(200).json(repair)                           
+            })
+        })
+        .catch(err => {
+            res.status(500).send('Notify can not be changed its state')
+        })
+}
+
 function updateBudgetRepair(req, res) {
     repairModel
         .findOne({_id: req.params.repairId})
@@ -220,5 +240,6 @@ module.exports = {
     updateRepair,
     updateBudgetRepair,
     updateProcess,
+    notifyReaded,
     deleteRepairId
 }

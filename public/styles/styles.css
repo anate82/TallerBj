@@ -2091,3 +2091,7 @@ textarea.form-control {
 .form-check-label{
   margin-left: 20px;
 }
+#tableNotify{
+  text-align: center;
+  width: 100%;
+}

@@ -26,7 +26,6 @@ function getAllCars() {
   axios
     .get('http://localhost:3000/api/users/me/allCars', { headers: { token: localStorage.getItem('token')}})
     .then(arrayCars => {
-      console.log(arrayCars)
         let arrId = [];
         arrayCars.data.forEach((car,index) =>{
           
@@ -85,11 +84,11 @@ function getAllCars() {
           </section>`;
           arrId.push(car._id);
           let notifyButton = document.getElementsByClassName('notifyButton');
-          for(let i=0; i<notifyButton.length; i++){
+          for(let i = 0; i < notifyButton.length; i++){
             notifyButton[i].onclick = redirectNotify;
           }
           let repairButton = document.getElementsByClassName('repairButton');
-          for(let i=0; i<repairButton.length; i++){
+          for(let i = 0; i < repairButton.length; i++){
             repairButton[i].onclick = function () {
               localStorage.setItem('idCar',arrId[i])
               window.location = "http://localhost:3000/reparaciones.html"

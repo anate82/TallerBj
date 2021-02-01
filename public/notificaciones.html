@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HOME</title>
+        <link rel="stylesheet" href="styles/styles.css">
+        <script src="script/protect.js"></script>
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-warning js-scroll-trigger" href="#page-top">Taller BJ</a>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav text-uppercase ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" href="home.html">Vehiculos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" href="notificaciones.html">Notificaciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="row">
+            <header id="headerRowProfile">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid" id="navBarheader">
+                    <a class="navbar-brand" aria-current="page" id="navUser" href="">usuario</a>
+                </div>    
+                </nav>
+            </header>
+        </div>
+        <section class="row" id="mainContent">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <div class="col-11">
+                    <span class="badge badge-light" id="badgeMenu">Nofificaciones</span>
+                    </div>
+                </div>      
+            </nav>
+        </section>
+        <section class='container-fluid' id="notifySection">
+            <section class="row">
+                <section class="col-12">
+                    <table class="table-warning" id="tableNotify">
+                        <thead class="bg-warning pt-2 pb-2">
+                            <tr>
+                            <th scope="col">Matrícula</th>
+                            <th scope="col">Notificación</th>
+                            <th scope="col">Leido</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyNotify">
+                        </tbody>    
+                    </table>
+                </section>
+            </section>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="script/notifies.js"></script>
+    </body>
+</html>

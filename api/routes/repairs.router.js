@@ -12,6 +12,7 @@ const {
     updateRepair,
     updateBudgetRepair,
     updateProcess,
+    notifyReaded,
     deleteRepairId
 } = require('../controllers/repairs.controller.js')
 
@@ -27,6 +28,7 @@ router
     .put('/:repairId/addProccess', isUser, addProccessRepair)
     .put('/:repairId/updateBudget/:budgetId', isUser, updateBudgetRepair)
     .put('/:repairId/process/:processId', isUser, updateProcess)
+    .put('/:repairId/notifyReaded/:processId/', isUser, notifyReaded)
     .delete('/:repairId', isAdmin, deleteRepairId)
 
 

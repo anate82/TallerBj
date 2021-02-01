@@ -1,148 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HOME</title>
-  <link rel="stylesheet" href="styles/styles.css">
-  <script src="script/protect.js"></script>
-  <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-</head>
-<body>
-    <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div class="container-fluid">
-                <a class="navbar-brand text-warning js-scroll-trigger" href="#page-top">Taller BJ</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="home.html">Vehiculos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="notificaciones.html">Notificaciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
-                        </li>
-                    </ul>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HOME</title>
+        <link rel="stylesheet" href="styles/styles.css">
+        <script src="script/protect.js"></script>
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-warning js-scroll-trigger" href="#page-top">Taller BJ</a>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav text-uppercase ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" href="home.html">Vehiculos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" href="notificaciones.html">Notificaciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="row">
+            <header id="headerRowProfile">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid" id="navBarheader">
+                    <a class="navbar-brand" aria-current="page" id="navUser" href="">usuario</a>
+                </div>    
+                </nav>
+            </header>
+        </div>
+        <section class="row" id="mainContent">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <div class="col-11">
+                    <span class="badge badge-light" id="badgeMenu">Reparaciones</span>
+                    </div>
+                </div>      
+            </nav>
+        </section>
+        <section class='container' id="repairSection">
+        </section>
+        <div class="modal fade" id="addComment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Responder</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="formAddCar">
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                    <label id="commentModal">Comentario</label>
+                            </div>
+                            <div class="form-floating col-12">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="textareaModal" style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Añade tu comentario</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="addCommentModal" class="btn btn-primary">Añadir</button>
                 </div>
             </div>
-        </nav>
-    </div>
-<div class="row">
-  <header id="headerRowProfile">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid" id="navBarheader">
-          <a class="navbar-brand" aria-current="page" id="navUser" href="">usuario</a>
-      </div>    
-    </nav>
-  </header>
-</div>
-<section class="row" id="mainContent">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <div class="col-11">
-           <span class="badge badge-light" id="badgeMenu">Reparaciones</span>
+            </div>
         </div>
-    </div>      
-  </nav>
-</section>
-<section class='container' id="repairSection">
-</section>
-<div class="modal fade" id="addComment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Responder</h5>
-        </div>
-        <div class="modal-body">
-            <form id="formAddCar">
-                <div class="form-row">
-                    <div class="form-group col-12">
-                            <label id="commentModal">Comentario</label>
-                    </div>
-                    <div class="form-floating col-12">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="textareaModal" style="height: 100px"></textarea>
-                        <label for="floatingTextarea2">Añade tu comentario</label>
-                    </div>
+        <div class="modal fade" id="addBudget" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Presupuesto</h5>
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" id="addCommentModal" class="btn btn-primary">Añadir</button>
-        </div>
-      </div>
-    </div>
-</div>
-<div class="modal fade" id="addBudget" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Presupuesto</h5>
-        </div>
-        <div class="modal-body">
-            <form id="formBudget">
-                <div class="form-row">
-                  <div class="form-group col-12">
-                    <label for="dateCreateModal">Fecha creación:</label>
-                    <input type="text" readonly class="form-control" id="dateCreateModal"  placeholder="Fecha creacion">
-                  </div>
-                  <div class="form-group col-12">
-                    <label for="typeModal">Tipo</label>
-                      <input type="text" readonly class="form-control" id="typeModal"  placeholder="Tipo reparación">
-                  </div>
-                  <div class="form-group col-12">
-                    <label for="descriptionModal">Descripción</label>
-                    <textarea class="form-control" readonly placeholder="Descripción" id="descriptionModal" style="height: 100px"></textarea>
-                  </div>
-                  <div class="form-group col-12">
-                    <label for="piecesModal">Piezas</label>
-                    <textarea class="form-control" readonly placeholder="Descripción" id="piecesModal" style="height: 100px"></textarea>
-                  </div>
-                  <div class="form-group col-6">
-                    <label for="hoursDisModal">Horas desmonte</label>
-                      <input type="text" readonly class="form-control" id="hoursDisModal"  placeholder="Horas desmonte">
-                  </div>
-                  <div class="form-group col-6">
-                    <label for="hoursRepairModal">Horas reparación</label>
-                      <input type="text" readonly class="form-control" id="hoursRepairModal"  placeholder="Año">
-                  </div>
-                  <div class="form-group col-6">
-                    <label for="paintModal">Pintura</label>
-                      <input type="text" readonly class="form-control" id="paintModal"  placeholder="Pintura">
-                  </div>
-                  <div class="form-group col-12">
-                    <label for="auxModal">Auxiliares</label>
-                    <textarea class="form-control" readonly placeholder="Auxiliares" id="auxModal" style="height: 100px"></textarea>
-                  </div>
-                  <div class="form-group col-6">
-                    <label for="priceModal">Precio</label>
-                      <input type="text" readonly class="form-control" id="priceModal"  placeholder="Precio">
-                  </div>
-                  <div class="form-group col-12">
-                      <input type="checkbox" class="form-check-input" id="acceptedModal" value=""  placeholder="Aceptado">
-                      <label class="form-check-label" for="acceptedModal">Aceptado</label>
-                  </div>
+                <div class="modal-body">
+                    <form id="formBudget">
+                        <div class="form-row">
+                        <div class="form-group col-12">
+                            <label for="dateCreateModal">Fecha creación:</label>
+                            <input type="text" readonly class="form-control" id="dateCreateModal"  placeholder="Fecha creacion">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="typeModal">Tipo</label>
+                            <input type="text" readonly class="form-control" id="typeModal"  placeholder="Tipo reparación">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="descriptionModal">Descripción</label>
+                            <textarea class="form-control" readonly placeholder="Descripción" id="descriptionModal" style="height: 100px"></textarea>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="piecesModal">Piezas</label>
+                            <textarea class="form-control" readonly placeholder="Descripción" id="piecesModal" style="height: 100px"></textarea>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="hoursDisModal">Horas desmonte</label>
+                            <input type="text" readonly class="form-control" id="hoursDisModal"  placeholder="Horas desmonte">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="hoursRepairModal">Horas reparación</label>
+                            <input type="text" readonly class="form-control" id="hoursRepairModal"  placeholder="Año">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="paintModal">Pintura</label>
+                            <input type="text" readonly class="form-control" id="paintModal"  placeholder="Pintura">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="auxModal">Auxiliares</label>
+                            <textarea class="form-control" readonly placeholder="Auxiliares" id="auxModal" style="height: 100px"></textarea>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="priceModal">Precio</label>
+                            <input type="text" readonly class="form-control" id="priceModal"  placeholder="Precio">
+                        </div>
+                        <div class="form-group col-12">
+                            <input type="checkbox" class="form-check-input" id="acceptedModal" value=""  placeholder="Aceptado">
+                            <label class="form-check-label" for="acceptedModal">Aceptado</label>
+                        </div>
+                        </div>
+                    </form>
                 </div>
-              </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="addBudgetModal" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" id="addBudgetModal" class="btn btn-primary">Guardar</button>
-        </div>
-      </div>
-    </div>
-</div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-  <script src="script/repairs.js"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="script/repairs.js"></script>
+    </body>
 </html>

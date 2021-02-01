@@ -104,11 +104,11 @@ document.getElementById('addCommentModal').addEventListener("click", function() 
         comment:document.getElementById('textareaModal').value
     }, { headers: { token: localStorage.getItem('token')}})
     .then(response => {
-      console.log('Se ha añadido correctamente un vehículo')
+      console.log('Se ha añadido correctamente un comentario')
       window.location = 'http://localhost:3000/reparaciones.html'
     })
     .catch(function (error) {
-      console.log('No se ha podido añadir el vehículo')
+      console.log('No se ha podido añadir el comentario')
     });
 })
 
