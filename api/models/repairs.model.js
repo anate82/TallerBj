@@ -46,11 +46,11 @@ const repairSchema = new mongoose.Schema({
         }
     }],
     date_in:{
-        type:String,
+        type:Date,
         required:true
     },
     date_out:{
-        type:String,
+        type:Date,
         required:false
     },
     secure:{

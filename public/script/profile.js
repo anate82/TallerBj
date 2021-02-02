@@ -12,11 +12,6 @@ function getUserProfile (){
             console.log('Email o password erroneos')
         });
 }
-  
-document.getElementById('navBarSalir').addEventListener("click", function() {
-    localStorage.clear();
-    window.location.reload()
-})
 
 document.getElementById('saveButton').addEventListener('click', function() {
     axios
@@ -70,5 +65,44 @@ window.onload = function () {
     document.getElementById('sectionProfile').style.display = "block";
     document.getElementById('sectionPswd').style.display = "none";
     document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
+    let nav = document.getElementById('navbarResponsive')
+    if (localStorage.getItem('role') == 'admin'){
+        nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="usersPage.html">Usuarios</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                      </li>
+                  </ul>`
+  } else {
+    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                      </li>
+                  </ul>`
+  }
+  document.getElementById('navBarSalir').addEventListener("click", function() {
+    localStorage.clear();
+    window.location.reload()
+  })
     getUserProfile();
 }

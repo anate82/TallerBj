@@ -113,7 +113,7 @@ function addProccessRepair(req, res) {
             if(res.locals.user.role === "admin"){
                 repair.process_repair.push({
                     readed:false,
-                    date_pro:Date.now().toString(),
+                    date_pro:Date.now(),
                     comment_pro:req.body.comment,
                     date_client:Date.now(),
                     comment_client:"",
@@ -122,9 +122,9 @@ function addProccessRepair(req, res) {
             } else {
                 repair.process_repair.push({
                     readed:false,
-                    date_pro:Date.now().toString(),
+                    date_pro:Date.now(),
                     comment_pro:"",
-                    date_client:Date.now().toString(),
+                    date_client:Date.now(),
                     comment_client:req.body.comment,
                     photo:""
                 })
@@ -182,7 +182,7 @@ function updateProcess(req, res) {
             const processSelected = repair.process_repair.filter(process =>
                 process._id == req.params.processId
             )
-            processSelected[0].date_client = Date.now();
+            processSelected[0].date_client = new Date().getTime;
             processSelected[0].comment_client = req.body.comment;
             repair.save(function (err) {
                 if(err) return res.status(500).send(err);

@@ -36,10 +36,7 @@ document.getElementById('addCarUserButton').addEventListener("click", function()
 
 })
 
-document.getElementById('navBarSalir').addEventListener("click", function() {
-  localStorage.clear();
-  window.location.reload()
-})
+
 
 function showAllCars(){
   axios
@@ -122,14 +119,14 @@ function showAllCars(){
             let actCarButton = document.getElementsByClassName('actCarButton'); 
             for(let i = 0; i < notifyButton.length; i++){
               notifyButton[i].onclick = function() {
-                window.location = 'http://localhost:3000/notificaciones.html'
+                window.location = 'http://localhost:3000/notifyPage.html'
               };
               deleteButton[i].onclick = function(){
                 axios
                   .delete(`http://localhost:3000/api/cars/${arrId[i]}`, { headers: { token: localStorage.getItem('token')}})
                   .then(response =>{
                     console.log('Vehiculo Eliminado')
-                    window.location = 'http://localhost:3000/home.html'
+                    window.location = 'http://localhost:3000/carPage.html'
                   })
                   .catch(function (error) {
                     console.log('No se ha podido eliminar el vehículo')
@@ -138,7 +135,7 @@ function showAllCars(){
               //Controla el evento de las reparaciones
               repairButton[i].onclick = function () {
                 localStorage.setItem('idCar',arrId[i])
-                window.location = "http://localhost:3000/reparaciones.html"
+                window.location = "http://localhost:3000/repairPage.html"
               };
               //Evento que controla las actualizaciones del vehículo
               actCarButton[i].onclick = function () {
@@ -185,21 +182,20 @@ function getAllCars() {
       .get('http://localhost:3000/api/users/me/allCars', { headers: { token: localStorage.getItem('token')}})
       .then(arrayCars => {
           let arrId = [];
-          
-          arrayCars.data.forEach((car,index) =>{
-            let barCars = document.getElementById('mainContent');
+          let barCars = document.getElementById('mainContent');
           barCars.innerHTML += `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <div class="container-fluid">
-              <div class="col-11">
-                <span class="badge badge-light" id="badgeMenu">Vehiculos</span>
+            <div class="container-fluid">
+                <div class="col-11">
+                  <span class="badge badge-light" id="badgeMenu">Vehiculos</span>
+                </div>
+              <div class="col-1" id="colPlus">
+                <button type="button" class="btn btn-warning" id="plusCarButton" data-bs-toggle="modal" data-bs-target="#addCar" data-bs-whatever="addCar"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg></button>
               </div>
-            <div class="col-1" id="colPlus">
-              <button type="button" class="btn btn-warning" id="plusCarButton" data-bs-toggle="modal" data-bs-target="#addCar" data-bs-whatever="addCar"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-              </svg></button>
             </div>
-          </div>
-        </nav>`
+          </nav>`
+          arrayCars.data.forEach((car,index) =>{
             let p = document.getElementById('infoCarSection');
             p.innerHTML+= `<section class="row">
               <div class="accordion col-10" id="accordionCar${index}">
@@ -257,11 +253,11 @@ function getAllCars() {
             let repairButton = document.getElementsByClassName('repairButton');
             for(let i = 0; i < notifyButton.length; i++){
               notifyButton[i].onclick = function() {
-                window.location = "http://localhost:3000/notificaciones.html"
+                window.location = "http://localhost:3000/notifyPage.html"
               };
               repairButton[i].onclick = function () {
                 localStorage.setItem('idCar',arrId[i])
-                window.location = "http://localhost:3000/reparaciones.html"
+                window.location = "http://localhost:3000/repairPage.html"
               };
             }
             
@@ -294,13 +290,54 @@ function getAllCars() {
 }
 
 function redirectNotify(e){
-  window.location = "http://localhost:3000/notificaciones.html"
+  window.location = "http://localhost:3000/notifyPage.html"
 }
 function redirectRepairs(e){
-  window.location = "http://localhost:3000/reparaciones.html"
+  window.location = "http://localhost:3000/repairPage.html"
 }
 
 window.onload = function () {
   document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
+  
+  let nav = document.getElementById('navbarResponsive')
+  if (localStorage.getItem('role') == 'admin'){
+    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="usersPage.html">Usuarios</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                      </li>
+                  </ul>`
+  } else {
+    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                      </li>
+                  </ul>`
+  }
+ 
+  document.getElementById('navBarSalir').addEventListener("click", function() {
+    localStorage.clear();
+    window.location.reload()
+  })
   getAllCars();
 }

@@ -23,6 +23,7 @@ router
     .get('/:repairId', isUser, getRepairById)
     //obtengo del body el id del vehículo para crear una reparacion
     .post('/', isAdmin, createRepair)
+    //Actualiza los datos de la reparacion que se pasen por el body
     .put('/:repairId', isAdmin, updateRepair)
     .put('/:repairId/addBudget', isAdmin,addBudgetRepair)
     .put('/:repairId/addProccess', isUser, addProccessRepair)

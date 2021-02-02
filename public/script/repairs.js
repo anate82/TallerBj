@@ -13,8 +13,18 @@ function budgetState(budget) {
 }
 
 function convertDate(date) {
+    console.log(date)
     let dateResult = new Date(date);
-    return dateResult.toLocaleString("es-ES");
+    let year = dateResult.getFullYear();
+    let month = (dateResult.getMonth() +1).toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false
+      });
+    let day = dateResult.getDay().toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false
+      });
+    return `${year}-${month}-${day}`;
 }
 
 //Genera los comentarios visibles en presupuestos
@@ -84,18 +94,24 @@ function showAllProcess(arrayComments) {
 }
 
 function showDateOut(objRepair) {
-    if ((objRepair.hasOwnProperty('date_out')) && (objRepair.date_out !== 'Pendiente')) {
+    console.log(objRepair)
+    if (objRepair.hasOwnProperty('date_out')) {
+        console.log("hola")
         return convertDate(objRepair.date_out);
     } else {
-        return "Pendiente";
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = (date.getMonth() +1).toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false
+         });
+        let day = date.getDay().toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false
+        });
+        return `${year}-${month}-${day}`;
     }
 }
-
-//Salir de la sesion
-document.getElementById('navBarSalir').addEventListener("click", function () {
-    localStorage.clear();
-    window.location.reload()
-})
 
 //Almacena la respuesta de un cliente a un comentario del taller
 document.getElementById('addCommentModal').addEventListener("click", function () {
@@ -112,7 +128,17 @@ document.getElementById('addCommentModal').addEventListener("click", function ()
         });
 })
 document.getElementById('addMessageModal').addEventListener("click", function () {
-    
+    axios
+        .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/addProccess`, {
+            comment: document.getElementById('notifyModal').value
+        }, { headers: { token: localStorage.getItem('token') } })
+        .then(response => {
+            console.log('Se ha añadido correctamente un comentario')
+            window.location.reload()
+        })
+        .catch(function (error) {
+            console.log('No se ha podido añadir el comentario')
+        });
    
 
 })
@@ -144,6 +170,7 @@ document.getElementById('addRepairCarButton').addEventListener("click", function
         });
 })
 
+
 //Controla que si el cliente acepta o no el presupuesto y lo actualiza en la base de datos
 document.getElementById('addBudgetModal').addEventListener("click", function () {
     if (localStorage.getItem('role') === 'admin'){
@@ -152,7 +179,7 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
                 date_create: document.getElementById('dateCreateModal').value,
                 type: document.getElementById('typeModal').value,
                 description: document.getElementById('descriptionModal').value,
-                pieces: document.getElementById('piecesModal').value,
+                pieces: document.getElementById('piecesModal').value.split('\n'),
                 hours_disas:document.getElementById('hoursDisModal').value,
                 hours_repair:document.getElementById('hoursRepairModal').value,
                 paint:document.getElementById('paintModal').value,
@@ -161,8 +188,8 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
                 accepted: document.getElementById('acceptedModal').checked
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
-                console.log('Se ha actualizado correctamente un presupuesto')
-                window.location.reload()
+                console.log('Se ha creado correctamente el presupuesto')
+                window.location = 'http://localhost:3000/repairPage.html'
             })
             .catch(function (error) {
                 console.log('No se ha podido crear el presupuesto')
@@ -176,7 +203,7 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
                 console.log('Se ha actualizado correctamente un presupuesto')
-                window.location = 'http://localhost:3000/reparaciones.html'
+                window.location = 'http://localhost:3000/repairPage.html'
             })
             .catch(function (error) {
                 console.log('No se ha podido actualizar el presupuesto')
@@ -185,7 +212,82 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
 })
 
 function showRepairCarAdmin() {
-    showRepairCar()
+    axios
+        .get(`http://localhost:3000/api/repairs/repairCar/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token') } })
+        .then(arrayRepairs => {
+            if (arrayRepairs.data.length > 0) {
+                arrayRepairs.data.forEach((repair, index) => {
+                    let p = document.getElementById('repairSection');
+                    p.innerHTML += `<form class="row">
+                    <legend> ${repair.car.reg_veh} </legend>
+                    <div class="mb-3 row">
+                        <label for="dateIn" class="col-sm-2 col-form-label">Fecha entrada:</label>
+                        <div class="col-sm-8">
+                        <input type="date" class="form-control" id="dateIn" value="${convertDate(repair.date_in)}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="dateOut" class="col-sm-2 col-form-label">Fecha salida:</label>
+                        <div class="col-sm-8">
+                        <input type="date" class="form-control" id="dateOut" value="${showDateOut(repair)}">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="secure" class="col-sm-2 col-form-label">Seguro:</label>
+                        <div class="col-sm-8">
+                        <input type="text" class="form-control" id="secure" value="${repair.secure}">
+                        </div>
+                    </div>
+                    <!-- Presupuesto -->
+                    <div class="mb-3 row">
+                        <label for="budget" class="col-sm-2 col-form-label">Presupuesto:</label>
+                        <div class="col-sm-8">
+                        <input type="text" class="form-control" id="budget" value="${budgetState(repair.budget)}" >
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-warning" id="budgetButton" data-bs-toggle="modal" data-bs-target="#addBudget" data-bs-whatever="addBudget"><i class="fas fa-download"></i></button>
+                        </div>
+                    </div>`
+                    if (repair.process_repair.length === 0) {
+                        p.innerHTML += `</form>`;
+                    } else {
+                        p.innerHTML += showAllProcess(repair.process_repair);
+                    }
+                    localStorage.setItem('idRepair', repair._id)
+                    let replyClient = document.getElementsByClassName('replyClient');
+                    for (let i = 0; i < replyClient.length; i++) {
+                        replyClient[i].onclick = function () {
+                            localStorage.setItem('idRepair', repair._id)
+                            localStorage.setItem('idProcess', repair.process_repair[i]._id)
+                        };
+                    }
+                    if (repair.budget.length > 0) {
+                        document.getElementById('budgetButton').addEventListener('click', function () {
+                            localStorage.setItem('idRepair', repair._id)
+                            localStorage.setItem('budgetId', repair.budget[0]._id);
+                            document.getElementById('dateCreateModal').value = convertDate(repair.budget[0].date_create);
+                            document.getElementById('typeModal').value = repair.budget[0].type;
+                            document.getElementById('descriptionModal').value = repair.budget[0].description;
+                            document.getElementById('piecesModal').value = getPieces(repair.budget[0].pieces);
+                            document.getElementById('hoursDisModal').value = repair.budget[0].hours_disas;
+                            document.getElementById('hoursRepairModal').value = repair.budget[0].hours_repare;
+                            document.getElementById('paintModal').value = repair.budget[0].paint;
+                            document.getElementById('auxModal').value = repair.budget[0].auxiliary;
+                            document.getElementById('priceModal').value = repair.budget[0].price;
+                            document.getElementById('acceptedModal').checked = repair.budget[0].accepted;
+                        })
+                    } else {
+                        document.getElementById('budgetButton').disabled = true;
+                    }
+                });
+            } else {
+                let p = document.getElementById('repairSection');
+                p.innerHTML += `<legend> No hay reparaciones disponibles </legend>`
+            }
+        })
+        .catch(function (error) {
+            console.log('Catch No se ha podido encontrar los vehículos del usuario')
+        });
 }
 
 
@@ -291,7 +393,7 @@ function loadCarsInSelect(){
         });
 }*/
 function goCars(){
-    window.location = 'http://localhost:3000/home.html'
+    window.location = 'http://localhost:3000/carPage.html'
 }
 
 function deleteRepair(){
@@ -313,35 +415,79 @@ function deleteRepair(){
 window.onload = function () {
     document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
     localStorage.setItem('idRepair', "")
+    let nav = document.getElementById('navbarResponsive')
+    if (localStorage.getItem('role') == 'admin'){
+        nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="usersPage.html">Usuarios</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                      </li>
+                  </ul>`
+  } else {
+    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                      </li>
+                  </ul>`
+  }
+  document.getElementById('navBarSalir').addEventListener("click", function() {
+    localStorage.clear();
+    window.location.reload()
+  })
     let mainhtml = document.getElementById('mainContent')
     if (localStorage.role === 'admin') {
-        mainhtml.innerHTML += `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <div class="col-8">
-                    <span class="badge badge-light" id="badgeMenu">Reparaciones</span>
-                </div>
-                <div class="col-1" id="colPlus">
-                <button type="button" class="btn btn-warning" id="plusRepairButton" data-bs-toggle="modal" data-bs-target="#addRepairCar" data-bs-whatever="addRepairCar">
-                <i class="fas fa-plus"></i>
-                </button>
-                </div>
-                <div class="col-1">
-                    <button type="button" class="btn btn-warning" id="messageButton" data-bs-toggle="modal" data-bs-target="#addMessage" data-bs-whatever="addMessage">
-                        <i class="fas fa-envelope-open-text"></i>
+        mainhtml.innerHTML += `<div class="container-fluid bg-dark text-light">
+                <div class="row bg-dark pt-3 pb-3">
+                    <div class="col-6">
+                        <span class="badge badge-light" id="badgeMenu">Reparaciones</span>
+                    </div>
+                    <div class="col-1" id="colPlus">
+                    <button type="button" class="btn btn-warning" id="plusRepairButton" data-bs-toggle="modal" data-bs-target="#addRepairCar" data-bs-whatever="addRepairCar">
+                    <i class="fas fa-plus"></i>
                     </button>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-warning" id="messageButton" data-bs-toggle="modal" data-bs-target="#addMessage" data-bs-whatever="addMessage">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-warning" id="newBudgetButton" data-bs-toggle="modal" data-bs-target="#addBudget" data-bs-whatever="addBudget">
+                            <i class="fas fa-file-contract"></i>
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-warning" id="deleteButton" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar Reparación">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-warning" id="saveButton" data-bs-toggle="tooltip" data-bs-placement="top" title="Guardar Reparación">
+                            <i class="far fa-save"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-1">
-                    <button type="button" class="btn btn-warning" id="newBudgetButton" data-bs-toggle="modal" data-bs-target="#addBudget" data-bs-whatever="addBudget">
-                        <i class="fas fa-file-contract"></i>
-                    </button>
-                </div>
-                <div class="col-1">
-                    <button type="button" class="btn btn-warning" id="deleteButton" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar Reparación">
-                        <i class="far fa-trash-alt"></i>
-                    </button>
-                </div>
-                </div>   
-        </nav>`
+        </div>`
         showRepairCarAdmin();
         document.getElementById('newBudgetButton').addEventListener('click', function() {
             document.getElementById('dateCreateModal').readOnly = false;
@@ -368,8 +514,19 @@ window.onload = function () {
         document.getElementById('deleteButton').addEventListener('click', function(){
             deleteRepair();
         })
-        document.getElementById('plusRepairButton').addEventListener('click', function(){
-            
+        document.getElementById('saveButton').addEventListener('click', function(){
+            axios
+                .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}`, {
+                    date_in: document.getElementById('dateIn').value,
+                    date_out: document.getElementById('dateOut').value,
+                    secure: document.getElementById('secure').value
+                }, { headers: { token: localStorage.getItem('token') } })
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log('No se han podido encontrar los vehículos')
+                });
         })
     } else {
         mainhtml.innerHTML += `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">

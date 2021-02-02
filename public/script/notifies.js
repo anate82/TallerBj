@@ -48,20 +48,54 @@ function notifyReaded(idProcess,idRepair){
         }, { headers: { token: localStorage.getItem('token')}})
         .then(response => {
             console.log('Notificacion marcada como leída')
-            window.location = 'http://localhost:3000/notificaciones.html'
+            window.location = 'http://localhost:3000/notifyPage.html'
         })
         .catch(function (error) {
             console.log('Catch No se ha podido marcar como leída la notificación')
         });
 }
 
-//Salir de la sesion
-document.getElementById('navBarSalir').addEventListener("click", function() {
-    localStorage.clear();
-    window.location.reload()
-})
 
 window.onload = function () {
     document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
+    let nav = document.getElementById('navbarResponsive')
+    if (localStorage.getItem('role') == 'admin'){
+        nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="usersPage.html">Usuarios</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                      </li>
+                  </ul>`
+  } else {
+    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
+                      </li>
+                  </ul>`
+  }
+  document.getElementById('navBarSalir').addEventListener("click", function() {
+    localStorage.clear();
+    window.location.reload()
+  })
     showNotifies();
 }
