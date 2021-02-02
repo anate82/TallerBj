@@ -24,7 +24,7 @@ router
     //obtengo del body el id del vehículo para crear una reparacion
     .post('/', isAdmin, createRepair)
     .put('/:repairId', isAdmin, updateRepair)
-    .put('/:repairId/addBudget', isUser,addBudgetRepair)
+    .put('/:repairId/addBudget', isAdmin,addBudgetRepair)
     .put('/:repairId/addProccess', isUser, addProccessRepair)
     .put('/:repairId/updateBudget/:budgetId', isUser, updateBudgetRepair)
     .put('/:repairId/process/:processId', isUser, updateProcess)

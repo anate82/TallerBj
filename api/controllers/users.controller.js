@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 function getAllUsers(req, res) {
     userModel
         .find()
+        .populate('array_cars')
         .then(response => res.json(response))
         .catch((err) => handleError(err, res))
 }
@@ -203,27 +204,27 @@ function updateCarOfUser(req, res) {
         .catch((err) => handleError(err, res))
 }*/
 function getAllCarsOfUser(req, res) {
-    userModel
-        .findOne({_id:res.locals.user._id})
-        .populate('array_cars')
-        .then(user => {
-            //Se envian todos los campos menos el id de usuario
-            const filterCars = user.array_cars.map(car => {
-                const container = {}
-                container["repairs"]=car.repairs;
-                container["_id"]=car._id;
-                container["brand"]=car.brand;
-                container["car_model"]=car.car_model;
-                container["frame_number"]=car.frame_number;
-                container["reg_veh"] = car.reg_veh;
-                container["kilometers"] = car.kilometers;
-                container["year"] = car.year;
-                container["ref_paint"] = car.ref_paint;
-                return container;
+        userModel
+            .findOne({_id:res.locals.user._id})
+            .populate('array_cars')
+            .then(user => {
+                //Se envian todos los campos menos el id de usuario
+                const filterCars = user.array_cars.map(car => {
+                    const container = {}
+                    container["repairs"]=car.repairs;
+                    container["_id"]=car._id;
+                    container["brand"]=car.brand;
+                    container["car_model"]=car.car_model;
+                    container["frame_number"]=car.frame_number;
+                    container["reg_veh"] = car.reg_veh;
+                    container["kilometers"] = car.kilometers;
+                    container["year"] = car.year;
+                    container["ref_paint"] = car.ref_paint;
+                    return container;
+                })
+                res.status(200).json(filterCars);
             })
-            res.status(200).json(filterCars);
-        })
-        .catch((err) => handleError(err, res))
+            .catch((err) => handleError(err, res))
 }
 
 

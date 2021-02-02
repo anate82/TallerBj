@@ -17,7 +17,7 @@ function signUp(req, res) {
             alias: req.body.alias
         })
         .then(user => {
-            const data = {name: user.name,surname:user.surname, email: user.email}
+            const data = {name: user.name,surname:user.surname, email: user.email,role:user.role}
             const token = jwt.sign(data, process.env.SECRET)
             res.status(200).json({token: token, ...data})
         })
@@ -35,7 +35,8 @@ function login(req, res) {
                 const user_data = {
                     name: user.name,
                     surname:user.surname,
-                    email: req.body.email
+                    email: req.body.email,
+                    role:user.role
                 };
                 const token = jwt.sign(user_data,process.env.SECRET,{expiresIn: '2d'})
                 return res.status(200).json({token:token, ...user_data})

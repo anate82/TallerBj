@@ -1,33 +1,5 @@
-/*axios
-  .get('http://localhost:3000/api/posts', { headers: { token: localStorage.getItem('token')}})
-  .then(response => {
-    const posts = document.getElementById('posts');
-    response.data.forEach(post => {
-      const newPost = document.createElement('li')
-      newPost.innerHTML = post.title;
-      posts.appendChild(newPost)
-    })
-  })
-
-  document.getElementById('addCarButton').addEventListener("click", function() {
+function getUserProfile (){
     axios
-      .post('http://localhost:3000/api/cars', {
-              brand: document.getElementById('brandModal').value,
-              car_model: document.getElementById('modelModal').value,
-              frame_number: document.getElementById('frameModal').value,
-              reg_veh: document.getElementById('regModal').value,
-              kilometers: document.getElementById('kmModal').value,
-              year: document.getElementById('yearModal').value
-      }, { headers: { token: localStorage.getItem('token')}})
-      .then(response => {
-        console.log('Se ha añadido correctamente un vehículo')
-      })
-      .catch(function (error) {
-        console.log('No se ha podido añadir el vehículo')
-      });
-  })*/
-  function getUserProfile (){
-        axios
         .get('http://localhost:3000/api/users/me', { headers: { token: localStorage.getItem('token')}})
         .then(response => {
         document.getElementById('inputName').value=response.data.name;
@@ -39,11 +11,12 @@
         .catch(function (error) {
             console.log('Email o password erroneos')
         });
-  }
-  document.getElementById('navBarSalir').addEventListener("click", function() {
+}
+  
+document.getElementById('navBarSalir').addEventListener("click", function() {
     localStorage.clear();
     window.location.reload()
-  })
+})
 
 document.getElementById('saveButton').addEventListener('click', function() {
     axios

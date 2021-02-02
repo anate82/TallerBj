@@ -54,11 +54,13 @@ function createRepair(req, res) {
     carModel
         .findOne({_id:req.body.carId})
         .then(car => {
+            console.log(car)
             repairModel
                 .create({
                     user:car.user,
                     car:car._id,
-                    date_in:Date.now(),
+                    date_in: req.body.dateIn,
+                    date_out: req.body.dateOut,
                     secure:req.body.secure
                 })
                 .then(newRepair => {
@@ -150,16 +152,18 @@ function updateRepair(req, res) {
 
 function deleteRepairId(req, res) {
     repairModel
-        .deleteOne({_id: req.params.repairId})
+        .findByIdAndRemove({_id: req.params.repairId})
         .then(repairDeleted => {
+            console.log(repairDeleted)
+            console.log('4'+repairDeleted.car)
             carModel
                 .findOne({_id:repairDeleted.car})
                 .then(car =>{
-                    car.repairs.indexOf(req.params.repairId)
+                    let i = car.repairs.indexOf(req.params.repairId)
                     car.repairs.splice(i,1);
                     car.save(function (err) {
-                        if(err) return res.status(500).send(err);
-                        res.status(200).json(repairDeleted)                           
+                        if(err) return res.status(500).send(err);  
+                        res.status(200).json(repairDeleted)                       
                     })
                 })
                 .catch(err => {
@@ -192,14 +196,12 @@ function updateProcess(req, res) {
 }
 
 function notifyReaded(req, res) {
-    console.log('hola')
     repairModel
         .findOne({_id: req.params.repairId})
         .then(repair => {
             const processSelected = repair.process_repair.filter(process =>
                 process._id == req.params.processId
             )
-            console.log(processSelected)
             processSelected[0].readed = req.body.readed;
             repair.save(function (err) {
                 if(err) return res.status(500).send(err);

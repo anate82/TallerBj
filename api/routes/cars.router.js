@@ -6,6 +6,7 @@ const {
     getCarById,
     deleteCarById,
     createNewCar,
+    createCarByEmail,
     updateCarById
 } = require('../controllers/cars.controller.js')
 
@@ -13,6 +14,7 @@ const {
 router
     .get('/', isAdmin, getAllCars)
     .post('/', isUser, createNewCar)
+    .post('/:email', isAdmin, createCarByEmail)
     .get('/:carId', isUser, getCarById)
     //Busca el usuario que tenga el vehículo asociado, lo elimina y luego elimina el vehículo
     .delete('/:carId', isAdmin, deleteCarById)

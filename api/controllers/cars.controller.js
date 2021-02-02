@@ -5,6 +5,7 @@ const usersModel = require('../models/users.model');
 function getAllCars(req, res){
     carModel
         .find()
+        .populate('user')
         .then(allCars => {
             res.status(200).json(allCars);
         })
@@ -79,6 +80,37 @@ function createNewCar(req, res) {
         })
 }
 
+function createCarByEmail(req, res) {
+    usersModel
+        .findOne({email:req.params.email})
+        .then(user => {
+            carModel
+                .create({
+                    user: user._id,
+                    brand: req.body.brand,
+                    car_model: req.body.car_model,
+                    frame_number: req.body.frame_number,
+                    reg_veh: req.body.reg_veh,
+                    kilometers: req.body.kilometers,
+                    year: req.body.year
+                })
+                .then(newCar => {
+                    res.status(200).json(newCar)
+                    user.array_cars.push(newCar)
+                    user.save(function (err){
+                        if(err) return res.status(500).send(err);
+                    })
+                })
+                .catch(err => {
+                    res.status(500).send('Car can not be added')
+                })
+        })
+        .catch(err => {
+            res.status(500).send('Car can not be created')
+        })
+
+}
+
 function updateCarById(req, res){
     carModel
         .findOneAndUpdate({_id:req.params.carId}, {
@@ -103,5 +135,6 @@ module.exports = {
     getCarById,
     deleteCarById,
     createNewCar,
+    createCarByEmail,
     updateCarById
 }

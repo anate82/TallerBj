@@ -47,13 +47,7 @@
             </header>
         </div>
         <section class="row" id="mainContent">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <div class="col-11">
-                    <span class="badge badge-light" id="badgeMenu">Reparaciones</span>
-                    </div>
-                </div>      
-            </nav>
+            
         </section>
         <section class='container' id="repairSection">
         </section>
@@ -83,6 +77,32 @@
             </div>
             </div>
         </div>
+        <div class="modal fade" id="addMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Creación de Notificaciones</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="formAddCar">
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                    <label id="commentModal">Mensaje</label>
+                            </div>
+                            <div class="form-floating col-12">
+                                <textarea class="form-control" placeholder="Escribe tu mensaje" id="textareaModal" style="height: 100px"></textarea>
+                                <label for="textareaModal">Escribe tu mensaje</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="addMessageModal" class="btn btn-primary">Añadir</button>
+                </div>
+            </div>
+            </div>
+        </div>
         <div class="modal fade" id="addBudget" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
@@ -91,47 +111,53 @@
                 </div>
                 <div class="modal-body">
                     <form id="formBudget">
-                        <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="dateCreateModal">Fecha creación:</label>
-                            <input type="text" readonly class="form-control" id="dateCreateModal"  placeholder="Fecha creacion">
-                        </div>
-                        <div class="form-group col-12">
-                            <label for="typeModal">Tipo</label>
-                            <input type="text" readonly class="form-control" id="typeModal"  placeholder="Tipo reparación">
-                        </div>
-                        <div class="form-group col-12">
-                            <label for="descriptionModal">Descripción</label>
-                            <textarea class="form-control" readonly placeholder="Descripción" id="descriptionModal" style="height: 100px"></textarea>
-                        </div>
-                        <div class="form-group col-12">
-                            <label for="piecesModal">Piezas</label>
-                            <textarea class="form-control" readonly placeholder="Descripción" id="piecesModal" style="height: 100px"></textarea>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="hoursDisModal">Horas desmonte</label>
-                            <input type="text" readonly class="form-control" id="hoursDisModal"  placeholder="Horas desmonte">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="hoursRepairModal">Horas reparación</label>
-                            <input type="text" readonly class="form-control" id="hoursRepairModal"  placeholder="Año">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="paintModal">Pintura</label>
-                            <input type="text" readonly class="form-control" id="paintModal"  placeholder="Pintura">
-                        </div>
-                        <div class="form-group col-12">
-                            <label for="auxModal">Auxiliares</label>
-                            <textarea class="form-control" readonly placeholder="Auxiliares" id="auxModal" style="height: 100px"></textarea>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="priceModal">Precio</label>
-                            <input type="text" readonly class="form-control" id="priceModal"  placeholder="Precio">
-                        </div>
-                        <div class="form-group col-12">
-                            <input type="checkbox" class="form-check-input" id="acceptedModal" value=""  placeholder="Aceptado">
-                            <label class="form-check-label" for="acceptedModal">Aceptado</label>
-                        </div>
+                        <div class="form-row" >
+                            <div class="form-group col-12">
+                                <label for="dateCreateModal">Fecha creación:</label>
+                                <input type="text" readonly class="form-control" id="dateCreateModal"  placeholder="Fecha creacion">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="typeModal">Tipo</label>
+                                <input type="text" readonly class="form-control" id="typeModal"  placeholder="Tipo reparación">
+                            </div>
+                          <!--  <div class="form-group col-12">
+                                <label for="selectCar">Vehículo</label>
+                                <select class="form-select" id="selectCar" disabled aria-label="Default select example">
+                                    <option selected>Seleccione matrícula</option>
+                                </select>
+                            </div>-->
+                            <div class="form-group col-12">
+                                <label for="descriptionModal">Descripción</label>
+                                <textarea class="form-control" readonly placeholder="Descripción" id="descriptionModal" style="height: 100px"></textarea>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="piecesModal">Piezas</label>
+                                <textarea class="form-control" readonly placeholder="Descripción" id="piecesModal" style="height: 100px"></textarea>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="hoursDisModal">Horas desmonte</label>
+                                <input type="text" readonly class="form-control" id="hoursDisModal"  placeholder="Horas desmonte">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="hoursRepairModal">Horas reparación</label>
+                                <input type="text" readonly class="form-control" id="hoursRepairModal"  placeholder="Año">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="paintModal">Pintura</label>
+                                <input type="text" readonly class="form-control" id="paintModal"  placeholder="Pintura">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="auxModal">Auxiliares</label>
+                                <textarea class="form-control" readonly placeholder="Auxiliares" id="auxModal" style="height: 100px"></textarea>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="priceModal">Precio</label>
+                                <input type="text" readonly class="form-control" id="priceModal"  placeholder="Precio">
+                            </div>
+                            <div class="form-group col-12">
+                                <input type="checkbox" class="form-check-input" id="acceptedModal" value=""  placeholder="Aceptado">
+                                <label class="form-check-label" for="acceptedModal">Aceptado</label>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -142,6 +168,38 @@
             </div>
             </div>
         </div>
+
+        <div class="modal fade" id="addRepairCar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Crear Reparación</h5>
+                </div>
+                <div class="modal-body">
+                  <form id="formAddCar">
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="dateInModal">Fecha entrada</label>
+                              <input type="date" class="form-control" id="dateInModal"  placeholder="Fecha entrada">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="dateOutModal">Fecha salida</label>
+                              <input type="date" class="form-control" id="dateOutModal"  placeholder="Fecha salida">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="secureModal">Seguro</label>
+                            <input type="text" class="form-control" id="secureModal"  placeholder="Seguro">
+                        </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="button" id="addRepairCarButton" class="btn btn-primary">Añadir</button>
+                </div>
+              </div>
+            </div>
+          </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         <script src="script/repairs.js"></script>
     </body>

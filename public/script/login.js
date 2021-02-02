@@ -11,6 +11,7 @@ document.getElementById('loginButton').addEventListener("click", function(){
                     localStorage.setItem('email', response.data.email);
                     localStorage.setItem('name', response.data.name);
                     localStorage.setItem('surname', response.data.surname);
+                    localStorage.setItem('role',  response.data.role);
                     goHome();
                 } else {
                     console.log('Email o password erroneos')
@@ -25,6 +26,8 @@ document.getElementById('loginButton').addEventListener("click", function(){
 })
 
 window.onload = function(){
+    $('#myToast').toast();
+    $('#myToast').toast('show'); 
 }
 
 

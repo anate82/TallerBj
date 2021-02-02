@@ -2095,3 +2095,7 @@ textarea.form-control {
   text-align: center;
   width: 100%;
 }
+#myToast  {
+  position: fixed;
+  z-index: 20000;
+}
