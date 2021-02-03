@@ -7,6 +7,7 @@ const { populate } = require('../models/cars.model');
 function getAllRepairs(req, res) {
     repairModel
         .find()
+        .populate('car')
         .then(repairs => {
             res.status(200).json(repairs)
         })
@@ -182,11 +183,12 @@ function updateProcess(req, res) {
             const processSelected = repair.process_repair.filter(process =>
                 process._id == req.params.processId
             )
-            processSelected[0].date_client = new Date().getTime;
+            processSelected[0].readed = false;
+            processSelected[0].date_client = new Date().getTime();
             processSelected[0].comment_client = req.body.comment;
             repair.save(function (err) {
                 if(err) return res.status(500).send(err);
-                res.status(200).json(repair)                           
+                res.status(200).json(repair)               
             })
             
         })

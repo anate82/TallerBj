@@ -14,20 +14,30 @@ document.getElementById('loginButton').addEventListener("click", function(){
                     localStorage.setItem('role',  response.data.role);
                     goHome();
                 } else {
-                    console.log('Email o password erroneos')
+                    showPopup('Email o password erroneos')
                 }
             })
             .catch(function (error) {
-                console.log('Email o password erroneos')
+                showPopup('Email o password erroneos')
             });
     } else {
-        console.log("Email incorrecto")
+        showPopup('Email o password erroneos')
     }
 })
+function showPopup(message){
+    $('#myToast').toast('show'); 
+    var myToastEl = document.getElementsByClassName('toast-body');
+    myToastEl[0].innerHTML += message;
+}
 
 window.onload = function(){
     $('#myToast').toast();
-    $('#myToast').toast('show'); 
+    var myToastEl = document.getElementById('myToast');
+    myToastEl.addEventListener('hidden.bs.toast', function () {
+        var myToastEl = document.getElementsByClassName('toast-body');
+        myToastEl[0].innerHTML = "";
+    })
+
 }
 
 

@@ -9,10 +9,10 @@ document.getElementById('addCarButton').addEventListener("click", function() {
             year: document.getElementById('yearModal').value
     }, { headers: { token: localStorage.getItem('token')}})
     .then(response => {
-      console.log('Se ha añadido correctamente un vehículo')
+      showPopup('Se ha añadido correctamente un vehículo')
     })
     .catch(function (error) {
-      console.log('No se ha podido añadir el vehículo')
+      showPopup('No se ha podido añadir el vehículo')
     });
 })
 
@@ -27,11 +27,11 @@ document.getElementById('addCarUserButton').addEventListener("click", function()
             year: document.getElementById('yearModalUser').value
     }, { headers: { token: localStorage.getItem('token')}})
     .then(response => {
-      console.log('Se ha añadido correctamente un vehículo')
+      showPopup('Se ha añadido correctamente un vehículo')
       window.location.reload();
     })
     .catch(function (error) {
-      console.log('No se ha podido añadir el vehículo')
+      showPopup('No se ha podido añadir el vehículo')
     });
 
 })
@@ -125,11 +125,11 @@ function showAllCars(){
                 axios
                   .delete(`http://localhost:3000/api/cars/${arrId[i]}`, { headers: { token: localStorage.getItem('token')}})
                   .then(response =>{
-                    console.log('Vehiculo Eliminado')
+                    showPopup('Vehiculo Eliminado')
                     window.location = 'http://localhost:3000/carPage.html'
                   })
                   .catch(function (error) {
-                    console.log('No se ha podido eliminar el vehículo')
+                    showPopup('No se ha podido eliminar el vehículo')
                   });
               }
               //Controla el evento de las reparaciones
@@ -149,10 +149,10 @@ function showAllCars(){
                         year:  document.getElementById(`year${i}`).value,
                 }, { headers: { token: localStorage.getItem('token')}})
                 .then(response => {
-                  console.log('Vehículo Actualizado')
+                  showPopup('Vehículo Actualizado')
                 })
                 .catch(function (error) {
-                  console.log('No se ha podido actualizar el vehículo')
+                  showPopup('No se ha podido actualizar el vehículo')
                 });
               };
             }
@@ -171,7 +171,7 @@ function showUsersSelect(){
       });
     })
     .catch(function (error) {
-      console.log('No se ha podido actualizar el dropdown')
+      showPopup('No se ha podido actualizar el dropdown')
     });
 }
 function getAllCars() {
@@ -274,17 +274,17 @@ function getAllCars() {
                           year:  document.getElementById(`year${i}`).value,
                   }, { headers: { token: localStorage.getItem('token')}})
                   .then(response => {
-                    console.log('Vehículo Actualizado')
+                    showPopup('Vehículo Actualizado')
                   })
                   .catch(function (error) {
-                    console.log('No se ha podido actualizar el vehículo')
+                    showPopup('No se ha podido actualizar el vehículo')
                   });
                 };
             }
           })
     })
     .catch(function (error) {
-      console.log('No se ha podido encontrar los vehículos del usuario')
+        showPopup('No se ha podido encontrar los vehículos del usuario')
     });
   }
 }
@@ -296,7 +296,19 @@ function redirectRepairs(e){
   window.location = "http://localhost:3000/repairPage.html"
 }
 
+function showPopup(message){
+  $('#myToast').toast('show'); 
+  var myToastEl = document.getElementsByClassName('toast-body');
+  myToastEl[0].innerHTML += message;
+}
+
 window.onload = function () {
+  $('#myToast').toast();
+  var myToastEl = document.getElementById('myToast');
+  myToastEl.addEventListener('hidden.bs.toast', function () {
+      var myToastEl = document.getElementsByClassName('toast-body');
+      myToastEl[0].innerHTML = "";
+  })
   document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
   
   let nav = document.getElementById('navbarResponsive')

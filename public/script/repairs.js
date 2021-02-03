@@ -121,11 +121,11 @@ document.getElementById('addCommentModal').addEventListener("click", function ()
             comment: document.getElementById('textareaModal').value
         }, { headers: { token: localStorage.getItem('token') } })
         .then(response => {
-            console.log('Se ha añadido correctamente un comentario')
+            showPopup('Se ha añadido correctamente un comentario')
             window.location.reload()
         })
         .catch(function (error) {
-            console.log('No se ha podido añadir el comentario')
+            showPopup('No se ha podido añadir el comentario')
         });
 })
 document.getElementById('addMessageModal').addEventListener("click", function () {
@@ -134,11 +134,11 @@ document.getElementById('addMessageModal').addEventListener("click", function ()
             comment: document.getElementById('notifyModal').value
         }, { headers: { token: localStorage.getItem('token') } })
         .then(response => {
-            console.log('Se ha añadido correctamente un comentario')
+            showPopup('Se ha añadido correctamente un comentario')
             window.location.reload()
         })
         .catch(function (error) {
-            console.log('No se ha podido añadir el comentario')
+            showPopup('No se ha podido añadir el comentario')
         });
    
 
@@ -167,7 +167,7 @@ document.getElementById('addRepairCarButton').addEventListener("click", function
             window.location.reload()
         })
         .catch(function (error) {
-            console.log('No se han podido crear nueva reparacion')
+            showPopup('No se han podido crear nueva reparacion')
         });
 })
 
@@ -189,11 +189,11 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
                 accepted: document.getElementById('acceptedModal').checked
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
-                console.log('Se ha creado correctamente el presupuesto')
+                showPopup('Se ha creado correctamente el presupuesto')
                 window.location = 'http://localhost:3000/repairPage.html'
             })
             .catch(function (error) {
-                console.log('No se ha podido crear el presupuesto')
+                showPopup('No se ha podido crear el presupuesto')
             });
     } else {
         axios
@@ -203,11 +203,11 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
 
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
-                console.log('Se ha actualizado correctamente un presupuesto')
+                showPopup('Se ha actualizado correctamente un presupuesto')
                 window.location = 'http://localhost:3000/repairPage.html'
             })
             .catch(function (error) {
-                console.log('No se ha podido actualizar el presupuesto')
+                showPopup('No se ha podido actualizar el presupuesto')
             });
     }
 })
@@ -287,7 +287,7 @@ function showRepairCarAdmin() {
             }
         })
         .catch(function (error) {
-            console.log('Catch No se ha podido encontrar los vehículos del usuario')
+            showPopup('Catch No se ha podido encontrar los vehículos del usuario')
         });
 }
 
@@ -368,7 +368,7 @@ function showRepairCar() {
             }
         })
         .catch(function (error) {
-            console.log('Catch No se ha podido encontrar los vehículos del usuario')
+            showPopup('Catch No se ha podido encontrar los vehículos del usuario')
         });
 }
 
@@ -390,7 +390,7 @@ function loadCarsInSelect(){
             })
         })
         .catch(function (error) {
-            console.log('Catch No se ha podido encontrar los vehículos')
+            showPopup('Catch No se ha podido encontrar los vehículos')
         });
 }*/
 function goCars(){
@@ -402,18 +402,28 @@ function deleteRepair(){
         axios
         .delete(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}`, { headers: { token: localStorage.getItem('token') } })
         .then(repairDeleted => {
-            console.log(`Reparacion eliminada`);
+            showPopup(`Reparacion eliminada`);
             goCars();
         })
         .catch(function (error) {
-            console.log('No se han podido encontrar los vehículos')
+            showPopup('No se han podido encontrar los vehículos')
         });
     }
 }
 
-
+function showPopup(message){
+    $('#myToast').toast('show'); 
+    var myToastEl = document.getElementsByClassName('toast-body');
+    myToastEl[0].innerHTML += message;
+}
 
 window.onload = function () {
+    $('#myToast').toast();
+    var myToastEl = document.getElementById('myToast');
+    myToastEl.addEventListener('hidden.bs.toast', function () {
+        var myToastEl = document.getElementsByClassName('toast-body');
+        myToastEl[0].innerHTML = "";
+    })
     document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
     localStorage.setItem('idRepair', "")
     let nav = document.getElementById('navbarResponsive')
@@ -523,14 +533,14 @@ window.onload = function () {
                     secure: document.getElementById('secure').value
                 }, { headers: { token: localStorage.getItem('token') } })
                 .then(response => {
-                    console.log("Actualizacion informacion reparación actualizada")
+                    showPopup("Actualizacion informacion reparación actualizada")
                 })
                 .catch(function (error) {
-                    console.log('No se han podido encontrar los vehículos')
+                    showPopup('No se han podido encontrar los vehículos')
                 });
         })
     } else {
-        mainhtml.innerHTML += `<<div class="container-fluid bg-dark text-light">
+        mainhtml.innerHTML += `<div class="container-fluid bg-dark text-light">
             <div class="row bg-dark pt-3 pb-3">
                 <div class="col-11">
                     <span class="badge badge-light" id="badgeMenu">Reparaciones</span>

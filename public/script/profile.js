@@ -9,7 +9,7 @@ function getUserProfile (){
         document.getElementById('inputEmail').value=response.data.email;
         })
         .catch(function (error) {
-            console.log('Email o password erroneos')
+            showPopup('Email o password erroneos')
         });
 }
 
@@ -23,10 +23,10 @@ document.getElementById('saveButton').addEventListener('click', function() {
             email: document.getElementById('inputEmail').value
         }, { headers: { token: localStorage.getItem('token')}})
         .then(response => {
-            console.log('Perfil Actualizado')
+            showPopup('Perfil Actualizado')
         })
         .catch(function (error) {
-            console.log('Error al actualizar el perfil')
+            showPopup('Error al actualizar el perfil')
         });
 
 })
@@ -51,17 +51,29 @@ document.getElementById('saveButtonPswd').addEventListener('click', function() {
                 password: document.getElementById('inputRePswdRec').value
             }, { headers: { token: localStorage.getItem('token')}})
             .then(response => {
-                console.log('Contraseña Actualizada');
+                showPopup('Contraseña Actualizada');
             })
             .catch(function (error) {
-                console.log('Error al actualizar la contraseña');
+                showPopup('Error al actualizar la contraseña');
             });
     } else {
-        console.log('Las contraseñas no son iguales');
+        showPopup('Las contraseñas no son iguales');
     }
 })
-  
+ 
+function showPopup(message){
+    $('#myToast').toast('show'); 
+    var myToastEl = document.getElementsByClassName('toast-body');
+    myToastEl[0].innerHTML += message;
+}
+
 window.onload = function () {
+    $('#myToast').toast();
+    var myToastEl = document.getElementById('myToast');
+    myToastEl.addEventListener('hidden.bs.toast', function () {
+        var myToastEl = document.getElementsByClassName('toast-body');
+        myToastEl[0].innerHTML = "";
+    })
     document.getElementById('sectionProfile').style.display = "block";
     document.getElementById('sectionPswd').style.display = "none";
     document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');

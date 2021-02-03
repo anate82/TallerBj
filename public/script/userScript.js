@@ -3,6 +3,7 @@ function showAllUsers(){
         .get('http://localhost:3000/api/users', { headers: { token: localStorage.getItem('token')}})
         .then(arrayUsers => {
             let arrId = [];
+            let arrPswd = [];
             arrayUsers.data.forEach((user,index) =>{
                 let accordionSection = document.getElementById('notifySection');
                 accordionSection.innerHTML+= `<section class="row">
@@ -37,6 +38,10 @@ function showAllUsers(){
                               <input type="text" class="form-control" id="email${index}" placeholder="Email" value="${user.email}">
                             </div>
                             <div class="form-group col-8">
+                              <label for="pswd${index}">Password</label>
+                              <input type="password" class="form-control" id="pswd${index}" placeholder="Password" value="${user.password}">
+                            </div>
+                            <div class="form-group col-8">
                               <button type="button" class="actUserBoton btn btn-warning mb-3">Actualizar</button>
                             </div>
                           </form>
@@ -45,19 +50,71 @@ function showAllUsers(){
                     </div>
                   </div>
                 </section>`;
+                arrId.push(user._id);
+                arrPswd.push(user.password);
+                let actUserBoton = document.getElementsByClassName('actUserBoton');  
+                for(let i=0; i<actUserBoton.length; i++){
+                    actUserBoton[i].onclick = function () {
+                        axios
+                            .put('http://localhost:3000/api/users/me',{
+                                _id:arrId[i],
+                                name: document.getElementById(`name${i}`).value,
+                                surname: document.getElementById(`surname${i}`).value,
+                                dni: document.getElementById(`dni${i}`).value,
+                                phone: document.getElementById(`phone${i}`).value,
+                                email: document.getElementById(`email${i}`).value
+                            }, { headers: { token: localStorage.getItem('token')}})
+                            .then(response => {
+                                showPopup('Vehículo Actualizado')
+                                if(arrPswd[i] !== document.getElementById(`pswd${i}`).value){
+                                    axios
+                                    .put('http://localhost:3000/api/users/me/password',{
+                                        _id:arrId[i],
+                                        password: document.getElementById(`pswd${i}`).value
+                                    }, { headers: { token: localStorage.getItem('token')}})
+                                    .then(response => {
+                                        showPopup('Contraseña Actualizada');
+                                        window.location.reload();
+                                    })
+                                    .catch(function (error) {
+                                        showPopup('Error al actualizar la contraseña');
+                                    });
+
+                                } else {
+                                    window.location.reload();
+                                }
+                                
+                            })
+                            .catch(function (error) {
+                                showPopup('No se ha podido actualizar el vehículo')
+                            });
+                    };
+                }
                
             })
         })
         .catch(function (error) {
-            console.log('No se ha podido mostrar los usuarios')
+            showPopup('No se ha podido mostrar los usuarios')
         });
 }
 
+function showPopup(message){
+  $('#myToast').toast('show'); 
+  var myToastEl = document.getElementsByClassName('toast-body');
+  myToastEl[0].innerHTML += message;
+}
+
 window.onload = function () {
-    document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
-    let nav = document.getElementById('navbarResponsive')
-    if (localStorage.getItem('role') == 'admin'){
-        nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+  $('#myToast').toast();
+  var myToastEl = document.getElementById('myToast');
+  myToastEl.addEventListener('hidden.bs.toast', function () {
+      var myToastEl = document.getElementsByClassName('toast-body');
+      myToastEl[0].innerHTML = "";
+  })
+  document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
+  let nav = document.getElementById('navbarResponsive')
+  if (localStorage.getItem('role') == 'admin'){
+    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
                       <li class="nav-item">
                           <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
                       </li>

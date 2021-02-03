@@ -149,35 +149,67 @@ function deleteUserByEmail (req, res) {
   
 //Actualiza la informacion personal de un usuario pero no el campo contraseña
 function updateUserData (req, res) {
-    userModel
-        .findOneAndUpdate({_id:res.locals.user._id}, {
-            name: req.body.name,
-            surname: req.body.surname,
-            dni: req.body.dni,
-            phone: req.body.phone,
-            email: req.body.email
-        })
-        .then(userUpdate => {
-            res.status(200).json({
-               name:userUpdate.name,
-               surname:userUpdate.surname})
-        })
-        .catch((err) => handleError(err, res))
+    if(res.locals.user.role === 'admin') {
+        userModel
+            .findOneAndUpdate({_id:req.body._id}, {
+                name: req.body.name,
+                surname: req.body.surname,
+                dni: req.body.dni,
+                phone: req.body.phone,
+                email: req.body.email
+            })
+            .then(userUpdate => {
+                res.status(200).json({
+                name:userUpdate.name,
+                surname:userUpdate.surname})
+            })
+            .catch((err) => handleError(err, res))
+    } else {
+        userModel
+            .findOneAndUpdate({_id:res.locals.user._id}, {
+                name: req.body.name,
+                surname: req.body.surname,
+                dni: req.body.dni,
+                phone: req.body.phone,
+                email: req.body.email
+            })
+            .then(userUpdate => {
+                res.status(200).json({
+                name:userUpdate.name,
+                surname:userUpdate.surname})
+            })
+            .catch((err) => handleError(err, res))
+    }
 }
 
 //Actualiza el campo contraseña de la base de datos
 function updateUserPassword (req, res) {
-    const encryptedPasswd = bcrypt.hashSync(req.body.password, 10)
-    userModel
-        .findOneAndUpdate({_id:res.locals.user._id}, {
-            password: encryptedPasswd
-        })
-        .then(userUpdate => {
-            res.status(200).json({
-               name:userUpdate.name,
-               surname:userUpdate.surname})
-        })
-        .catch((err) => handleError(err, res))
+    if(res.locals.user.role === 'admin') {
+        const encryptedPasswd = bcrypt.hashSync(req.body.password, 10)
+        userModel
+            .findOneAndUpdate({_id:req.body._id}, {
+                password: encryptedPasswd
+            })
+            .then(userUpdate => {
+                res.status(200).json({
+                name:userUpdate.name,
+                surname:userUpdate.surname})
+            })
+            .catch((err) => handleError(err, res))
+    } else {
+        const encryptedPasswd = bcrypt.hashSync(req.body.password, 10)
+        userModel
+            .findOneAndUpdate({_id:res.locals.user._id}, {
+                password: encryptedPasswd
+            })
+            .then(userUpdate => {
+                res.status(200).json({
+                name:userUpdate.name,
+                surname:userUpdate.surname})
+            })
+            .catch((err) => handleError(err, res))
+    }
+    
 }
 /*
 function updateCarOfUser(req, res) {

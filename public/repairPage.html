@@ -12,181 +12,194 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     </head>
     <body>
-        <div class="row">
-            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-                <div class="container-fluid">
-                    <a class="navbar-brand text-warning js-scroll-trigger" href="#page-top">Taller BJ</a>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <section class="container-fluid">
+            <section class="row">
+                <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+                    <div class="container-fluid">
+                        <a class="navbar-brand text-warning js-scroll-trigger" href="#page-top">Taller BJ</a>
+                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarResponsive">
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </div>
-        <div class="row">
-            <header id="headerRowProfile">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid" id="navBarheader">
-                    <a class="navbar-brand" aria-current="page" id="navUser" href="">usuario</a>
-                </div>    
                 </nav>
-            </header>
-        </div>
-        <section class="row" id="mainContent">
-            
-        </section>
-        <section class='container' id="repairSection">
-        </section>
-        <div class="modal fade" id="addComment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Responder</h5>
+            </section>
+            <section class="row">
+                <header id="headerRowProfile">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="container-fluid" id="navBarheader">
+                            <a class="navbar-brand" aria-current="page" id="navUser" href="">usuario</a>
+                        </div>    
+                    </nav>
+                </header>
+            </section>
+            <section class="row" id="mainContent">
+            </section>
+            <section class='container' id="repairSection">
+            </section>
+            <section class="modal fade" id="addComment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Responder</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAddCar">
+                            <div class="form-row">
+                                <div class="form-group col-12">
+                                        <label id="commentModal">Comentario</label>
+                                </div>
+                                <div class="form-floating col-12">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="textareaModal" style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">Añade tu comentario</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" id="addCommentModal" class="btn btn-primary">Añadir</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form id="formAddCar">
-                        <div class="form-row">
-                            <div class="form-group col-12">
-                                    <label id="commentModal">Comentario</label>
-                            </div>
-                            <div class="form-floating col-12">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="textareaModal" style="height: 100px"></textarea>
-                                <label for="floatingTextarea2">Añade tu comentario</label>
-                            </div>
+                </div>
+            </section>
+            <section class="modal fade" id="addMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Creación de Notificaciones</h5>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" id="addCommentModal" class="btn btn-primary">Añadir</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="modal fade" id="addMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Creación de Notificaciones</h5>
-                </div>
-                <div class="modal-body">
-                    <form id="formAddCar">
-                        <div class="form-row">
-                            <div class="form-group col-12">
-                                    <label id="commentModal">Mensaje</label>
-                            </div>
-                            <div class="form-floating col-12">
-                                <textarea class="form-control" placeholder="Escribe tu mensaje" id="notifyModal" style="height: 100px"></textarea>
-                                <label for="notifyModal">Escribe tu mensaje</label>
-                            </div>
+                        <div class="modal-body">
+                            <form id="formAddCar">
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label id="commentModal">Mensaje</label>
+                                    </div>
+                                    <div class="form-floating col-12">
+                                        <textarea class="form-control" placeholder="Escribe tu mensaje" id="notifyModal" style="height: 100px"></textarea>
+                                        <label for="notifyModal">Escribe tu mensaje</label>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" id="addMessageModal" class="btn btn-primary">Añadir</button>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="modal fade" id="addBudget" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Presupuesto</h5>
-                </div>
-                <div class="modal-body">
-                    <form id="formBudget">
-                        <div class="form-row" >
-                            <div class="form-group col-12">
-                                <label for="dateCreateModal">Fecha creación:</label>
-                                <input type="text" readonly class="form-control" id="dateCreateModal"  placeholder="Fecha creacion">
-                            </div>
-                            <div class="form-group col-12">
-                                <label for="typeModal">Tipo</label>
-                                <input type="text" readonly class="form-control" id="typeModal"  placeholder="Tipo reparación">
-                            </div>
-                          <!--  <div class="form-group col-12">
-                                <label for="selectCar">Vehículo</label>
-                                <select class="form-select" id="selectCar" disabled aria-label="Default select example">
-                                    <option selected>Seleccione matrícula</option>
-                                </select>
-                            </div>-->
-                            <div class="form-group col-12">
-                                <label for="descriptionModal">Descripción</label>
-                                <textarea class="form-control" readonly placeholder="Descripción" id="descriptionModal" style="height: 100px"></textarea>
-                            </div>
-                            <div class="form-group col-12">
-                                <label for="piecesModal">Piezas</label>
-                                <textarea class="form-control" readonly placeholder="Descripción" id="piecesModal" style="height: 100px"></textarea>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="hoursDisModal">Horas desmonte</label>
-                                <input type="text" readonly class="form-control" id="hoursDisModal"  placeholder="Horas desmonte">
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="hoursRepairModal">Horas reparación</label>
-                                <input type="text" readonly class="form-control" id="hoursRepairModal"  placeholder="Horas reparacion">
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="paintModal">Pintura</label>
-                                <input type="text" readonly class="form-control" id="paintModal"  placeholder="Pintura">
-                            </div>
-                            <div class="form-group col-12">
-                                <label for="auxModal">Auxiliares</label>
-                                <textarea class="form-control" readonly placeholder="Auxiliares" id="auxModal" style="height: 100px"></textarea>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for="priceModal">Precio</label>
-                                <input type="text" readonly class="form-control" id="priceModal"  placeholder="Precio">
-                            </div>
-                            <div class="form-group col-12">
-                                <input type="checkbox" class="form-check-input" id="acceptedModal" value=""  placeholder="Aceptado">
-                                <label class="form-check-label" for="acceptedModal">Aceptado</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" id="addBudgetModal" class="btn btn-primary">Guardar</button>
-                </div>
-            </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="addRepairCar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">Crear Reparación</h5>
-                </div>
-                <div class="modal-body">
-                  <form id="formAddCar">
-                    <div class="form-row">
-                        <div class="form-group col-6">
-                            <label for="dateInModal">Fecha entrada</label>
-                              <input type="date" class="form-control" id="dateInModal"  placeholder="Fecha entrada">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="dateOutModal">Fecha salida</label>
-                              <input type="date" class="form-control" id="dateOutModal"  placeholder="Fecha salida">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="secureModal">Seguro</label>
-                            <input type="text" class="form-control" id="secureModal"  placeholder="Seguro">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" id="addMessageModal" class="btn btn-primary">Añadir</button>
                         </div>
                     </div>
-                  </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button type="button" id="addRepairCarButton" class="btn btn-primary">Añadir</button>
+            </section>
+            <section class="modal fade" id="addBudget" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Presupuesto</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formBudget">
+                                <div class="form-row" >
+                                    <div class="form-group col-12">
+                                        <label for="dateCreateModal">Fecha creación:</label>
+                                        <input type="text" readonly class="form-control" id="dateCreateModal"  placeholder="Fecha creacion">
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="typeModal">Tipo</label>
+                                        <input type="text" readonly class="form-control" id="typeModal"  placeholder="Tipo reparación">
+                                    </div>
+                                <!--  <div class="form-group col-12">
+                                        <label for="selectCar">Vehículo</label>
+                                        <select class="form-select" id="selectCar" disabled aria-label="Default select example">
+                                            <option selected>Seleccione matrícula</option>
+                                        </select>
+                                    </div>-->
+                                    <div class="form-group col-12">
+                                        <label for="descriptionModal">Descripción</label>
+                                        <textarea class="form-control" readonly placeholder="Descripción" id="descriptionModal" style="height: 100px"></textarea>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="piecesModal">Piezas</label>
+                                        <textarea class="form-control" readonly placeholder="Descripción" id="piecesModal" style="height: 100px"></textarea>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="hoursDisModal">Horas desmonte</label>
+                                        <input type="text" readonly class="form-control" id="hoursDisModal"  placeholder="Horas desmonte">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="hoursRepairModal">Horas reparación</label>
+                                        <input type="text" readonly class="form-control" id="hoursRepairModal"  placeholder="Horas reparacion">
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="paintModal">Pintura</label>
+                                        <input type="text" readonly class="form-control" id="paintModal"  placeholder="Pintura">
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="auxModal">Auxiliares</label>
+                                        <textarea class="form-control" readonly placeholder="Auxiliares" id="auxModal" style="height: 100px"></textarea>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label for="priceModal">Precio</label>
+                                        <input type="text" readonly class="form-control" id="priceModal"  placeholder="Precio">
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <input type="checkbox" class="form-check-input" id="acceptedModal" value=""  placeholder="Aceptado">
+                                        <label class="form-check-label" for="acceptedModal">Aceptado</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" id="addBudgetModal" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
+            </section>
+            <section class="modal fade" id="addRepairCar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Crear Reparación</h5>
+                        </div>
+                        <div class="modal-body">
+                        <form id="formAddCar">
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="dateInModal">Fecha entrada</label>
+                                    <input type="date" class="form-control" id="dateInModal"  placeholder="Fecha entrada">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="dateOutModal">Fecha salida</label>
+                                    <input type="date" class="form-control" id="dateOutModal"  placeholder="Fecha salida">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="secureModal">Seguro</label>
+                                    <input type="text" class="form-control" id="secureModal"  placeholder="Seguro">
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" id="addRepairCarButton" class="btn btn-primary">Añadir</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-bottom pt-5 mt-5 w-100">
+                <div role="alert" aria-live="assertive" id="myToast" aria-atomic="true" class="toast bg-warning" data-bs-autohide="false">
+                    <div class="toast-header">
+                        <img src='assets/img/favicon-32x32.png' class="rounded me-2">
+                        <strong class="me-auto">  </strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         <script src="script/repairs.js"></script>
     </body>

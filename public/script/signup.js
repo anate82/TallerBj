@@ -21,30 +21,45 @@ document.getElementById('signupButton').addEventListener("click", function(){
                   localStorage.setItem('role',  response.data.role);
                   goHome();
                 } else {
-                  alert('Datos erroneos')
+                  showPopup('Datos erroneos')
                   window.location = "http://localhost:3000/signup.html"
                 }
             })
             .catch(function (error) {
-                alert('El usuario ya esta registrado')
+                showPopup('El usuario ya esta registrado')
             });
       } else {
-        alert("Las contraseñas no coinciden")
+        showPopup("Las contraseñas no coinciden")
       }
     } else {
-      alert("Email incorrecto")
+      showPopup("Email incorrecto")
     }
 })
 
   
-  function validEmail(email) {
-    var filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
-    return(String(email).search (filter) != -1);
-  }
-  function validPassword(psw, repsw){
-    return(psw === repsw)
-  }
+function validEmail(email) {
+  var filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
+  return(String(email).search (filter) != -1);
+}
+function validPassword(psw, repsw){
+  return(psw === repsw)
+}
 
-  function goHome(){
-    window.location = "http://localhost:3000/home.html"
-  }
+function goHome(){
+  window.location = "http://localhost:3000/home.html"
+}
+
+function showPopup(message){
+  $('#myToast').toast('show'); 
+  var myToastEl = document.getElementsByClassName('toast-body');
+  myToastEl[0].innerHTML += message;
+}
+
+window.onload = function () {
+  $('#myToast').toast();
+  var myToastEl = document.getElementById('myToast');
+  myToastEl.addEventListener('hidden.bs.toast', function () {
+    var myToastEl = document.getElementsByClassName('toast-body');
+    myToastEl[0].innerHTML = "";
+  }) 
+}
