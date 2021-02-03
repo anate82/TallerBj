@@ -1815,6 +1815,11 @@ textarea.form-control {
   }
 }
 @media (max-width: 360px) {
+  .buttonActivity{
+    flex: 0 0 auto;
+    width: 8.666667%;
+    margin-right:17px;
+  }
   header.masthead {
     padding-top: 17rem;
     padding-bottom: 12.5rem;
@@ -1930,6 +1935,11 @@ textarea.form-control {
 }
 
 @media (min-width: 768px) {
+  .buttonActivity{
+    flex: 0 0 auto;
+    width: 8.666667%;
+    margin-right:0px;
+  }
   .timeline:before {
     left: 50%;
   }
@@ -1988,6 +1998,11 @@ textarea.form-control {
   }
 }
 @media (min-width: 1200px) {
+  .buttonActivity{
+    flex: 0 0 auto;
+    width: 8.666667%;
+    margin-right:0px;
+  }
   .timeline > li {
     min-height: 170px;
   }
@@ -2098,4 +2113,6 @@ textarea.form-control {
 #myToast  {
   position: fixed;
   z-index: 20000;
+  top:96px;
+  width:50%;
 }
