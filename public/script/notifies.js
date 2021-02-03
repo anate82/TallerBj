@@ -6,11 +6,10 @@ function showNotifies(){
             let notififyCounter = 0;
             let arrProcess = [];
             arrayRepairs.data.forEach((repair, index) => {
-                
                 if (repair.process_repair.length > 0){
                     arrProcess = [];
                     repair.process_repair.forEach(process =>{
-                        if (!process.readed){
+                        if ((!process.readed) && (process.comment_pro.length>0)){
                             notififyCounter ++;
                             p.innerHTML += `<tr>
                             <th scope="row">${repair.car.reg_veh}</th>
@@ -77,8 +76,8 @@ window.onload = function () {
                           <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
                       </li>
                   </ul>`
-  } else {
-    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+    } else {
+        nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
                       <li class="nav-item">
                           <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
                       </li>
@@ -92,10 +91,10 @@ window.onload = function () {
                           <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
                       </li>
                   </ul>`
-  }
-  document.getElementById('navBarSalir').addEventListener("click", function() {
-    localStorage.clear();
-    window.location.reload()
-  })
+    }
+    document.getElementById('navBarSalir').addEventListener("click", function() {
+        localStorage.clear();
+        window.location.reload()
+    })
     showNotifies();
 }

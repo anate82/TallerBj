@@ -13,7 +13,6 @@ function budgetState(budget) {
 }
 
 function convertDate(date) {
-    console.log(date)
     let dateResult = new Date(date);
     let year = dateResult.getFullYear();
     let month = (dateResult.getMonth() +1).toLocaleString('en-US', {
@@ -46,12 +45,12 @@ function showAllProcess(arrayComments) {
                             <button type="button" style="display:none" class="btn btn-warning replyClient" data-bs-toggle="modal" data-bs-target="#addComment" data-bs-whatever="addComment"><i class="fas fa-reply"></i></button>
                         </div>
                     </div>
-                    <div class="card-header row bg-secondary">
-                    Cliente
+                    <div class="card-header row bg-secondary text-light">
+                        Cliente
                     </div>
                     <div class="card-body">
-                    <p class="card-text col-12">${comment.comment_client}</p>
-                    <footer class="blockquote-footer">${convertDate(comment.date_client)}</footer> 
+                        <p class="card-text col-12">${comment.comment_client}</p>
+                        <footer class="blockquote-footer">${convertDate(comment.date_client)}</footer> 
                     </div>
                 </div>
             </div>`;
@@ -63,7 +62,7 @@ function showAllProcess(arrayComments) {
                         Taller
                     </div>
                     <div class="card-body">
-                        <div class=" col-10">
+                        <div class=" col-11">
                             <p class="card-text">${comment.comment_pro}</p>
                             
                             <footer class="blockquote-footer">${convertDate(comment.date_pro)}</footer> 
@@ -71,17 +70,21 @@ function showAllProcess(arrayComments) {
                         <div class=" col-1">
                             <button type="button" class="btn btn-warning replyClient" data-bs-toggle="modal" data-bs-target="#addComment" data-bs-whatever="addComment"><i class="fas fa-reply"></i></button>
                         </div>
-                    </div>`
+                    </div>
+                </div>
+                </div>`
             } else {
                 if (comment.comment_client.length > 0) {
                     commentResult += `<div class="boxCar row">
                         <div class="card">
-                            <div class="card-header row">
-                            Cliente
+                            <div class="card-header row bg-secondary text-light">
+                                Cliente
                             </div>
                             <div class="card-body">
-                            <p class="card-text col-11">${comment.comment_client}</p>
-                            <footer class="blockquote-footer">${convertDate(comment.date_client)}</footer> 
+                                <div class=" col-12">
+                                    <p class="card-text col-11">${comment.comment_client}</p>
+                                    <footer class="blockquote-footer">${convertDate(comment.date_client)}</footer>
+                                </div> 
                             </div>
                         </div>
                     </div>`;
@@ -94,9 +97,7 @@ function showAllProcess(arrayComments) {
 }
 
 function showDateOut(objRepair) {
-    console.log(objRepair)
     if (objRepair.hasOwnProperty('date_out')) {
-        console.log("hola")
         return convertDate(objRepair.date_out);
     } else {
         let date = new Date();
@@ -434,8 +435,8 @@ window.onload = function () {
                           <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
                       </li>
                   </ul>`
-  } else {
-    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
+    } else {
+        nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
                       <li class="nav-item">
                           <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
                       </li>
@@ -449,11 +450,11 @@ window.onload = function () {
                           <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
                       </li>
                   </ul>`
-  }
-  document.getElementById('navBarSalir').addEventListener("click", function() {
-    localStorage.clear();
-    window.location.reload()
-  })
+    }
+    document.getElementById('navBarSalir').addEventListener("click", function() {
+        localStorage.clear();
+        window.location.reload()
+    })
     let mainhtml = document.getElementById('mainContent')
     if (localStorage.role === 'admin') {
         mainhtml.innerHTML += `<div class="container-fluid bg-dark text-light">
@@ -462,9 +463,9 @@ window.onload = function () {
                         <span class="badge badge-light" id="badgeMenu">Reparaciones</span>
                     </div>
                     <div class="col-1" id="colPlus">
-                    <button type="button" class="btn btn-warning" id="plusRepairButton" data-bs-toggle="modal" data-bs-target="#addRepairCar" data-bs-whatever="addRepairCar">
-                    <i class="fas fa-plus"></i>
-                    </button>
+                        <button type="button" class="btn btn-warning" id="plusRepairButton" data-bs-toggle="modal" data-bs-target="#addRepairCar" data-bs-whatever="addRepairCar">
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </div>
                     <div class="col-1">
                         <button type="button" class="btn btn-warning" id="messageButton" data-bs-toggle="modal" data-bs-target="#addMessage" data-bs-whatever="addMessage">
@@ -522,20 +523,25 @@ window.onload = function () {
                     secure: document.getElementById('secure').value
                 }, { headers: { token: localStorage.getItem('token') } })
                 .then(response => {
-                    console.log(response)
+                    console.log("Actualizacion informacion reparación actualizada")
                 })
                 .catch(function (error) {
                     console.log('No se han podido encontrar los vehículos')
                 });
         })
     } else {
-        mainhtml.innerHTML += `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <div class="col-11">
+        mainhtml.innerHTML += `<<div class="container-fluid bg-dark text-light">
+            <div class="row bg-dark pt-3 pb-3">
+                <div class="col-11">
                     <span class="badge badge-light" id="badgeMenu">Reparaciones</span>
-                    </div>
-                </div>      
-            </nav>`
+                </div>
+                <div class="col-1">
+                        <button type="button" class="btn btn-warning" id="messageButton" data-bs-toggle="modal" data-bs-target="#addMessage" data-bs-whatever="addMessage">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </button>
+                </div>
+            </div>      
+        </div>`
         showRepairCar();
     }
 

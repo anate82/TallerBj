@@ -41,5 +41,5 @@ function validPassword(psw, repsw){
 }
 
 function goHome(){
-    window.location = "http://localhost:3000/home.html"
+    window.location = "http://localhost:3000/carPage.html"
 }
