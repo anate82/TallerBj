@@ -116,18 +116,7 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 | PUT    | '/users/me'                                | YES  | Modifica datos usuario determinado de la base de datos                   |
 | DELETE | '/users/me'                                | YES  | Elimina usuario determinado de la base de datos(admin)                   |
 | PUT    | '/users/me/password'                       | YES  | Modifica contraseña usuario determinado de la base de datos              |
-| GET    | '/users/me/cars'                           | YES  | Mostrar todos los coches para usuario determinado                        |
-| POST   | '/users/me/cars'                           | YES  | Crear coche para usuario determinado                                     |
-| GET    | '/users/me/cars/:carId'                    | YES  | Mostrar coche determinado para usuario determinado                       |
-| DELETE | '/users/me/cars/:carId'                    | YES  | Elimina un coche determinado para usuario determinado                    |
-| PUT    | '/users/me/cars/:carId'                    | YES  | Actualiza la informacion de un coche determinado para usuario determinado|
-| GET    | '/users/me/cars/:carId/repairs'            | YES  | Mostrar todas las reparaciones de un coche para usuario determinado      |
-| POST   | '/users/me/cars/:carId/repairs'            | YES  | Crear reparacion de un coche para usuario determinado                    |
-| GET    | '/users/me/cars/:carId/repairs/:repairId'  | YES  | Mostrar una reparacion determinada de un coche para usuario determinado  |
-| DELETE | '/users/me/cars/:carId/repairs/:repairId'  | YES  | Elimina una reparacion determinada de un coche para usuario determinado  |
-| PUT    | '/users/me/cars/:carId/repairs/:repairId'  | YES  | Actualiza una reparacion determinada de un coche para usuario determinado|
-| GET    | '/users/me/cars/:carId/notification'       | YES  | Mostrar todas las notificaciones de un coche para usuario determinado    |
-| POST   | '/users/me/cars/:carId/notification'       | YES  | Crear notificacion de un coche para usuario determinado(admin)           |
+| GET    | '/users/me/allCars'                        | YES  | Mostrar todos los coches para usuario determinado                        |
 
 
 ## Vehiculos
@@ -139,19 +128,25 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 | GET    | '/cars/:carId'                   | YES  | Mostrar vehiculo determinado de la base de datos                         |
 | DELETE | '/cars/:carId'                   | YES  | Elimina vehiculo determinado de la base de datos                         |
 | PUT    | '/cars/:carId'                   | YES  | Actualiza vehiculo determinado de la base de datos                       |
-
-
-
+| POST   | '/cars/:email'                   | YES  | Crea un vehiculo para un usuario buscando por su email(admin)            |
 
 ## Reparaciones
 
-| METHOD | URL                   | AUTH | FUNCTION                                                                 |
-|--------|-----------------------|------|--------------------------------------------------------------------------|
-| GET    | '/repairs             | YES  | Mostrar todos las reparaciones (admin)                                   |
-| POST   | '/repairs'            | YES  | Crear una reparacion                                                     |
-| GET    | '/repairs/:repairId'  | YES  | Mostrar una determinada reparacion                                       |
-| DELETE | '/repairs/:repairId'  | YES  | Elimina una determinada reparacion                                       |
-| PUT    | '/repairs/:repairId'  | YES  | Actualiza una determinada reparacion                                     |
+| METHOD | URL                                          | AUTH | FUNCTION                                                             |
+|--------|----------------------------------------------|------|----------------------------------------------------------------------|
+| GET    | '/repairs'                                   | YES  | Mostrar todos las reparaciones (admin)                               |
+| GET    | '/repairs/:repairId'                         | YES  | Mostrar una determinada reparación                                   |
+| GET    | '/repairs/repairsUser'                       | YES  | Mostrar todas las reparaciones para un usuario concreto              |
+| POST   | '/repairs'                                   | YES  | Crear una reparación                                                 |
+| GET    | 'repairs/repairCar/:carId'                   | YES  | Obtiene las reparaciones para un vehículo concreto                   |
+| DELETE | '/repairs/:repairId'                         | YES  | Elimina una determinada reparación                                   |
+| PUT    | '/repairs/:repairId'                         | YES  | Actualiza una determinada reparación                                 |
+| PUT    | 'repairs/:repairId/addBudget'                | YES  | Crea un presupuesto para una determinada reparación                  |
+| PUT    | 'repairs/:repairId/addProccess'              | YES  | Crea comentarios en el proceso de la reparación                      |
+| PUT    | 'repairs/:repairId/updateBudget/:budgetId'   | YES  | Actualiza la información del presupuesto                             |
+| PUT    | 'repairs/:repairId/process/:processId'       | YES  | Añade información a un comentario en el proceso de reparación        |
+| PUT    | 'repairs/:repairId/notifyReaded/:processId/' | YES  | Marca como leido un comentario en el proceso de reparación           |
+
 
 ## Comentarios
 
