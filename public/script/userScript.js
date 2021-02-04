@@ -112,40 +112,13 @@ window.onload = function () {
       myToastEl[0].innerHTML = "";
   })
   document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
-  let nav = document.getElementById('navbarResponsive')
+  let upNav = document.getElementById('ulNavbar')
   if (localStorage.getItem('role') == 'admin'){
-    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="usersPage.html">Usuarios</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
-                      </li>
-                  </ul>`
-  } else {
-    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
-                      </li>
-                  </ul>`
+        let elem = document.createElement(`li`)
+        let salir = document.getElementById('salirNav')
+        elem.innerHTML = `<a class="nav-link js-scroll-trigger" href="usersPage.html">Usuarios</a>`
+        elem.setAttribute('class','nav-item')
+        upNav.insertBefore(elem,salir);
   }
   document.getElementById('navBarSalir').addEventListener("click", function() {
     localStorage.clear();

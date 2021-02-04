@@ -1,3 +1,4 @@
+//Es un modal que crea un vehículo (client)
 document.getElementById('addCarButton').addEventListener("click", function() {
   axios
     .post('http://localhost:3000/api/cars/', {
@@ -16,6 +17,7 @@ document.getElementById('addCarButton').addEventListener("click", function() {
     });
 })
 
+//Es un modal que crea un vehículo y lo asigna a un usuario (admin)
 document.getElementById('addCarUserButton').addEventListener("click", function() {
   axios
     .post(`http://localhost:3000/api/cars/${document.getElementById('selectUser').value}`, {
@@ -36,8 +38,7 @@ document.getElementById('addCarUserButton').addEventListener("click", function()
 
 })
 
-
-
+//Muestra todos los vehículos 
 function showAllCars(){
   axios
       .get('http://localhost:3000/api/cars/', { headers: { token: localStorage.getItem('token')}})
@@ -161,6 +162,7 @@ function showAllCars(){
       })
 }
 
+// funcion que carga todos los usuarios, esto se usa en la creacion de un vehículo y lo asigna a un usuario
 function showUsersSelect(){
   let selectUser = document.getElementById('selectUser');
   axios
@@ -174,6 +176,8 @@ function showUsersSelect(){
       showPopup('No se ha podido actualizar el dropdown')
     });
 }
+
+//Muestra todos los vehículos del usuario
 function getAllCars() {
   if(localStorage.role === 'admin'){
     showAllCars();
@@ -289,13 +293,6 @@ function getAllCars() {
   }
 }
 
-function redirectNotify(e){
-  window.location = "http://localhost:3000/notifyPage.html"
-}
-function redirectRepairs(e){
-  window.location = "http://localhost:3000/repairPage.html"
-}
-
 function showPopup(message){
   $('#myToast').toast('show'); 
   var myToastEl = document.getElementsByClassName('toast-body');
@@ -309,43 +306,19 @@ window.onload = function () {
       var myToastEl = document.getElementsByClassName('toast-body');
       myToastEl[0].innerHTML = "";
   })
+
+  //muestra el usuario que está logueado
   document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
-  
-  let nav = document.getElementById('navbarResponsive')
+
+  //Si el usuario es el administrator se carga una serie de opciones y si no lo es no se carga
+  let upNav = document.getElementById('ulNavbar')
   if (localStorage.getItem('role') == 'admin'){
-    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="usersPage.html">Usuarios</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
-                      </li>
-                  </ul>`
-  } else {
-    nav.innerHTML += `<ul class="navbar-nav text-uppercase ml-auto">
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" aria-current="page" href="profile.html">Perfil</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="carPage.html">Vehiculos</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" href="notifyPage.html">Notificaciones</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link js-scroll-trigger" id="navBarSalir" href="index.html">Salir</a>
-                      </li>
-                  </ul>`
-  }
+    let elem = document.createElement(`li`)
+    let salir = document.getElementById('salirNav')
+    elem.innerHTML = `<a class="nav-link js-scroll-trigger" href="usersPage.html">Usuarios</a>`
+    elem.setAttribute('class','nav-item')
+    upNav.insertBefore(elem,salir);
+  } 
  
   document.getElementById('navBarSalir').addEventListener("click", function() {
     localStorage.clear();

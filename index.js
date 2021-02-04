@@ -26,13 +26,13 @@ const app = express()
   //.use(helmet())
   .use(cors())
   .use(morgan('combined'))
-  /*.use(helmet.contentSecurityPolicy({
+ /* .use(helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'],
       styleSrc: ["'self'", 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css']
     }
-  })) */
+  }))*/
   .use(express.json()) //parser a recoger nuestra peticion
   .use(express.static(path.join(__dirname, 'public')))
   .use('/api', require('./api/routes'))

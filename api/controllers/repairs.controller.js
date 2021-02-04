@@ -29,10 +29,13 @@ function getRepairByCarId(req, res) {
 }
 
 function getAllRepairsByUser(req, res) {
+    console.log('hola')
+    console.log(res.locals.user._id)
     repairModel
         .find({user:res.locals.user._id})
         .populate('car')
         .then(repairs =>{
+            console.log(repairs)
             res.status(200).json(repairs)
         })
         .catch(err => {
