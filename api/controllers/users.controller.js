@@ -168,8 +168,13 @@ function deleteUserByEmail (req, res) {
 //Actualiza la informacion personal de un usuario pero no el campo contraseña
 function updateUserData (req, res) {
     if(res.locals.user.role === 'admin') {
+        let idDatos = "";
+        if(req.body.hasOwnProperty('_id'))
+            idDatos = req.body._id
+        else
+            idDatos = res.locals.user._id;
         userModel
-            .findOneAndUpdate({_id:req.body._id}, {
+            .findOneAndUpdate({_id:idDatos}, {
                 name: req.body.name,
                 surname: req.body.surname,
                 dni: req.body.dni,
@@ -204,8 +209,13 @@ function updateUserData (req, res) {
 function updateUserPassword (req, res) {
     if(res.locals.user.role === 'admin') {
         const encryptedPasswd = bcrypt.hashSync(req.body.password, 10)
+        let idDatos = "";
+        if(req.body.hasOwnProperty('_id'))
+            idDatos = req.body._id
+        else
+            idDatos = res.locals.user._id;
         userModel
-            .findOneAndUpdate({_id:req.body._id}, {
+            .findOneAndUpdate({_id:idDatos}, {
                 password: encryptedPasswd
             })
             .then(userUpdate => {
