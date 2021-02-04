@@ -1,6 +1,5 @@
 document.getElementById('sendMessageButton').addEventListener('click', function(){
-    showPopup("Mensaje enviado al taller");
-    /*axios
+    axios
         .post('http://localhost:3000/api/users/sendEmail', {
             name: document.getElementById('name').value,
             phone: document.getElementById('phone').value,
@@ -13,7 +12,7 @@ document.getElementById('sendMessageButton').addEventListener('click', function(
         })
         .catch(function (error) {
             showPopup('No se ha podido enviar el mensaje');
-        });*/
+        });
 })
 
 
