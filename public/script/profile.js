@@ -66,17 +66,24 @@ document.getElementById('saveButtonPswd').addEventListener('click', function() {
 })
  
 function showPopup(message){
+    document.getElementById('myToast').classList.remove('d-none')
+    document.getElementById('myToast').classList.add('d-flex')
     $('#myToast').toast('show'); 
     var myToastEl = document.getElementsByClassName('toast-body');
     myToastEl[0].innerHTML += message;
 }
-
+  
 window.onload = function () {
     $('#myToast').toast();
+    document.getElementById('myToast').classList.remove('d-flex')
+    document.getElementById('myToast').classList.add('d-none')
     var myToastEl = document.getElementById('myToast');
     myToastEl.addEventListener('hidden.bs.toast', function () {
+  
         var myToastEl = document.getElementsByClassName('toast-body');
         myToastEl[0].innerHTML = "";
+        document.getElementById('myToast').classList.remove('d-flex')
+        document.getElementById('myToast').classList.add('d-none')
     })
     document.getElementById('sectionProfile').style.display = "block";
     document.getElementById('sectionPswd').style.display = "none";

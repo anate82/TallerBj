@@ -194,7 +194,7 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
                 showPopup('Se ha creado correctamente el presupuesto')
-                window.location('repairPage.html')
+                window.location.href = 'repairPage.html';
             })
             .catch(function (error) {
                 showPopup('No se ha podido crear el presupuesto')
@@ -208,7 +208,7 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
                 showPopup('Se ha actualizado correctamente un presupuesto')
-                window.location('repairPage.html')
+                window.location.href = 'repairPage.html';
             })
             .catch(function (error) {
                 showPopup('No se ha podido actualizar el presupuesto')
@@ -385,7 +385,7 @@ function getPieces(arrayPieces) {
 }
 
 function goCars(){
-    window.location('carPage.html');
+    window.location.href = 'carPage.html';
 }
 
 function deleteRepair(){
@@ -403,17 +403,24 @@ function deleteRepair(){
 }
 
 function showPopup(message){
+    document.getElementById('myToast').classList.remove('d-none')
+    document.getElementById('myToast').classList.add('d-flex')
     $('#myToast').toast('show'); 
     var myToastEl = document.getElementsByClassName('toast-body');
     myToastEl[0].innerHTML += message;
 }
-
+  
 window.onload = function () {
     $('#myToast').toast();
+    document.getElementById('myToast').classList.remove('d-flex')
+    document.getElementById('myToast').classList.add('d-none')
     var myToastEl = document.getElementById('myToast');
     myToastEl.addEventListener('hidden.bs.toast', function () {
+  
         var myToastEl = document.getElementsByClassName('toast-body');
         myToastEl[0].innerHTML = "";
+        document.getElementById('myToast').classList.remove('d-flex')
+        document.getElementById('myToast').classList.add('d-none')
     })
     document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
     localStorage.setItem('idRepair', "")
