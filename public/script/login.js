@@ -1,7 +1,12 @@
+const api = axios.create({
+    baseURL: "https://tallerbj.herokuapp.com/api",
+    timeout: 2000
+})
+
 document.getElementById('loginButton').addEventListener("click", function(){
     if(validEmail(document.getElementById('inputEmailLogin').value)){
-        axios
-            .post('http://localhost:3000/api/auth/login', {
+        api
+            .post('/auth/login', {
                 email:document.getElementById('inputEmailLogin').value,
                 password:document.getElementById('inputPasswordLogin').value
             })
@@ -51,5 +56,5 @@ function validPassword(psw, repsw){
 }
 
 function goHome(){
-    window.location = "http://localhost:3000/carPage.html"
+    window.location = "carPage.html"
 }

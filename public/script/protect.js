@@ -1,3 +1,3 @@
 if (!localStorage.getItem('token')) {
-    window.location = "http://localhost:3000/index.html"
+    window.location = "index.html"
 }

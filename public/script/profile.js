@@ -1,6 +1,10 @@
+const api = axios.create({
+    baseURL: "https://tallerbj.herokuapp.com/api",
+    timeout: 2000
+})
 function getUserProfile (){
-    axios
-        .get('http://localhost:3000/api/users/me', { headers: { token: localStorage.getItem('token')}})
+    api
+        .get('/users/me', { headers: { token: localStorage.getItem('token')}})
         .then(response => {
         document.getElementById('inputName').value=response.data.name;
         document.getElementById('inputSurname').value=response.data.surname;
@@ -14,8 +18,8 @@ function getUserProfile (){
 }
 
 document.getElementById('saveButton').addEventListener('click', function() {
-    axios
-        .put('http://localhost:3000/api/users/me',{
+    api
+        .put('/users/me',{
             name: document.getElementById('inputName').value,
             surname: document.getElementById('inputSurname').value,
             dni: document.getElementById('inputDni').value,
@@ -46,8 +50,8 @@ document.getElementById('saveButtonPswd').addEventListener('click', function() {
     let repswd = document.getElementById('inputPswdRec').value;
 
     if(pswd === repswd) {
-        axios
-            .put('http://localhost:3000/api/users/me/password',{
+        api
+            .put('/users/me/password',{
                 password: document.getElementById('inputRePswdRec').value
             }, { headers: { token: localStorage.getItem('token')}})
             .then(response => {

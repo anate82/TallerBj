@@ -1,6 +1,11 @@
+const api = axios.create({
+  baseURL: "https://tallerbj.herokuapp.com/api",
+  timeout: 2000
+})
+
 function showAllUsers(){
-    axios
-        .get('http://localhost:3000/api/users', { headers: { token: localStorage.getItem('token')}})
+    api
+        .get('/users', { headers: { token: localStorage.getItem('token')}})
         .then(arrayUsers => {
             let arrId = [];
             let arrPswd = [];
@@ -55,8 +60,8 @@ function showAllUsers(){
                 let actUserBoton = document.getElementsByClassName('actUserBoton');  
                 for(let i=0; i<actUserBoton.length; i++){
                     actUserBoton[i].onclick = function () {
-                        axios
-                            .put('http://localhost:3000/api/users/me',{
+                        api
+                            .put('/users/me',{
                                 _id:arrId[i],
                                 name: document.getElementById(`name${i}`).value,
                                 surname: document.getElementById(`surname${i}`).value,
@@ -67,8 +72,8 @@ function showAllUsers(){
                             .then(response => {
                                 showPopup('Vehículo Actualizado')
                                 if(arrPswd[i] !== document.getElementById(`pswd${i}`).value){
-                                    axios
-                                    .put('http://localhost:3000/api/users/me/password',{
+                                    api
+                                    .put('/users/me/password',{
                                         _id:arrId[i],
                                         password: document.getElementById(`pswd${i}`).value
                                     }, { headers: { token: localStorage.getItem('token')}})

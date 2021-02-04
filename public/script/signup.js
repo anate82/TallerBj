@@ -1,8 +1,12 @@
+const api = axios.create({
+  baseURL: "https://tallerbj.herokuapp.com/api",
+  timeout: 2000
+})
 document.getElementById('signupButton').addEventListener("click", function(){
     if(validEmail(document.getElementById('inputEmail').value)){
       if(validPassword(document.getElementById('inputPassword4').value, document.getElementById("inputRePassword4").value)) {
-          axios
-            .post('http://localhost:3000/api/auth/signup', {
+          api
+            .post('/auth/signup', {
                 name: document.getElementById('inputName').value,
                 surname: document.getElementById('inputSurname').value,
                 dni: document.getElementById('inputDNI').value,
@@ -22,7 +26,7 @@ document.getElementById('signupButton').addEventListener("click", function(){
                   goHome();
                 } else {
                   showPopup('Datos erroneos')
-                  window.location = "http://localhost:3000/signup.html"
+                  window.location = "signup.html"
                 }
             })
             .catch(function (error) {
@@ -46,7 +50,7 @@ function validPassword(psw, repsw){
 }
 
 function goHome(){
-  window.location = "http://localhost:3000/carPage.html"
+  window.location = "carPage.html"
 }
 
 function showPopup(message){

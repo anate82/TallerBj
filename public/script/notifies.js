@@ -1,6 +1,10 @@
+const api = axios.create({
+    baseURL: "https://tallerbj.herokuapp.com/api",
+    timeout: 2000
+})
 function showNotifiesAdmin(){
-    axios
-        .get(`http://localhost:3000/api/repairs`, { headers: { token: localStorage.getItem('token')}})
+    api
+        .get(`/repairs`, { headers: { token: localStorage.getItem('token')}})
         .then(arrayRepairs => {
             let p = document.getElementById('tbodyNotify')
             let notififyCounter = 0;
@@ -43,8 +47,8 @@ function showNotifiesAdmin(){
 }
 
 function showNotifies(){
-    axios
-        .get(`http://localhost:3000/api/repairs/repairsUser`, { headers: { token: localStorage.getItem('token')}})
+    api
+        .get(`/repairs/repairsUser`, { headers: { token: localStorage.getItem('token')}})
         .then(arrayRepairs => {
             let p = document.getElementById('tbodyNotify')
             let notififyCounter = 0;
@@ -86,13 +90,13 @@ function showNotifies(){
         });
 }
 function notifyReaded(idProcess,idRepair){
-    axios
-        .put(`http://localhost:3000/api/repairs/${idRepair}/notifyReaded/${idProcess}`, {
+    api
+        .put(`/repairs/${idRepair}/notifyReaded/${idProcess}`, {
             readed:true
         }, { headers: { token: localStorage.getItem('token')}})
         .then(response => {
             showPopup('Notificacion marcada como leída')
-            window.location = 'http://localhost:3000/notifyPage.html'
+            window.location = 'notifyPage.html'
         })
         .catch(function (error) {
             showPopup('No se ha podido marcar como leída la notificación')

@@ -1,3 +1,7 @@
+const api = axios.create({
+    baseURL: "https://tallerbj.herokuapp.com/api",
+    timeout: 2000
+})
 function budgetState(budget) {
     let state = ""
     if (budget.length === 0) {
@@ -116,8 +120,8 @@ function showDateOut(objRepair) {
 
 //Almacena la respuesta de un cliente a un comentario del taller
 document.getElementById('addCommentModal').addEventListener("click", function () {
-    axios
-        .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/process/${localStorage.getItem('idProcess')}`, {
+    api
+        .put(`/repairs/${localStorage.getItem('idRepair')}/process/${localStorage.getItem('idProcess')}`, {
             comment: document.getElementById('textareaModal').value
         }, { headers: { token: localStorage.getItem('token') } })
         .then(response => {
@@ -129,8 +133,8 @@ document.getElementById('addCommentModal').addEventListener("click", function ()
         });
 })
 document.getElementById('addMessageModal').addEventListener("click", function () {
-    axios
-        .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/addProccess`, {
+    api
+        .put(`/repairs/${localStorage.getItem('idRepair')}/addProccess`, {
             comment: document.getElementById('notifyModal').value
         }, { headers: { token: localStorage.getItem('token') } })
         .then(response => {
@@ -156,8 +160,8 @@ document.getElementById('addRepairCarButton').addEventListener("click", function
     if(document.getElementById('secureModal').value == ""){
         document.getElementById('secureModal').value = "Pendiente"
     }
-    axios
-        .post(`http://localhost:3000/api/repairs`,{
+    api
+        .post(`/repairs`,{
             carId:localStorage.getItem('idCar'),
             dateIn:dateIn,
             dateOut:dateOut,
@@ -175,8 +179,8 @@ document.getElementById('addRepairCarButton').addEventListener("click", function
 //Controla que si el cliente acepta o no el presupuesto y lo actualiza en la base de datos
 document.getElementById('addBudgetModal').addEventListener("click", function () {
     if (localStorage.getItem('role') === 'admin'){
-        axios
-            .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/addBudget`, {
+        api
+            .put(`/repairs/${localStorage.getItem('idRepair')}/addBudget`, {
                 date_create: document.getElementById('dateCreateModal').value,
                 type: document.getElementById('typeModal').value,
                 description: document.getElementById('descriptionModal').value,
@@ -190,21 +194,21 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
                 showPopup('Se ha creado correctamente el presupuesto')
-                window.location = 'http://localhost:3000/repairPage.html'
+                window.location = 'repairPage.html'
             })
             .catch(function (error) {
                 showPopup('No se ha podido crear el presupuesto')
             });
     } else {
-        axios
-            .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}/updateBudget/${localStorage.getItem('budgetId')}`, {
+        api
+            .put(`/repairs/${localStorage.getItem('idRepair')}/updateBudget/${localStorage.getItem('budgetId')}`, {
 
                 accepted: document.getElementById('acceptedModal').checked
 
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
                 showPopup('Se ha actualizado correctamente un presupuesto')
-                window.location = 'http://localhost:3000/repairPage.html'
+                window.location = 'repairPage.html'
             })
             .catch(function (error) {
                 showPopup('No se ha podido actualizar el presupuesto')
@@ -213,8 +217,8 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
 })
 
 function showRepairCarAdmin() {
-    axios
-        .get(`http://localhost:3000/api/repairs/repairCar/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token') } })
+    api
+        .get(`/repairs/repairCar/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token') } })
         .then(arrayRepairs => {
             if (arrayRepairs.data.length > 0) {
                 arrayRepairs.data.forEach((repair, index) => {
@@ -294,8 +298,8 @@ function showRepairCarAdmin() {
 
 //Muestra la reparacion del vehículo
 function showRepairCar() {
-    axios
-        .get(`http://localhost:3000/api/repairs/repairCar/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token') } })
+    api
+        .get(`/repairs/repairCar/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token') } })
         .then(arrayRepairs => {
             if (arrayRepairs.data.length > 0) {
                 arrayRepairs.data.forEach((repair, index) => {
@@ -379,28 +383,15 @@ function getPieces(arrayPieces) {
     })
     return resultString.trim();
 }
-/*
-function loadCarsInSelect(){
-    axios
-        .get(`http://localhost:3000/api/cars`, { headers: { token: localStorage.getItem('token') } })
-        .then(arrayCars => {
-            let selecthtml = document.getElementById('selectCar');
-            arrayCars.data.forEach(car =>{
-                selecthtml.innerHTML += `<option value="${car.reg_veh}">${car.reg_veh}</option>`
-            })
-        })
-        .catch(function (error) {
-            showPopup('Catch No se ha podido encontrar los vehículos')
-        });
-}*/
+
 function goCars(){
-    window.location = 'http://localhost:3000/carPage.html'
+    window.location = 'carPage.html'
 }
 
 function deleteRepair(){
     if(localStorage.getItem('idRepair') !== ""){
-        axios
-        .delete(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}`, { headers: { token: localStorage.getItem('token') } })
+        api
+        .delete(`/repairs/${localStorage.getItem('idRepair')}`, { headers: { token: localStorage.getItem('token') } })
         .then(repairDeleted => {
             showPopup(`Reparacion eliminada`);
             goCars();
@@ -526,8 +517,8 @@ window.onload = function () {
             deleteRepair();
         })
         document.getElementById('saveButton').addEventListener('click', function(){
-            axios
-                .put(`http://localhost:3000/api/repairs/${localStorage.getItem('idRepair')}`, {
+            api
+                .put(`/repairs/${localStorage.getItem('idRepair')}`, {
                     date_in: document.getElementById('dateIn').value,
                     date_out: document.getElementById('dateOut').value,
                     secure: document.getElementById('secure').value

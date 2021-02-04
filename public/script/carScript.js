@@ -1,7 +1,12 @@
+const api = axios.create({
+  baseURL: "https://tallerbj.herokuapp.com/api",
+  timeout: 2000
+})
+
 //Es un modal que crea un vehículo (client)
 document.getElementById('addCarButton').addEventListener("click", function() {
-  axios
-    .post('http://localhost:3000/api/cars/', {
+  api
+    .post('/cars/', {
             brand: document.getElementById('brandModal').value,
             car_model: document.getElementById('modelModal').value,
             frame_number: document.getElementById('frameModal').value,
@@ -19,8 +24,8 @@ document.getElementById('addCarButton').addEventListener("click", function() {
 
 //Es un modal que crea un vehículo y lo asigna a un usuario (admin)
 document.getElementById('addCarUserButton').addEventListener("click", function() {
-  axios
-    .post(`http://localhost:3000/api/cars/${document.getElementById('selectUser').value}`, {
+  api
+    .post(`/cars/${document.getElementById('selectUser').value}`, {
             brand: document.getElementById('brandModalUser').value,
             car_model: document.getElementById('modelModalUser').value,
             frame_number: document.getElementById('frameModalUser').value,
@@ -40,8 +45,8 @@ document.getElementById('addCarUserButton').addEventListener("click", function()
 
 //Muestra todos los vehículos 
 function showAllCars(){
-  axios
-      .get('http://localhost:3000/api/cars/', { headers: { token: localStorage.getItem('token')}})
+  api
+      .get('/cars/', { headers: { token: localStorage.getItem('token')}})
       .then(arrayCars => {
           let arrId = [];
           let barCars = document.getElementById('mainContent');
@@ -119,14 +124,14 @@ function showAllCars(){
             let actCarButton = document.getElementsByClassName('actCarButton'); 
             for(let i = 0; i < notifyButton.length; i++){
               notifyButton[i].onclick = function() {
-                window.location = 'http://localhost:3000/notifyPage.html'
+                window.location = 'notifyPage.html'
               };
               deleteButton[i].onclick = function(){
-                axios
-                  .delete(`http://localhost:3000/api/cars/${arrId[i]}`, { headers: { token: localStorage.getItem('token')}})
+                api
+                  .delete(`/cars/${arrId[i]}`, { headers: { token: localStorage.getItem('token')}})
                   .then(response =>{
                     showPopup('Vehiculo Eliminado')
-                    window.location = 'http://localhost:3000/carPage.html'
+                    window.location = 'carPage.html'
                   })
                   .catch(function (error) {
                     showPopup('No se ha podido eliminar el vehículo')
@@ -135,12 +140,12 @@ function showAllCars(){
               //Controla el evento de las reparaciones
               repairButton[i].onclick = function () {
                 localStorage.setItem('idCar',arrId[i])
-                window.location = "http://localhost:3000/repairPage.html"
+                window.location = "repairPage.html"
               };
               //Evento que controla las actualizaciones del vehículo
               actCarButton[i].onclick = function () {
-                axios
-                .put(`http://localhost:3000/api/cars/${arrId[i]}`, {
+                api
+                .put(`/cars/${arrId[i]}`, {
                         brand: document.getElementById(`brand${i}`).value,
                         car_model:document.getElementById(`car_model${i}`).value,
                         frame_number: document.getElementById(`frame${i}`).value,
@@ -164,8 +169,8 @@ function showAllCars(){
 // funcion que carga todos los usuarios, esto se usa en la creacion de un vehículo y lo asigna a un usuario
 function showUsersSelect(){
   let selectUser = document.getElementById('selectUser');
-  axios
-    .get('http://localhost:3000/api/users/', { headers: { token: localStorage.getItem('token')}})
+  api
+    .get('/users/', { headers: { token: localStorage.getItem('token')}})
     .then(arrayUsers => {
       arrayUsers.data.forEach((user, index) => {
         selectUser.innerHTML += `<option value="${user.email}">${user.name+" "+user.surname}</option>`
@@ -181,8 +186,8 @@ function getAllCars() {
   if(localStorage.role === 'admin'){
     showAllCars();
   } else{
-    axios
-      .get('http://localhost:3000/api/users/me/allCars', { headers: { token: localStorage.getItem('token')}})
+    api
+      .get('/users/me/allCars', { headers: { token: localStorage.getItem('token')}})
       .then(arrayCars => {
           let arrId = [];
           let barCars = document.getElementById('mainContent');
@@ -256,19 +261,19 @@ function getAllCars() {
             let repairButton = document.getElementsByClassName('repairButton');
             for(let i = 0; i < notifyButton.length; i++){
               notifyButton[i].onclick = function() {
-                window.location = "http://localhost:3000/notifyPage.html"
+                window.location = "notifyPage.html"
               };
               repairButton[i].onclick = function () {
                 localStorage.setItem('idCar',arrId[i])
-                window.location = "http://localhost:3000/repairPage.html"
+                window.location = "repairPage.html"
               };
             }
             
             let actCarBoton = document.getElementsByClassName('actCarBoton');  
             for(let i=0; i<actCarBoton.length; i++){
                 actCarBoton[i].onclick = function () {
-                  axios
-                  .put(`http://localhost:3000/api/cars/${arrId[i]}`, {
+                  api
+                  .put(`/cars/${arrId[i]}`, {
                           brand: document.getElementById(`brand${i}`).value,
                           car_model:document.getElementById(`car_model${i}`).value,
                           frame_number: document.getElementById(`frame${i}`).value,
