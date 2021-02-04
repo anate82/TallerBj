@@ -29,13 +29,10 @@ function getRepairByCarId(req, res) {
 }
 
 function getAllRepairsByUser(req, res) {
-    console.log('hola')
-    console.log(res.locals.user._id)
     repairModel
         .find({user:res.locals.user._id})
         .populate('car')
         .then(repairs =>{
-            console.log(repairs)
             res.status(200).json(repairs)
         })
         .catch(err => {
@@ -58,7 +55,6 @@ function createRepair(req, res) {
     carModel
         .findOne({_id:req.body.carId})
         .then(car => {
-            console.log(car)
             repairModel
                 .create({
                     user:car.user,
@@ -158,8 +154,6 @@ function deleteRepairId(req, res) {
     repairModel
         .findByIdAndRemove({_id: req.params.repairId})
         .then(repairDeleted => {
-            console.log(repairDeleted)
-            console.log('4'+repairDeleted.car)
             carModel
                 .findOne({_id:repairDeleted.car})
                 .then(car =>{

@@ -38,7 +38,7 @@ function showNotifiesAdmin(){
             }
         })
         .catch(function (error) {
-            console.log('No se ha podido encontrar los vehículos del usuario')
+            showPopup('No se ha podido encontrar los vehículos del usuario')
         });
 }
 
@@ -82,22 +82,20 @@ function showNotifies(){
             }
         })
         .catch(function (error) {
-            console.log('No se ha podido encontrar los vehículos del usuario')
+            showPopup('No se ha podido encontrar los vehículos del usuario')
         });
 }
 function notifyReaded(idProcess,idRepair){
-    console.log(idProcess)
-    console.log(idRepair)
     axios
         .put(`http://localhost:3000/api/repairs/${idRepair}/notifyReaded/${idProcess}`, {
             readed:true
         }, { headers: { token: localStorage.getItem('token')}})
         .then(response => {
-            console.log('Notificacion marcada como leída')
+            showPopup('Notificacion marcada como leída')
             window.location = 'http://localhost:3000/notifyPage.html'
         })
         .catch(function (error) {
-            console.log('No se ha podido marcar como leída la notificación')
+            showPopup('No se ha podido marcar como leída la notificación')
         });
 }
 
