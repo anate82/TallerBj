@@ -29,7 +29,7 @@ function getCarById(req, res){
 //Busca el usuario que tenga el vehículo asociado, lo elimina y luego elimina el vehículo
 function deleteCarById(req, res) {
     carModel
-        .deleteOne({_id: req.params.carId})
+        .findByIdAndRemove({_id: req.params.carId})
         .then(carDeleted => {
             usersModel
                 .findOne({_id:carDeleted.user})

@@ -109,6 +109,7 @@ function showAllCars(){
               </div>
             </section>`;  
             arrId.push(car._id);
+            console.log(arrId);
             let deleteButton = document.getElementsByClassName('deleteButton');
             let notifyButton = document.getElementsByClassName('notifyButton');
             let repairButton = document.getElementsByClassName('repairButton');
@@ -123,7 +124,6 @@ function showAllCars(){
                   .delete(`/cars/${arrId[i]}`, { headers: { token: localStorage.getItem('token')}})
                   .then(response =>{
                     showPopup('Vehiculo Eliminado')
-                    //window.location.href = 'carPage.html';
                   })
                   .catch(function (error) {
                     showPopup('No se ha podido eliminar el vehículo')
@@ -290,11 +290,11 @@ window.onload = function () {
   document.getElementById('myToast').classList.add('d-none')
   var myToastEl = document.getElementById('myToast');
   myToastEl.addEventListener('hidden.bs.toast', function () {
-
       var myToastEl = document.getElementsByClassName('toast-body');
       myToastEl[0].innerHTML = "";
       document.getElementById('myToast').classList.remove('d-flex')
       document.getElementById('myToast').classList.add('d-none')
+      window.location.href = 'carPage.html';
   })
 
   //muestra el usuario que está logueado
