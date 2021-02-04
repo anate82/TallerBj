@@ -16,6 +16,7 @@ document.getElementById('addCarButton').addEventListener("click", function() {
     }, { headers: { token: localStorage.getItem('token')}})
     .then(response => {
       showPopup('Se ha añadido correctamente un vehículo')
+      window.location.reload();
     })
     .catch(function (error) {
       showPopup('No se ha podido añadir el vehículo')
