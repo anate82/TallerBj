@@ -120,10 +120,10 @@ function showAllCars(){
               };
               deleteButton[i].onclick = function(){
                 api
-                  .delete(`/cars/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token')}})
+                  .delete(`/cars/${arrId[i]}`, { headers: { token: localStorage.getItem('token')}})
                   .then(response =>{
                     showPopup('Vehiculo Eliminado')
-                    window.location.href = 'carPage.html';
+                    //window.location.href = 'carPage.html';
                   })
                   .catch(function (error) {
                     showPopup('No se ha podido eliminar el vehículo')
