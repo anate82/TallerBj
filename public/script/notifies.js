@@ -96,7 +96,7 @@ function notifyReaded(idProcess,idRepair){
         }, { headers: { token: localStorage.getItem('token')}})
         .then(response => {
             showPopup('Notificacion marcada como leída')
-            window.location = 'notifyPage.html'
+            window.location('notifyPage.html');
         })
         .catch(function (error) {
             showPopup('No se ha podido marcar como leída la notificación')

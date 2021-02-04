@@ -194,7 +194,7 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
                 showPopup('Se ha creado correctamente el presupuesto')
-                window.location = 'repairPage.html'
+                window.location('repairPage.html')
             })
             .catch(function (error) {
                 showPopup('No se ha podido crear el presupuesto')
@@ -208,7 +208,7 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
             }, { headers: { token: localStorage.getItem('token') } })
             .then(response => {
                 showPopup('Se ha actualizado correctamente un presupuesto')
-                window.location = 'repairPage.html'
+                window.location('repairPage.html')
             })
             .catch(function (error) {
                 showPopup('No se ha podido actualizar el presupuesto')
@@ -385,7 +385,7 @@ function getPieces(arrayPieces) {
 }
 
 function goCars(){
-    window.location = 'carPage.html'
+    window.location('carPage.html');
 }
 
 function deleteRepair(){

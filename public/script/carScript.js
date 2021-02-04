@@ -124,14 +124,14 @@ function showAllCars(){
             let actCarButton = document.getElementsByClassName('actCarButton'); 
             for(let i = 0; i < notifyButton.length; i++){
               notifyButton[i].onclick = function() {
-                window.location = 'notifyPage.html'
+                window.location('notifyPage.html');
               };
               deleteButton[i].onclick = function(){
                 api
                   .delete(`/cars/${arrId[i]}`, { headers: { token: localStorage.getItem('token')}})
                   .then(response =>{
                     showPopup('Vehiculo Eliminado')
-                    window.location = 'carPage.html'
+                    window.location('carPage.html');
                   })
                   .catch(function (error) {
                     showPopup('No se ha podido eliminar el vehículo')
@@ -140,7 +140,7 @@ function showAllCars(){
               //Controla el evento de las reparaciones
               repairButton[i].onclick = function () {
                 localStorage.setItem('idCar',arrId[i])
-                window.location = "repairPage.html"
+                window.location("repairPage.html");
               };
               //Evento que controla las actualizaciones del vehículo
               actCarButton[i].onclick = function () {
@@ -261,11 +261,11 @@ function getAllCars() {
             let repairButton = document.getElementsByClassName('repairButton');
             for(let i = 0; i < notifyButton.length; i++){
               notifyButton[i].onclick = function() {
-                window.location = "notifyPage.html"
+                window.location("notifyPage.html")
               };
               repairButton[i].onclick = function () {
                 localStorage.setItem('idCar',arrId[i])
-                window.location = "repairPage.html"
+                window.location("repairPage.html");
               };
             }
             

@@ -1,3 +1,3 @@
 if (!localStorage.getItem('token')) {
-    window.location = "index.html"
+    window.location("index.html");
 }
