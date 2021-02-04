@@ -114,12 +114,13 @@ function showAllCars(){
             let repairButton = document.getElementsByClassName('repairButton');
             let actCarButton = document.getElementsByClassName('actCarButton'); 
             for(let i = 0; i < notifyButton.length; i++){
+              localStorage.setItem('idCar',arrId[i])
               notifyButton[i].onclick = function() {
                 window.location.href = 'notifyPage.html';
               };
               deleteButton[i].onclick = function(){
                 api
-                  .delete(`/cars/${arrId[i]}`, { headers: { token: localStorage.getItem('token')}})
+                  .delete(`/cars/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token')}})
                   .then(response =>{
                     showPopup('Vehiculo Eliminado')
                     window.location.href = 'carPage.html';
