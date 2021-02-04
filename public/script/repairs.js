@@ -147,7 +147,7 @@ document.getElementById('addMessageModal').addEventListener("click", function ()
 document.getElementById('addRepairCarButton').addEventListener("click", function () {
     let dateOut = document.getElementById('dateOutModal').value;
     if(dateOut === "") {
-        dateOut = 'Pendiente'
+        dateOut = Date.now();
     }
     let dateIn = document.getElementById('dateInModal').value;
     if( dateIn === ""){
@@ -554,5 +554,4 @@ window.onload = function () {
         </div>`
         showRepairCar();
     }
-
 }

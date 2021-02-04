@@ -8,6 +8,7 @@ const {
     getAllCarsOfUser,
     deleteUserByEmail,
     updateUserData,
+    sendEmail,
     updateUserPassword
 } = require('../controllers/users.controller')
 
@@ -17,6 +18,7 @@ router
     .get('/me/allCars', isUser, getAllCarsOfUser)
     .delete('/me', isAdmin, deleteUserByEmail) 
     .put('/me', isUser, updateUserData)
+    .post('/sendEmail', sendEmail)
     .put('/me/password',isUser, updateUserPassword)
 
 module.exports = router
