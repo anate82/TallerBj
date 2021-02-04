@@ -6,11 +6,11 @@ function getUserProfile (){
     api
         .get('/users/me', { headers: { token: localStorage.getItem('token')}})
         .then(response => {
-        document.getElementById('inputName').value=response.data.name;
-        document.getElementById('inputSurname').value=response.data.surname;
-        document.getElementById('inputDni').value=response.data.dni;
-        document.getElementById('inputPhone').value=response.data.phone;
-        document.getElementById('inputEmail').value=response.data.email;
+        document.getElementById('inputName').value = response.data.name;
+        document.getElementById('inputSurname').value = response.data.surname;
+        document.getElementById('inputDni').value = response.data.dni;
+        document.getElementById('inputPhone').value = response.data.phone;
+        document.getElementById('inputEmail').value = response.data.email;
         })
         .catch(function (error) {
             showPopup('Email o password erroneos')
