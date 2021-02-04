@@ -1,7 +1,22 @@
 const api = axios.create({
-  baseURL: "https://tallerbj.herokuapp.com/api",
+ // baseURL: "https://tallerbj.herokuapp.com/api",
+  baseURL:"http://localhost:3000/api",
   timeout: 2000
 })
+
+/*
+function deleteUser(id){
+  api
+    .delete(`/users/me`,{
+      userId: id
+    },{ headers: { token: localStorage.getItem('token')}})
+    .then(response => {
+      showPopup('Se ha podido eliminar el usuario')
+    })
+    .catch(function (error) {
+      showPopup('No se ha podido eliminar el usuario')
+    });
+}*/
 
 function showAllUsers(){
     api
@@ -58,7 +73,7 @@ function showAllUsers(){
                 arrId.push(user._id);
                 arrPswd.push(user.password);
                 let actUserBoton = document.getElementsByClassName('actUserBoton');  
-                for(let i=0; i<actUserBoton.length; i++){
+                for(let i=0; i<arrId.length; i++){
                     actUserBoton[i].onclick = function () {
                         api
                             .put('/users/me',{

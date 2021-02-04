@@ -6,7 +6,7 @@ const {
     getAllUsers,
     getUserById,
     getAllCarsOfUser,
-    deleteUserByEmail,
+    deleteUserById,
     updateUserData,
     sendEmail,
     updateUserPassword
@@ -16,7 +16,7 @@ router
     .get('/', isAdmin, getAllUsers)
     .get('/me', isUser, getUserById)
     .get('/me/allCars', isUser, getAllCarsOfUser)
-    .delete('/me', isAdmin, deleteUserByEmail) 
+    .delete('/me', isAdmin, deleteUserById) 
     .put('/me', isUser, updateUserData)
     .post('/sendEmail', sendEmail)
     .put('/me/password',isUser, updateUserPassword)

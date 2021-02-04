@@ -1,7 +1,8 @@
 const api = axios.create({
-  baseURL: "https://tallerbj.herokuapp.com/api",
-  timeout: 2000
-})
+  // baseURL: "https://tallerbj.herokuapp.com/api",
+   baseURL:"http://localhost:3000/api",
+   timeout: 2000
+ })
 
 //Es un modal que crea un vehículo (client)
 document.getElementById('addCarButton').addEventListener("click", function() {

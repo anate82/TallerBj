@@ -158,12 +158,12 @@ function addNewCar(req, res) {
 }*/
 
 //Elimina un usuario (solo lo puede hacer el usuario admin), y se elimina pasando por el body el email a eliminar
-function deleteUserByEmail (req, res) {
+function deleteUserById (req, res) {
     userModel
-      .deleteOne({email: req.body.email })
+      .findByIdAndRemove({_id: req.body.userId })
       .then(userDeleted => res.json(userDeleted))
       .catch(err => handleError(err, res))
-  }
+}
   
 //Actualiza la informacion personal de un usuario pero no el campo contraseña
 function updateUserData (req, res) {
@@ -281,7 +281,7 @@ module.exports = {
     getAllUsers,
     getUserById,
     getAllCarsOfUser,
-    deleteUserByEmail,
+    deleteUserById,
     updateUserData,
     sendEmail,
     updateUserPassword
