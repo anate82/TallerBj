@@ -117,7 +117,7 @@ _Necesitas un navegador tipo google Chrome, Mozilla Firefox_
 | DELETE | '/users/me'                                | YES  | Elimina usuario determinado de la base de datos(admin)                   |
 | PUT    | '/users/me/password'                       | YES  | Modifica contraseña usuario determinado de la base de datos              |
 | GET    | '/users/me/allCars'                        | YES  | Mostrar todos los coches para usuario determinado                        |
-
+| POST   | '/users/senEmail'                          | NO   | Envia un email de solicitud de información                               |
 
 ## Vehiculos
 
