@@ -26,7 +26,7 @@ document.getElementById('signupButton').addEventListener("click", function(){
                   goHome();
                 } else {
                   showPopup('Datos erroneos')
-                  window.location("signup.html")
+                  window.location.href = "signup.html"
                 }
             })
             .catch(function (error) {
@@ -50,7 +50,7 @@ function validPassword(psw, repsw){
 }
 
 function goHome(){
-  window.location("carPage.html");
+  window.location.href = "carPage.html";
 }
 
 function showPopup(message){
