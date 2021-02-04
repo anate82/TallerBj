@@ -50,19 +50,9 @@ function showAllCars(){
       .get('/cars/', { headers: { token: localStorage.getItem('token')}})
       .then(arrayCars => {
           let arrId = [];
-          let barCars = document.getElementById('mainContent');
-          barCars.innerHTML += `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-              <div class="col-11">
-                  <span class="badge badge-light" id="badgeMenu">Vehiculos</span>
-              </div>
-              <div class="col-1" id="colPlus">
-                <button type="button" class="btn btn-warning" id="plusCarButton" data-bs-toggle="modal" data-bs-target="#addCarUser" data-bs-whatever="addCarUser"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg></button>
-              </div>
-            </div>
-          </nav>`
+          let buttonPlusCar = document.getElementById(`plusCarButton`);
+          buttonPlusCar.setAttribute('data-bs-target','#addCarUser');
+          buttonPlusCar.setAttribute('data-bs-whatever','addCarUser')
           arrayCars.data.forEach((car, index) =>{
             let p = document.getElementById('infoCarSection');
             p.innerHTML+= `<section class="row">
@@ -185,25 +175,12 @@ function showUsersSelect(){
 //Muestra todos los vehículos del usuario
 function getAllCars() {
   if(localStorage.role === 'admin'){
-    showAllCars();
+    showAllCars();//Muestra todos los vehiculos dados de alta en la web(admin)
   } else{
     api
       .get('/users/me/allCars', { headers: { token: localStorage.getItem('token')}})
       .then(arrayCars => {
           let arrId = [];
-          let barCars = document.getElementById('mainContent');
-          barCars.innerHTML += `<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <div class="col-11">
-                  <span class="badge badge-light" id="badgeMenu">Vehiculos</span>
-                </div>
-              <div class="col-1" id="colPlus">
-                <button type="button" class="btn btn-warning" id="plusCarButton" data-bs-toggle="modal" data-bs-target="#addCar" data-bs-whatever="addCar"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg></button>
-              </div>
-            </div>
-          </nav>`
           arrayCars.data.forEach((car,index) =>{
             let p = document.getElementById('infoCarSection');
             p.innerHTML+= `<section class="row">
