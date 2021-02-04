@@ -56,5 +56,5 @@ function validPassword(psw, repsw){
 }
 
 function goHome(){
-    window.location("./carPage.html");
+    window.location("carPage.html");
 }
