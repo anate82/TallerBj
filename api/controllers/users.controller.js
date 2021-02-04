@@ -206,7 +206,6 @@ function updateUserPassword (req, res) {
             surname:userUpdate.surname})
         })
         .catch((err) => handleError(err, res))
-    
 }
 /*
 function updateCarOfUser(req, res) {

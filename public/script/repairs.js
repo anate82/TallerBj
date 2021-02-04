@@ -2,6 +2,8 @@ const api = axios.create({
     baseURL: "https://tallerbj.herokuapp.com/api",
     timeout: 2000
 })
+
+//Define el estado del presupuesto en el formulario
 function budgetState(budget) {
     let state = ""
     if (budget.length === 0) {
@@ -16,6 +18,7 @@ function budgetState(budget) {
     return state;
 }
 
+//convierte el dato enviado por la base de datos a formato fecha a mostrar
 function convertDate(date) {
     let dateResult = new Date(date);
     let year = dateResult.getFullYear();
@@ -31,7 +34,7 @@ function convertDate(date) {
 }
 
 //Genera los comentarios visibles en presupuestos
-function showAllProcess(arrayComments) {
+function showAllCommentsOfProcess(arrayComments) {
     let commentResult = "";
     arrayComments.forEach(comment => {
         if (comment.comment_pro.length > 0 && comment.comment_client.length > 0) {
@@ -100,6 +103,7 @@ function showAllProcess(arrayComments) {
     return commentResult;
 }
 
+//Gestiona la fecha de salida por si el campo no existiera
 function showDateOut(objRepair) {
     if (objRepair.hasOwnProperty('date_out')) {
         return convertDate(objRepair.date_out);
@@ -118,7 +122,7 @@ function showDateOut(objRepair) {
     }
 }
 
-//Almacena la respuesta de un cliente a un comentario del taller
+//Añade la respuesta de un cliente a un comentario del taller
 document.getElementById('addCommentModal').addEventListener("click", function () {
     api
         .put(`/repairs/${localStorage.getItem('idRepair')}/process/${localStorage.getItem('idProcess')}`, {
@@ -132,6 +136,8 @@ document.getElementById('addCommentModal').addEventListener("click", function ()
             showPopup('No se ha podido añadir el comentario')
         });
 })
+
+//Añade un mensaje al proceso de reparación
 document.getElementById('addMessageModal').addEventListener("click", function () {
     api
         .put(`/repairs/${localStorage.getItem('idRepair')}/addProccess`, {
@@ -144,10 +150,9 @@ document.getElementById('addMessageModal').addEventListener("click", function ()
         .catch(function (error) {
             showPopup('No se ha podido añadir el comentario')
         });
-   
-
 })
 
+//Añade una reparación a un vehículo
 document.getElementById('addRepairCarButton').addEventListener("click", function () {
     let dateOut = document.getElementById('dateOutModal').value;
     if(dateOut === "") {
@@ -216,6 +221,7 @@ document.getElementById('addBudgetModal').addEventListener("click", function () 
     }
 })
 
+//Muestra la reparacion de un vehículo para el administrador
 function showRepairCarAdmin() {
     api
         .get(`/repairs/repairCar/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token') } })
@@ -256,7 +262,7 @@ function showRepairCarAdmin() {
                     if (repair.process_repair.length === 0) {
                         p.innerHTML += `</form>`;
                     } else {
-                        p.innerHTML += showAllProcess(repair.process_repair);
+                        p.innerHTML += showAllCommentsOfProcess(repair.process_repair);
                     }
                     localStorage.setItem('idRepair', repair._id)
                     let replyClient = document.getElementsByClassName('replyClient');
@@ -291,12 +297,12 @@ function showRepairCarAdmin() {
             }
         })
         .catch(function (error) {
-            showPopup('Catch No se ha podido encontrar los vehículos del usuario')
+            showPopup('No se ha podido encontrar los vehículos del usuario')
         });
 }
 
 
-//Muestra la reparacion del vehículo
+//Muestra la reparacion del vehículo para el cliente
 function showRepairCar() {
     api
         .get(`/repairs/repairCar/${localStorage.getItem('idCar')}`, { headers: { token: localStorage.getItem('token') } })
@@ -337,7 +343,7 @@ function showRepairCar() {
                     if (repair.process_repair.length === 0) {
                         p.innerHTML += `</form>`;
                     } else {
-                        p.innerHTML += showAllProcess(repair.process_repair);
+                        p.innerHTML += showAllCommentsOfProcess(repair.process_repair);
                     }
                     localStorage.setItem('idRepair', repair._id)
                     let replyClient = document.getElementsByClassName('replyClient');
@@ -497,7 +503,7 @@ window.onload = function () {
                     </div>
                 </div>
         </div>`
-        showRepairCarAdmin();
+        showRepairCar();
         document.getElementById('newBudgetButton').addEventListener('click', function() {
             document.getElementById('dateCreateModal').readOnly = false;
             document.getElementById('dateCreateModal').value = convertDate(Date.now());
@@ -517,8 +523,6 @@ window.onload = function () {
             document.getElementById('auxModal').value = "";
             document.getElementById('priceModal').readOnly = false;
             document.getElementById('priceModal').value = "";
-            //document.getElementById('selectCar').disabled = false;
-            //loadCarsInSelect();
         })
         document.getElementById('deleteButton').addEventListener('click', function(){
             deleteRepair();
