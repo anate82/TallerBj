@@ -29,6 +29,7 @@ function getRepairByCarId(req, res) {
 }
 
 function getAllRepairsByUser(req, res) {
+    
     repairModel
         .find({user:res.locals.user._id})
         .populate('car')

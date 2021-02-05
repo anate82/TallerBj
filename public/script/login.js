@@ -1,7 +1,7 @@
 const api = axios.create({
-     baseURL: "https://tallerbj.herokuapp.com/api",
-     timeout: 2000
-})
+    baseURL: "https://tallerbj.herokuapp.com/api",
+    timeout: 2000
+  })
 
 document.getElementById('loginButton').addEventListener("click", function(){
     if(validEmail(document.getElementById('inputEmailLogin').value)){

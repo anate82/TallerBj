@@ -18,6 +18,7 @@ const {
 
 router
     .get('/', isAdmin, getAllRepairs)
+    
     .get('/repairsUser', isUser, getAllRepairsByUser)
     .get('/:repairId', isUser, getRepairById)
     .get('/repairCar/:carId', isUser, getRepairByCarId)

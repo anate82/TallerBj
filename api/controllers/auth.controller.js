@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 function signUp(req, res) {
-    
     const encryptedPasswd = bcrypt.hashSync(req.body.password, 10)
     userModel
         .create({

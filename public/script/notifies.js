@@ -50,6 +50,7 @@ function showNotifies(){
     api
         .get(`/repairs/repairsUser`, { headers: { token: localStorage.getItem('token')}})
         .then(arrayRepairs => {
+            console.log(arrayRepairs)
             let p = document.getElementById('tbodyNotify')
             let notififyCounter = 0;
             let arrProcess = [];
