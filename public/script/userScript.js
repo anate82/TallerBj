@@ -93,7 +93,6 @@ function showAllUsers(){
                       });
                     };
                 }
-               
             })
         })
         .catch(function (error) {
