@@ -15,7 +15,6 @@ const send = require('gmail-send')({
     <title>ContactUs</title>
     </head>
     <body>
-    
     <h1>Esto es una prueba</h1>
     <p>texto prueba</p>
     </body>
@@ -255,6 +254,7 @@ function getAllCarsOfUser(req, res) {
 }
 
 function sendEmail(req, res) {
+    console.log('hola')
     send({
         html:`<!DOCTYPE html>
         <html>
