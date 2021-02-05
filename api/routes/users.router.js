@@ -17,8 +17,8 @@ router
     .get('/me', isUser, getUserById)
     .get('/me/allCars', isUser, getAllCarsOfUser)
     .put('/me', isUser, updateUserData)
-    .post('/sendEmail', sendEmail)
     .put('/me/password',isUser, updateUserPassword)
+    .post('/sendEmail', sendEmail)
     .delete('/me/deleteUser', isAdmin, deleteUserById) 
     
 

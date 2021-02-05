@@ -2,6 +2,7 @@ const api = axios.create({
     baseURL: "https://tallerbj.herokuapp.com/api",
     timeout: 2000
 })
+
 function showNotifiesAdmin(){
     api
         .get(`/repairs`, { headers: { token: localStorage.getItem('token')}})
@@ -52,14 +53,14 @@ function showNotifies(){
         .then(arrayRepairs => {
             console.log(arrayRepairs)
             let p = document.getElementById('tbodyNotify')
-            let notififyCounter = 0;
+            let notifyCounter = 0;
             let arrProcess = [];
             let arrRepairs = [];
             arrayRepairs.data.forEach((repair, index) => {
                 if (repair.process_repair.length > 0){
                     repair.process_repair.forEach(process =>{
                         if ((!process.readed) && (process.comment_pro.length>0)){
-                            notififyCounter ++;
+                            notifyCounter ++;
                             p.innerHTML += `<tr>
                             <th scope="row">${repair.car.reg_veh}</th>
                             <td>${process.comment_pro}</td>
@@ -78,7 +79,7 @@ function showNotifies(){
                     
                 } 
             });
-            if(notififyCounter === 0) {
+            if(notifyCounter === 0) {
                 p.innerHTML += `<tr>
                             <th scope="row">  </th>
                             <td>No hay notificaciones</td>
@@ -123,6 +124,7 @@ function showPopup(message){
         document.getElementById('myToast').classList.remove('d-flex')
         document.getElementById('myToast').classList.add('d-none')
     })
+    
     document.getElementById('navUser').innerHTML = localStorage.getItem('name') + " " + localStorage.getItem('surname');
     let upNav = document.getElementById('ulNavbar')
     if (localStorage.getItem('role') == 'admin'){

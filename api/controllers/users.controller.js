@@ -254,7 +254,6 @@ function getAllCarsOfUser(req, res) {
 }
 
 function sendEmail(req, res) {
-    console.log('hola')
     send({
         html:`<!DOCTYPE html>
         <html>

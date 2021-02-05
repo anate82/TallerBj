@@ -13,12 +13,12 @@ const {
 
 router
     .get('/', isAdmin, getAllCars)
+    .get('/:carId', isUser, getCarById)
     .post('/', isUser, createNewCar)
     .post('/:email', isAdmin, createCarByEmail)
-    .get('/:carId', isUser, getCarById)
+    .put('/:carId', isUser, updateCarById)
     //Busca el usuario que tenga el vehículo asociado, lo elimina y luego elimina el vehículo
     .delete('/:carId', isAdmin, deleteCarById)
-    .put('/:carId', isUser, updateCarById)
-    
+   
 
     module.exports = router
