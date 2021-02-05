@@ -1,4 +1,4 @@
-const api = axios.create({
+const api = axios.create({        
     baseURL: "https://tallerbj.herokuapp.com/api",
     timeout: 2000
 })

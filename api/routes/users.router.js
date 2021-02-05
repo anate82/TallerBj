@@ -16,9 +16,10 @@ router
     .get('/', isAdmin, getAllUsers)
     .get('/me', isUser, getUserById)
     .get('/me/allCars', isUser, getAllCarsOfUser)
-    .delete('/me', isAdmin, deleteUserById) 
     .put('/me', isUser, updateUserData)
     .post('/sendEmail', sendEmail)
     .put('/me/password',isUser, updateUserPassword)
+    .delete('/me/deleteUser', isAdmin, deleteUserById) 
+    
 
 module.exports = router

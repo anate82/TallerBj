@@ -4,7 +4,6 @@ const repairModel = require('../models/repairs.model')
 const jwt = require ('jsonwebtoken')
 const {authUser, authAdmin, authNewUser, handleError} = require('../utils')
 const bcrypt = require('bcrypt');
-const gmailSend = require('gmail-send')
 const send = require('gmail-send')({
     user: 'infotallerbj@gmail.com',
     pass: 'Infotallerbj16',

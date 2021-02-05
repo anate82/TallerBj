@@ -1,6 +1,6 @@
 const api = axios.create({
-   baseURL: "https://tallerbj.herokuapp.com/api",
-   timeout: 2000
+  baseURL: "https://tallerbj.herokuapp.com/api",
+  timeout: 2000
  })
 
 //Es un modal que crea un vehículo (client)
@@ -43,6 +43,21 @@ document.getElementById('addCarUserButton').addEventListener("click", function()
     });
 
 })
+
+// funcion que carga todos los usuarios, esto se usa en la creacion de un vehículo y lo asigna a un usuario
+function showUsersSelect(){
+  let selectUser = document.getElementById('selectUser');
+  api
+    .get('/users/', { headers: { token: localStorage.getItem('token')}})
+    .then(arrayUsers => {
+      arrayUsers.data.forEach((user, index) => {
+        selectUser.innerHTML += `<option value="${user.email}">${user.name+" "+user.surname}</option>`
+      });
+    })
+    .catch(function (error) {
+      showPopup('No se ha podido actualizar el dropdown')
+    });
+}
 
 //Muestra todos los vehículos 
 function showAllCars(){
@@ -109,7 +124,6 @@ function showAllCars(){
               </div>
             </section>`;  
             arrId.push(car._id);
-            console.log(arrId);
             let deleteButton = document.getElementsByClassName('deleteButton');
             let notifyButton = document.getElementsByClassName('notifyButton');
             let repairButton = document.getElementsByClassName('repairButton');
@@ -158,20 +172,7 @@ function showAllCars(){
       })
 }
 
-// funcion que carga todos los usuarios, esto se usa en la creacion de un vehículo y lo asigna a un usuario
-function showUsersSelect(){
-  let selectUser = document.getElementById('selectUser');
-  api
-    .get('/users/', { headers: { token: localStorage.getItem('token')}})
-    .then(arrayUsers => {
-      arrayUsers.data.forEach((user, index) => {
-        selectUser.innerHTML += `<option value="${user.email}">${user.name+" "+user.surname}</option>`
-      });
-    })
-    .catch(function (error) {
-      showPopup('No se ha podido actualizar el dropdown')
-    });
-}
+
 
 //Muestra todos los vehículos del usuario
 function getAllCars() {

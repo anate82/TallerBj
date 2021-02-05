@@ -3,20 +3,6 @@ const api = axios.create({
   timeout: 2000
 })
 
-/*
-function deleteUser(id){
-  api
-    .delete(`/users/me`,{
-      userId: id
-    },{ headers: { token: localStorage.getItem('token')}})
-    .then(response => {
-      showPopup('Se ha podido eliminar el usuario')
-    })
-    .catch(function (error) {
-      showPopup('No se ha podido eliminar el usuario')
-    });
-}*/
-
 function showAllUsers(){
     api
         .get('/users', { headers: { token: localStorage.getItem('token')}})
@@ -26,7 +12,7 @@ function showAllUsers(){
             arrayUsers.data.forEach((user,index) =>{
                 let accordionSection = document.getElementById('notifySection');
                 accordionSection.innerHTML+= `<section class="row">
-                  <div class="accordion col-10" id="accordionUser${index}">
+                  <div class="accordion col-12" id="accordionUser${index}">
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="heading${index}">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
@@ -72,41 +58,39 @@ function showAllUsers(){
                 arrId.push(user._id);
                 arrPswd.push(user.password);
                 let actUserBoton = document.getElementsByClassName('actUserBoton');  
-                for(let i=0; i<arrId.length; i++){
-                    actUserBoton[i].onclick = function () {
-                        api
-                            .put('/users/me',{
-                                _id:arrId[i],
-                                name: document.getElementById(`name${i}`).value,
-                                surname: document.getElementById(`surname${i}`).value,
-                                dni: document.getElementById(`dni${i}`).value,
-                                phone: document.getElementById(`phone${i}`).value,
-                                email: document.getElementById(`email${i}`).value
+                for(let i=0; i<actUserBoton.length; i++){
+                  actUserBoton[i].onclick = function () {
+                    api
+                      .put('/users/me',{
+                        _id:arrId[i],
+                        name: document.getElementById(`name${i}`).value,
+                        surname: document.getElementById(`surname${i}`).value,
+                        dni: document.getElementById(`dni${i}`).value,
+                        phone: document.getElementById(`phone${i}`).value,
+                        email: document.getElementById(`email${i}`).value
+                      }, { headers: { token: localStorage.getItem('token')}})
+                      .then(response => {
+                        showPopup('Vehículo Actualizado')
+                        if(arrPswd[i] !== document.getElementById(`pswd${i}`).value){
+                          api
+                            .put('/users/me/password',{
+                              _id:arrId[i],
+                              password: document.getElementById(`pswd${i}`).value
                             }, { headers: { token: localStorage.getItem('token')}})
                             .then(response => {
-                                showPopup('Vehículo Actualizado')
-                                if(arrPswd[i] !== document.getElementById(`pswd${i}`).value){
-                                    api
-                                    .put('/users/me/password',{
-                                        _id:arrId[i],
-                                        password: document.getElementById(`pswd${i}`).value
-                                    }, { headers: { token: localStorage.getItem('token')}})
-                                    .then(response => {
-                                        showPopup('Contraseña Actualizada');
-                                        window.location.reload();
-                                    })
-                                    .catch(function (error) {
-                                        showPopup('Error al actualizar la contraseña');
-                                    });
-
-                                } else {
-                                    window.location.reload();
-                                }
-                                
+                              showPopup('Contraseña Actualizada');
+                              window.location.reload();
                             })
                             .catch(function (error) {
-                                showPopup('No se ha podido actualizar el vehículo')
+                              showPopup('Error al actualizar la contraseña');
                             });
+                        } else {
+                            window.location.reload();
+                        }
+                      })
+                      .catch(function (error) {
+                        showPopup('No se ha podido actualizar el vehículo')
+                      });
                     };
                 }
                
