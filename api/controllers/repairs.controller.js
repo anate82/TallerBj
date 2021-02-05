@@ -142,7 +142,7 @@ function addProccessRepair(req, res) {
 
 function updateRepair(req, res) {
     repairModel
-        .findOneAndUpdate({_id:req.params.repairId}, req.body)
+        .findByIdAndUpdate({_id:req.params.repairId}, req.body)
         .then(repair => {
             res.status(200).json(repair)
         })
