@@ -18,9 +18,8 @@ const {
 
 router
     .get('/', isAdmin, getAllRepairs)
-    
-    .get('/repairsUser', isUser, getAllRepairsByUser)
     .get('/:repairId', isUser, getRepairById)
+    .get('/repairsUser', isUser, getAllRepairsByUser)
     .get('/repairCar/:carId', isUser, getRepairByCarId)
     //obtengo del body el id del vehículo para crear una reparacion
     .post('/', isAdmin, createRepair)
