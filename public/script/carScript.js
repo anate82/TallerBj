@@ -309,6 +309,7 @@ window.onload = function () {
     elem.innerHTML = `<a class="nav-link js-scroll-trigger" href="usersPage.html">Usuarios</a>`
     elem.setAttribute('class','nav-item')
     upNav.insertBefore(elem,salir);
+    
   } 
  
   document.getElementById('navBarSalir').addEventListener("click", function() {
