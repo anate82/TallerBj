@@ -14,20 +14,14 @@ document.getElementById('signupButton').addEventListener("click", function(){
                 email: document.getElementById('inputEmail').value,
                 code: document.getElementById('inputCode').value,
                 password: document.getElementById('inputPassword4').value
-            
             })
-            .then(function (response) {
-                if(response.data && response.data.token) {
+            .then(response => {
                   localStorage.setItem('token', response.data.token)
                   localStorage.setItem('email', response.data.email)
                   localStorage.setItem('name', response.data.name)
                   localStorage.setItem('surname', response.data.surname);
                   localStorage.setItem('role',  response.data.role);
                   goHome();
-                } else {
-                  showPopup('Datos erroneos')
-                  window.location.href = "signup.html"
-                }
             })
             .catch(function (error) {
                 showPopup('El usuario ya esta registrado')
